@@ -1,6 +1,7 @@
 {
   "banks" : [
     {"id" : "handelsbanken",
+     "name" : "Handelsbanken",
      "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/SHBlogin.html",
      "paymentVersion" : "001",
      "vendorId" : "0000000000",
@@ -12,6 +13,7 @@
     },
 
     {"id" : "nordea",
+     "name" : "Nordea",
      "paymentUrl" : "https://solo3.nordea.fi/cgi-bin/SOLOPM01",
      "paymentVersion" : "0003",
      "vendorId" : "12345678",
@@ -21,6 +23,7 @@
     },
 
     {"id" : "op",
+     "name" : "Osuuspankkiryhmä",
      "paymentUrl" : "https://kultaraha.op.fi/cgi-bin/krcgi",
      "paymentVersion" : "0001",
      "vendorId" : "",
@@ -30,6 +33,7 @@
     },
 
     {"id" : "danskebank",
+      "name" : "DanskeBank",
       "paymentUrl" : "https://verkkopankki.sampopankki.fi/SP/vemaha/VemahaApp",
       "paymentVersion" : "0003",
       "vendorId" : "000000000000 ",
@@ -38,6 +42,7 @@
     },
 
     {"id" : "aktia",
+      "name" : "Aktia",
       "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/login.html",
       "paymentVersion" : "001",
       "vendorId" : "0000000000",
@@ -49,6 +54,7 @@
     },
 
     {"id" : "tapiola",
+      "name" : "Tapiola",
       "paymentUrl" : "https://pankki.tapiola.fi/service/paybutton",
       "paymentVersion" : "0002",
       "vendorId" : "TAPESHOPID",
@@ -62,6 +68,7 @@
     },
 
     {"id" : "alandsbanken",
+      "name" : "Ålandsbanken",
       "paymentUrl" : "https://online.alandsbanken.fi/service/paybutton",
       "paymentVersion" : "0002",
       "vendorId" : "AABESHOPID",
@@ -76,6 +83,7 @@
     },
 
     {"id" : "spankki",
+      "name" : "S-Pankki",
       "paymentUrl" : "https://online.s-pankki.fi/service/paybutton",
       "paymentVersion" : "0002",
       "vendorId" : "SPANKKIESHOPID",

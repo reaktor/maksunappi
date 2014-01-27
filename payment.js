@@ -50,7 +50,7 @@ exports.create = function (globalOptions, bankOptions) {
 function formParams(bank, bankOptions) {
   return {
     id : bank.id,
-    name : bank.id,
+    name : bank.name,
     paymentUrl : bank.paymentUrl,
     imgPath: 'https://www.danskebank.fi/verkkopalvelu/logo.gif',
     bankParams: bankOptions
