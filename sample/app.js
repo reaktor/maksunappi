@@ -1,8 +1,8 @@
-var express = require('express')
-  , https = require('https')
-  , fs = require('fs')
-  , _ = require('underscore')._
-  , app = express();
+var express = require('express'),
+    https = require('https'),
+    fs = require('fs'),
+    _ = require('underscore')._,
+    app = express();
 
 var options = {
   appHandler: app,
