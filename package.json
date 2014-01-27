@@ -1,0 +1,26 @@
+{
+  "name": "maksunappi",
+  "version": "0.0.0",
+  "description": "A Node.js library for online payments in Finland.",
+  "main": "payment.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/reaktor/maksunappi.git"
+  },
+  "keywords": [
+    "node",
+    "verkkomaksut",
+    "verkkopankki",
+    "online",
+    "payment"
+  ],
+  "author": "Reaktor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reaktor/maksunappi/issues"
+  },
+  "homepage": "https://github.com/reaktor/maksunappi"
+}
