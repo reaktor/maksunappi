@@ -10,5 +10,7 @@ exports.create = function (config) {
     return "";
   };
 
+  paymentGen.banks = [];
+
   return paymentGen;
 };
