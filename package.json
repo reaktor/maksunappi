@@ -23,6 +23,10 @@
     "express": "3.4.8",
     "underscore": "1.5.2"
   },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.8.0"
+  },
   "bugs": {
     "url": "https://github.com/reaktor/maksunappi/issues"
   },
