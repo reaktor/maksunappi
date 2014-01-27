@@ -1,0 +1,91 @@
+{
+  "banks" : [
+    {"id" : "handelsbanken",
+     "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/SHBlogin.html",
+     "paymentVersion" : "001",
+     "vendorId" : "0000000000",
+     "vendorAccount" : "448710-126",
+     "currency" : "EUR",
+     "dueDate" : "EXPRESS",
+     "confirm" : "YES",
+     "checksumKey" : "11111111111111111111"
+    },
+
+    {"id" : "nordea",
+     "paymentUrl" : "https://solo3.nordea.fi/cgi-bin/SOLOPM01",
+     "paymentVersion" : "0003",
+     "vendorId" : "12345678",
+     "dueDate" : "EXPRESS",
+     "currency" : "EUR",
+     "checksumKey" : "LEHTI"
+    },
+
+    {"id" : "op",
+     "paymentUrl" : "https://kultaraha.op.fi/cgi-bin/krcgi"
+     "paymentVersion" : "0001",
+     "vendorId" : "",
+     "currency" : "EUR",
+     "keyVersion" : "0001",
+     "checksumKey" : ""
+    },
+
+    {"id" : "danskebank",
+      "paymentUrl" : "https://verkkopankki.sampopankki.fi/SP/vemaha/VemahaApp",
+      "paymentVersion" : "0003",
+      "vendorId" : "000000000000 ",
+      "currency" : "EUR",
+      "checksumKey" : "jumCLB4T2ceZWGJ9ztjuhn5FaeZnTm5HpfDXWU2APRqfDcsrBs8mqkFARzm7uXKd"
+    },
+
+    {"id" : "aktia",
+      "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/login.html",
+      "paymentVersion" : "001",
+      "vendorId" : "0000000000",
+      "vendorAccount" : "448710-126",
+      "currency" : "EUR",
+      "dueDate" : "EXPRESS",
+      "confirm" : "YES",
+      "checksumKey" : "11111111111111111111"
+    },
+
+    {"id" : "tapiola",
+      "paymentUrl" : "https://pankki.tapiola.fi/service/paybutton",
+      "paymentVersion" : "0002",
+      "vendorId" : "TAPESHOPID",
+      "vendorAccount" : "363630-01652643",
+      "currency" : "EUR",
+      "dueDate" : "EXPRESS",
+      "confirm" : "YES",
+      "checksumKey" : "PAPUKAIJA",
+      "vendorName" : "",
+      "language" : "1"
+    },
+
+    {"id" : "alandsbanken",
+      "paymentUrl" : "https://online.alandsbanken.fi/service/paybutton",
+      "paymentVersion" : "0002",
+      "vendorId" : "AABESHOPID",
+      "vendorAccount" : "660100-01130855",
+      "currency" : "EUR",
+      "dueDate" : "EXPRESS",
+      "confirm" : "YES",
+      "checksumKey" : "PAPEGOJA",
+      "vendorName" : "",
+      "language" : "1",
+      "cookie" : "no"
+    },
+
+    {"id" : "spankki",
+      "paymentUrl" : "https://online.s-pankki.fi/service/paybutton",
+      "paymentVersion" : "0002",
+      "vendorId" : "SPANKKIESHOPID",
+      "vendorAccount" : "FI4139390001002369",
+      "currency" : "EUR",
+      "dueDate" : "EXPRESS",
+      "confirm" : "YES",
+      "checksumKey" : "SPANKKI",
+      "vendorName" : "",
+      "language" : "1"
+    }
+  ]
+}
