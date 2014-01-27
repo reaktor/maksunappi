@@ -40,7 +40,7 @@ app.use(express.static(__dirname + '/css'))
 
 app.get('/', function (req, res) {
   var bankForms = _.map(payments.banks, function (bankId) {
-    return payments.paymentButton({});
+    return payments.paymentButton(bankId, {});
   });
 
   var html = "<html>"+
