@@ -1,5 +1,5 @@
 // Provider stub
 
-exports.createButton = function (providerConfig, options) {
-  return "";
+exports.mapParams = function (providerConfig, options) {
+  return {};
 };

@@ -10,6 +10,16 @@ var basePath = "/tupas",
     okPath = basePath + "/ok",
     rejectPath = basePath + "/reject";
 
+var buttonTemplate = _.template(
+  '<form id="<%= id %>-form" method="POST" action="<%= paymentUrl %>" class="payment-button">'+
+  '<div id="<%= id %>-login" style="cursor: pointer">' +
+  '  <div class="bank-login-image"><img src="<%= imgPath %>" alt="<%= name %>"></div>' +
+  '  <div class="bank-login-name"><a href="#"><%= name %></a></div>' +
+  '</div>' +
+  '<% _.each(_.pairs(bankParams), function (pair) { %><input name="<%= pair[0] %>" value="<%= pair[1] %>" type="hidden"><% }) %>'+
+  '</form>'
+);
+
 exports.create = function (globalOptions, bankOptions) {
   requireArgument(globalOptions.appHandler, "globalOptions.appHandler");
   requireArgument(globalOptions.hostUrl, "globalOptions.hostUrl");
@@ -25,7 +35,8 @@ exports.create = function (globalOptions, bankOptions) {
     var provider = providers[bankId];
 
     if (provider && bankConfig) {
-      return provider.createButton(bankConfig, options);
+      var params = formParams(bankConfig, provider.mapParams(bankConfig, options));
+      return buttonTemplate(params);
     } else {
       throw "No provider or configuration found for id '" + bankId + "'.";
     }
@@ -35,6 +46,16 @@ exports.create = function (globalOptions, bankOptions) {
 
   return paymentGen;
 };
+
+function formParams(bank, bankOptions) {
+  return {
+    id : bank.id,
+    name : bank.id,
+    paymentUrl : bank.paymentUrl,
+    imgPath: 'https://www.danskebank.fi/verkkopalvelu/logo.gif',
+    bankParams: bankOptions
+  };
+}
 
 function createProviders (banks) {
   var providers = {};
