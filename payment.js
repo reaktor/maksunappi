@@ -24,6 +24,8 @@ exports.create = function (globalOptions, bankOptions) {
   requireArgument(globalOptions.appHandler, "globalOptions.appHandler");
   requireArgument(globalOptions.hostUrl, "globalOptions.hostUrl");
 
+  globalOptions.appHandler.use(express.static(__dirname + '/public'));
+
   var paymentGen = Object.create(events.EventEmitter.prototype);
   var hostOptions = globalOptions;
   var banks = mergeWithDefaults(bankOptions);
@@ -52,7 +54,7 @@ function formParams(bank, bankOptions) {
     id : bank.id,
     name : bank.name,
     paymentUrl : bank.paymentUrl,
-    imgPath: 'https://www.danskebank.fi/verkkopalvelu/logo.gif',
+    imgPath: bank.imgPath,
     bankParams: bankOptions
   };
 }
