@@ -19,6 +19,10 @@
   ],
   "author": "Reaktor",
   "license": "MIT",
+  "dependencies": {
+    "express": "3.4.8",
+    "underscore": "1.5.2"
+  },
   "bugs": {
     "url": "https://github.com/reaktor/maksunappi/issues"
   },
