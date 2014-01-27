@@ -5,7 +5,7 @@ var crypto = require("crypto"),
 
 var config = require('./config.json');
 
-var basePath = "/tupas",
+var basePath = "/epayments",
     cancelPath = basePath + "/cancel",
     okPath = basePath + "/ok",
     rejectPath = basePath + "/reject";
@@ -27,7 +27,7 @@ exports.create = function (globalOptions, bankOptions) {
   globalOptions.appHandler.use(express.static(__dirname + '/public'));
 
   var paymentGen = Object.create(events.EventEmitter.prototype);
-  var hostOptions = globalOptions;
+  var hostOptions = _.extend({}, globalOptions, returnUrls(globalOptions.hostUrl));
   var banks = mergeWithDefaults(bankOptions);
   var bankIds = _.pluck(banks, 'id');
   var providers = createProviders(bankIds);
@@ -45,6 +45,8 @@ exports.create = function (globalOptions, bankOptions) {
   };
 
   paymentGen.banks = bankIds;
+
+  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler);
 
   return paymentGen;
 };
