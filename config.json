@@ -21,7 +21,7 @@
     },
 
     {"id" : "op",
-     "paymentUrl" : "https://kultaraha.op.fi/cgi-bin/krcgi"
+     "paymentUrl" : "https://kultaraha.op.fi/cgi-bin/krcgi",
      "paymentVersion" : "0001",
      "vendorId" : "",
      "currency" : "EUR",
