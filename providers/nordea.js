@@ -1,5 +1,6 @@
 // Provider stub
-var _s = require('underscore.string');
+var _ = require('underscore')._;
+_.str = require('underscore.string');
 
 exports.mapParams = function (providerConfig, options) {
   // TODO: parameter validation
@@ -16,7 +17,7 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_RETURN: providerConfig.returnUrls.ok,
     SOLOPMT_CANCEL: providerConfig.returnUrls.cancel,
     SOLOPMT_REJECT: providerConfig.returnUrls.reject,
-    SOLOPMT_CONFIRM: 'YES', // TODO: parameterise
+    SOLOPMT_CONFIRM: confirmation(options.confirm, providerConfig.confirm),
     SOLOPMT_KEYVERS: providerConfig.keyVersion,
     SOLOPMT_CUR: providerConfig.currency,
     SOLOPMT_PMTTYPE: options.mobile ? 'M' : undefined,
@@ -26,8 +27,24 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
+function confirmation(confirm, defaultValue) {
+  if (_.isNull(confirm) || _.isUndefined(confirm)) {
+    return defaultValue;
+  } else {
+    return toParam(confirm);
+  }
+
+  function toParam(confirm) {
+    if (confirm) {
+      return "YES";
+    } else {
+      return "NO";
+    }
+  }
+}
+
 function formatAmount(amount) {
-  return _s.numberFormat(amount, 2, ',', '')
+  return _.str.numberFormat(amount, 2, ',', '')
 }
 
 function mapLanguage(langCode) {

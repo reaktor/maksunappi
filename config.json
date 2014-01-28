@@ -22,7 +22,8 @@
      "dueDate" : "EXPRESS",
      "currency" : "EUR",
      "checksumKey" : "LEHTI",
-     "keyVersion" : "0001"
+     "keyVersion" : "0001",
+     "confirm" : "YES"
     },
 
     {"id" : "op",
