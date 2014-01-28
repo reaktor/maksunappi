@@ -21,7 +21,8 @@
      "vendorId" : "12345678",
      "dueDate" : "EXPRESS",
      "currency" : "EUR",
-     "checksumKey" : "LEHTI"
+     "checksumKey" : "LEHTI",
+     "keyVersion" : "0001"
     },
 
     {"id" : "op",

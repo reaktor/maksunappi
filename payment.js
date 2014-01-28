@@ -27,17 +27,23 @@ exports.create = function (globalOptions, bankOptions) {
   globalOptions.appHandler.use(express.static(__dirname + '/public'));
 
   var paymentGen = Object.create(events.EventEmitter.prototype);
-  var hostOptions = _.extend({}, globalOptions, returnUrls(globalOptions.hostUrl));
-  var banks = mergeWithDefaults(bankOptions);
+  var hostOptions = _.clone(globalOptions);
+  var returnUrls = returnUrlConfig(hostOptions.hostUrl);
+  var banks = extendAllWith(extendDefaults(bankOptions), returnUrls);
   var bankIds = _.pluck(banks, 'id');
   var providers = createProviders(bankIds);
 
   paymentGen.paymentButton = function (bankId, options) {
-    var bankConfig = findBank(bankId, config.banks);
+    var bankConfig = findBank(bankId, banks);
     var provider = providers[bankId];
 
     if (provider && bankConfig) {
-      var params = formParams(bankConfig, provider.mapParams(bankConfig, options));
+      var providerParams = {
+        bankParams: removeIf(provider.mapParams(bankConfig, options), function (k, v) {
+          return !v;
+        })
+      };
+      var params = _.extend(commonParams(bankConfig), providerParams);
       return buttonTemplate(params);
     } else {
       throw "No provider or configuration found for id '" + bankId + "'.";
@@ -51,13 +57,23 @@ exports.create = function (globalOptions, bankOptions) {
   return paymentGen;
 };
 
-function formParams(bank, bankOptions) {
+function removeIf (params, condition) {
+  var cloned = _.clone(params);
+  _.each(_.keys(cloned), function (key) {
+    if (condition(key, cloned[key])) {
+      delete cloned[key];
+    }
+  });
+
+  return cloned;
+}
+
+function commonParams(bank) {
   return {
     id : bank.id,
     name : bank.name,
     paymentUrl : bank.paymentUrl,
-    imgPath: bank.imgPath,
-    bankParams: bankOptions
+    imgPath: bank.imgPath
   };
 }
 
@@ -102,15 +118,15 @@ function bindReturnUrlsToHandler (eventEmitter, handler) {
   }
 }
 
-function returnUrls (hostUrl) {
-  return {
+function returnUrlConfig (hostUrl) {
+  return { returnUrls: {
     ok: hostUrl + okPath,
     cancel: hostUrl + cancelPath,
     reject: hostUrl + rejectPath
-  };
+  }};
 }
 
-function mergeWithDefaults (bankOpts) {
+function extendDefaults (bankOpts) {
   return _.map(config.banks, function (bank) {
     var vendorOpts = _.find(bankOpts, function (bankConf) {
       return bankConf.id == bank.id;
@@ -122,4 +138,10 @@ function mergeWithDefaults (bankOpts) {
       return bank;
     }
   });
+}
+
+function extendAllWith (bankConfigs, extension) {
+  return _.map(bankConfigs, function (bank) {
+    return _.extend({}, bank, extension);
+  })
 }

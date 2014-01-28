@@ -40,7 +40,11 @@ app.use(express.static(__dirname + '/css'))
 
 app.get('/', function (req, res) {
   var bankForms = _.map(payments.banks, function (bankId) {
-    return payments.paymentButton(bankId, {});
+    return payments.paymentButton(bankId, {
+      language: 'FI',
+      requestId: '12345',
+      amount: 5000
+    });
   });
 
   var html = "<html>"+
