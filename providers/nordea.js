@@ -28,6 +28,18 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
+exports.requestMacParams = function() {
+  return ['SOLOPMT_VERSION',
+    'SOLOPMT_STAMP',
+    'SOLOPMT_RCV_ID',
+    'SOLOPMT_AMOUNT',
+    'SOLOPMT_REF',
+    'SOLOPMT_DATE',
+    'SOLOPMT_CUR'];
+}
+
+exports.macFormName = 'SOLOPMT_MAC';
+
 function formatLanguage(langCode) {
   if (!langCode) return 1;
 

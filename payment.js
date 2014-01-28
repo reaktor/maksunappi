@@ -56,7 +56,11 @@ exports.create = function (globalOptions, bankOptions) {
           return !v;
         })
       };
+
+      var mac = calculateMacForRequest(provider, providerParams.bankParams, bankConfig.checksumKey);
+      providerParams.bankParams[provider.macFormName] = mac;
       var params = _.extend(commonParams(bankConfig), providerParams);
+
       return buttonTemplate(params);
     } else {
       throw "No provider or configuration found for id '" + bankId + "'.";
@@ -69,6 +73,21 @@ exports.create = function (globalOptions, bankOptions) {
 
   return paymentGen;
 };
+
+function calculateMacForRequest (provider, providerParams, checksumKey) {
+  var valuesForMacCalculation = provider.requestMacParams().map(function(paramKey) {
+    return providerParams[paramKey];
+  });
+  valuesForMacCalculation.push(checksumKey);
+  return generateMac(valuesForMacCalculation);
+
+}
+
+function generateMac(params) {
+  var joinedParams = params.join("&") + "&";
+  //TODO parametrisize algo-type
+  return crypto.createHash('md5').update(joinedParams).digest('hex').toUpperCase();
+}
 
 function removeIf (params, condition) {
   var cloned = _.clone(params);
