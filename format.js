@@ -32,20 +32,20 @@ exports.formatMessage = function (message) {
     return _.str.chop(word, MAX_ROW_LEN)
   });
 
-  var rows = [];
-  var currentRow = "";
+  var rows = _.reduce(words, function (memo, word) {
+    var lastIndex = memo.length-1;
+    var currentRow = memo[lastIndex];
 
-  _.each(words, function (word) {
     if (currentRow.length == 0) {
-      currentRow += word;
+      memo[lastIndex] += word;
     } else if (currentRow.length + word.length + 1 <= MAX_ROW_LEN) {
-      currentRow += ' ' + word;
+      memo[lastIndex] += ' ' + word;
     } else {
-      rows.push(currentRow);
-      currentRow = word;
+      memo.push(word);
     }
-  });
-  rows.push(currentRow);
+
+    return memo;
+  }, [""]);
 
   return rows.slice(0, MAX_ROWS).join(LINEBREAK);
 };
