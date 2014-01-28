@@ -51,7 +51,7 @@
       "name" : "Aktia",
       "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/login.html",
       "imgPath" : "images/logo_sppop.gif",
-      "paymentVersion" : "001",
+      "paymentVersion" : "003",
       "vendorId" : "0000000000",
       "vendorAccount" : "448710-126",
       "currency" : "EUR",

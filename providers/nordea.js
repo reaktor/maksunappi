@@ -28,6 +28,10 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
+exports.algorithmType = function () {
+  return 'md5';
+};
+
 exports.requestMacParams = function() {
   return ['SOLOPMT_VERSION',
     'SOLOPMT_STAMP',

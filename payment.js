@@ -57,7 +57,7 @@ exports.create = function (globalOptions, bankOptions) {
         })
       };
 
-      var mac = calculateMacForRequest(provider, providerParams.bankParams, bankConfig.checksumKey);
+      var mac = calculateMacForRequest(provider, providerParams.bankParams, bankConfig);
       providerParams.bankParams[provider.macFormName] = mac;
       var params = _.extend(commonParams(bankConfig), providerParams);
 
@@ -74,19 +74,17 @@ exports.create = function (globalOptions, bankOptions) {
   return paymentGen;
 };
 
-function calculateMacForRequest (provider, providerParams, checksumKey) {
+function calculateMacForRequest (provider, providerParams, bankConfig) {
   var valuesForMacCalculation = provider.requestMacParams().map(function(paramKey) {
     return providerParams[paramKey];
   });
-  valuesForMacCalculation.push(checksumKey);
-  return generateMac(valuesForMacCalculation);
-
+  valuesForMacCalculation.push(bankConfig.checksumKey);
+  return generateMac(valuesForMacCalculation, provider.algorithmType(bankConfig));
 }
 
-function generateMac(params) {
+function generateMac(params, algorithmType) {
   var joinedParams = params.join("&") + "&";
-  //TODO parametrisize algo-type
-  return crypto.createHash('md5').update(joinedParams).digest('hex').toUpperCase();
+  return crypto.createHash(algorithmType.toLowerCase()).update(joinedParams).digest('hex').toUpperCase();
 }
 
 function removeIf (params, condition) {

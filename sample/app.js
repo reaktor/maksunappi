@@ -39,7 +39,7 @@ var sslOptions = {
 app.use(express.static(__dirname + '/css'))
 
 app.get('/', function (req, res) {
-  var bankForms = _.map(['nordea', 'alandsbanken'], function (bankId) {
+  var bankForms = _.map(['nordea', 'alandsbanken', 'aktia'], function (bankId) {
     return payments.paymentButton(bankId, {
       language: 'FI',
       requestId: '12345',

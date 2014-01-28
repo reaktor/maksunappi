@@ -30,6 +30,10 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
+exports.algorithmType = function () {
+  return 'md5';
+};
+
 exports.requestMacParams = function() {
   return ['AAB_VERSION',
     'AAB_STAMP',
