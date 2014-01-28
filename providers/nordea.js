@@ -13,7 +13,7 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_AMOUNT: formatAmount(options.amount),
     SOLOPMT_REF: options.paymentReference,
     SOLOPMT_DATE: formatDueDate(options.dueDate, providerConfig.dueDate),
-    SOLOPMT_MSG: options.message, // TODO: formatting
+    SOLOPMT_MSG: formatMessage(options.message),
     SOLOPMT_RETURN: providerConfig.returnUrls.ok,
     SOLOPMT_CANCEL: providerConfig.returnUrls.cancel,
     SOLOPMT_REJECT: providerConfig.returnUrls.reject,
@@ -26,6 +26,38 @@ exports.mapParams = function (providerConfig, options) {
     // TODO: MAC
   };
 };
+
+function formatMessage(message) {
+  if (!message) return undefined;
+
+  var MAX_ROW_LEN = 35;
+  var MAX_ROWS = 6;
+  var LINEBREAK = '\r\n';
+
+  var words = flatMap(_.str.words(message), function (word) {
+    return _.str.chop(word, MAX_ROW_LEN)
+  });
+
+  var rows = [];
+  var currentRow = "";
+
+  _.each(words, function (word) {
+    if (currentRow.length == 0) {
+      currentRow += word;
+    } else if (currentRow.length + word.length + 1 <= MAX_ROW_LEN) {
+      currentRow += ' ' + word;
+    } else {
+      rows.push(currentRow);
+      currentRow = word;
+    }
+  });
+
+  return _.str.join(LINEBREAK, rows.slice(0, MAX_ROWS));
+}
+
+function flatMap(collection, fun) {
+  return _.flatten(_.map(collection, fun));
+}
 
 function formatDueDate(date, defaultValue) {
   return formatOrDefault(date, toParam, defaultValue);

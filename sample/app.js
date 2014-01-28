@@ -43,7 +43,8 @@ app.get('/', function (req, res) {
     return payments.paymentButton(bankId, {
       language: 'FI',
       requestId: '12345',
-      amount: 5000
+      amount: 5000,
+      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien."
     });
   });
 
