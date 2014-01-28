@@ -10,14 +10,13 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_REF" : options.paymentReference,
     "AAB_DATE" : options.dueDate,
     "AAB_MSG" : options.message,
-    "AAB_RETURN" : providerConfig.returnUrl,
-    "AAB_CANCEL" : providerConfig.cancelUrl,
-    "AAB_REJECT" : providerConfig.rejectUrl,
+    "AAB_RETURN" : providerConfig.returnUrls.ok,
+    "AAB_CANCEL" : providerConfig.returnUrls.cancel,
+    "AAB_REJECT" : providerConfig.returnUrls.reject,
     "AAB_MAC" : options.checksum,
     "AAB_CONFIRM" : providerConfig.confirm,
     "AAB_KEYVERS" : providerConfig.keyVersion,
     "AAB_CUR" : providerConfig.currency,
     "BC_UseBVCookie" : providerConfig.cookie
-
   };
 };
