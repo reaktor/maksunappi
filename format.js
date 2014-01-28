@@ -4,6 +4,7 @@ _.str = require('underscore.string');
 var MAX_ROW_LEN = 35;
 var MAX_ROWS = 6;
 var LINEBREAK = '\r\n';
+var DEFAULT_LANGUAGE = 1;
 
 exports.formatToPaymentReference = function(number) {
   var numStr = number.toString();
@@ -89,4 +90,27 @@ function isNullOrUndefined(value) {
 
 exports.formatAmount = function (amount) {
   return _.str.numberFormat(amount, 2, ',', '');
+};
+
+exports.allowEnglish = {
+  FI: DEFAULT_LANGUAGE,
+  SV: 2,
+  EN: 3
+};
+
+exports.mapEnglishToDefault = {
+  FI: DEFAULT_LANGUAGE,
+  SV: 2,
+  EN: DEFAULT_LANGUAGE
+};
+
+exports.formatLanguage = function (langCode, mapping) {
+  if (!langCode) return DEFAULT_LANGUAGE;
+
+  var converted = mapping[langCode.toUpperCase()];
+  if (!converted) {
+    throw "Unsupported language code '" + langCode + "'.";
+  }
+
+  return converted;
 };

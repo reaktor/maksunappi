@@ -10,7 +10,7 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_VERSION: providerConfig.paymentVersion,
     SOLOPMT_STAMP: options.requestId,
     SOLOPMT_RCV_ID: providerConfig.vendorId,
-    SOLOPMT_LANGUAGE: formatLanguage(options.language),
+    SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.allowEnglish),
     SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
     SOLOPMT_REF: options.paymentReference,
     SOLOPMT_DATE: formatting.formatDueDate(options.dueDate, providerConfig.dueDate),
@@ -36,17 +36,6 @@ exports.requestMacParams = function() {
     'SOLOPMT_REF',
     'SOLOPMT_DATE',
     'SOLOPMT_CUR'];
-}
+};
 
 exports.macFormName = 'SOLOPMT_MAC';
-
-function formatLanguage(langCode) {
-  if (!langCode) return 1;
-
-  switch (langCode.toUpperCase()) {
-    case "FI": return 1;
-    case "SV": return 2;
-    case "EN": return 3;
-    default: throw "Unsupported language code '" + langCode + "'.";
-  }
-}

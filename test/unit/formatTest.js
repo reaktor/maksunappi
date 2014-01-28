@@ -44,3 +44,21 @@ describe('Message formatting', function () {
     return formatter.formatMessage(message).split('\r\n');
   }
 });
+
+describe('Language formatting', function () {
+  it('should map EN to 1 (FI) or 3 (EN) depending on selected mapping', function () {
+    assert.equal(1, formatter.formatLanguage('EN', formatter.mapEnglishToDefault));
+    assert.equal(3, formatter.formatLanguage('EN', formatter.allowEnglish));
+  });
+
+  it('should map null or undefined to Finnish', function () {
+    assert.equal(1, formatter.formatLanguage(null, formatter.allowEnglish));
+    assert.equal(1, formatter.formatLanguage(undefined, formatter.allowEnglish));
+  });
+
+  it('should throw when an unknown language code is given', function () {
+    assert.throws(function () {
+      formatter.formatLanguage('se', formatter.allowEnglish);
+    }, /Unsupported language code 'se'/);
+  });
+});
