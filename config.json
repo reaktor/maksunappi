@@ -86,9 +86,10 @@
       "dueDate" : "EXPRESS",
       "confirm" : "YES",
       "checksumKey" : "PAPEGOJA",
-      "vendorName" : "",
+      "vendorName" : "TESTIKAUPPA",
       "language" : "1",
-      "cookie" : "no"
+      "cookie" : "no",
+      "keyVersion" : "0001"
     },
 
     {"id" : "spankki",

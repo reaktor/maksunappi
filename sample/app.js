@@ -39,20 +39,14 @@ var sslOptions = {
 app.use(express.static(__dirname + '/css'))
 
 app.get('/', function (req, res) {
-  /*
-  var bankForms = _.map(payments.banks, function (bankId) {
+  var bankForms = _.map(['nordea', 'alandsbanken'], function (bankId) {
     return payments.paymentButton(bankId, {
       language: 'FI',
       requestId: '12345',
       amount: 5000,
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien."
     });
-  });*/
-  var bankForms = [payments.paymentButton('nordea', {
-    language: 'FI',
-    requestId: '12345',
-    amount: 5000
-  })]
+  });
   var html = "<html>"+
     "<head><link rel='stylesheet' type='text/css' href='app.css'></head>"+
     "<body><div class='payment-buttons'>" + bankForms.join("") + "</div></body>"+
