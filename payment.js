@@ -4,6 +4,7 @@ var crypto = require("crypto"),
     express = require('express');
 
 var config = require('./config.json');
+var parameters = require('./parameters');
 
 var basePath = "/epayments",
     cancelPath = basePath + "/cancel",
@@ -34,8 +35,7 @@ var buttonTemplate = _.template(
 );
 
 exports.create = function (globalOptions, bankOptions) {
-  requireArgument(globalOptions.appHandler, "globalOptions.appHandler");
-  requireArgument(globalOptions.hostUrl, "globalOptions.hostUrl");
+  parameters.requireParams(globalOptions, ['appHandler', 'hostUrl']);
 
   globalOptions.appHandler.use(express.static(__dirname + '/public'));
 
@@ -103,12 +103,6 @@ function findBank (bankId, bankConfigs) {
   return _.find(bankConfigs, function (bank) {
     return bank.id == bankId;
   });
-}
-
-function requireArgument(argValue, argName) {
-  if (typeof argValue === "undefined" || argValue === null) {
-    throw "Missing required argument " + argName + ".";
-  }
 }
 
 function bindReturnUrlsToHandler (eventEmitter, handler) {

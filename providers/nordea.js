@@ -1,7 +1,10 @@
 var formatting = require('../format');
+var parameters = require('../parameters');
 
 exports.mapParams = function (providerConfig, options) {
-  // TODO: parameter validation
+  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(providerConfig,
+    ['paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
 
   return {
     SOLOPMT_VERSION: providerConfig.paymentVersion,

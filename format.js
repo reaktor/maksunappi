@@ -73,16 +73,20 @@ exports.formatConfirmation = function (confirm, defaultValue) {
       return "NO";
     }
   }
-}
+};
 
 function formatOrDefault(param, formatToParam, defaultValue) {
-  if (_.isNull(param) || _.isUndefined(param)) {
+  if (isNullOrUndefined(param)) {
     return defaultValue;
   } else {
     return formatToParam(param);
   }
 }
 
+function isNullOrUndefined(value) {
+  return _.isNull(value) || _.isUndefined(value);
+}
+
 exports.formatAmount = function (amount) {
   return _.str.numberFormat(amount, 2, ',', '');
-}
+};
