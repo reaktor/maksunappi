@@ -53,3 +53,36 @@ exports.formatMessage = function (message) {
 function flatMap(collection, fun) {
   return _.flatten(_.map(collection, fun));
 }
+
+exports.formatDueDate = function (date, defaultValue) {
+  return formatOrDefault(date, toParam, defaultValue);
+
+  function toParam(date) {
+    return _.str.sprintf("%02d.%02d.%4d",
+      date.getDate(), date.getMonth() + 1, date.getFullYear());
+  }
+};
+
+exports.formatConfirmation = function (confirm, defaultValue) {
+  return formatOrDefault(confirm, toParam, defaultValue);
+
+  function toParam(confirm) {
+    if (confirm) {
+      return "YES";
+    } else {
+      return "NO";
+    }
+  }
+}
+
+function formatOrDefault(param, formatToParam, defaultValue) {
+  if (_.isNull(param) || _.isUndefined(param)) {
+    return defaultValue;
+  } else {
+    return formatToParam(param);
+  }
+}
+
+exports.formatAmount = function (amount) {
+  return _.str.numberFormat(amount, 2, ',', '');
+}
