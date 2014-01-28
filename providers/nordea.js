@@ -57,7 +57,7 @@ function formatOrDefault(param, formatToParam, defaultValue) {
 }
 
 function formatAmount(amount) {
-  return _.str.numberFormat(amount, 2, ',', '')
+  return _.str.numberFormat(amount, 2, ',', '');
 }
 
 function formatLanguage(langCode) {

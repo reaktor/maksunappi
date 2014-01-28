@@ -156,5 +156,5 @@ function extendDefaults (bankOpts) {
 function extendAllWith (bankConfigs, extension) {
   return _.map(bankConfigs, function (bank) {
     return _.extend({}, bank, extension);
-  })
+  });
 }
