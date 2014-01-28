@@ -109,7 +109,7 @@ exports.formatLanguage = function (langCode, mapping) {
 
   var converted = mapping[langCode.toUpperCase()];
   if (!converted) {
-    throw "Unsupported language code '" + langCode + "'.";
+    throw new Error("Unsupported language code '" + langCode + "'.");
   }
 
   return converted;

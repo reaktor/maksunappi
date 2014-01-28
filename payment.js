@@ -63,7 +63,7 @@ exports.create = function (globalOptions, bankOptions) {
 
       return buttonTemplate(params);
     } else {
-      throw "No provider or configuration found for id '" + bankId + "'.";
+      throw new Error("No provider or configuration found for id '" + bankId + "'.");
     }
   };
 

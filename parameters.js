@@ -4,7 +4,7 @@ var _ = require('underscore')._;
 exports.requireParams = function (params, required) {
   _.each(required, function (key) {
     if (!params[key]) {
-      throw "Missing required argument '" + key + "'.";
+      throw new Error("Missing required argument '" + key + "'.");
     }
   });
 };
