@@ -1,4 +1,6 @@
 {
+  "port" : 8081,
+
   "banks" : [
     {"id" : "handelsbanken",
      "name" : "Handelsbanken",

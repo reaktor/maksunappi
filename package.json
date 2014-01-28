@@ -27,7 +27,10 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-mocha-test": "~0.8.2"
+    "grunt-mocha-test": "~0.8.2",
+    "grunt-express": "~1.2.1",
+    "grunt-casperjs": "~1.4.0",
+    "moment": "2.5.0"
   },
   "bugs": {
     "url": "https://github.com/reaktor/maksunappi/issues"

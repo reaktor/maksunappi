@@ -2,6 +2,7 @@ var express = require('express'),
     https = require('https'),
     fs = require('fs'),
     _ = require('underscore')._,
+    moment = require("moment"),
     app = express();
 
 var options = {
@@ -47,6 +48,16 @@ app.get('/', function (req, res) {
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien."
     });
   });
+
+  var now = moment().format('YYYYMMDDhhmmss');
+  var requestId = now + "123456";
+
+  var bankForms = [payments.paymentButton('nordea', {
+    language: 'FI',
+    requestId: requestId,
+    amount: 5000
+  })];
+
   var html = "<html>"+
     "<head><link rel='stylesheet' type='text/css' href='app.css'></head>"+
     "<body><div class='payment-buttons'>" + bankForms.join("") + "</div></body>"+
