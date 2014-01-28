@@ -2,14 +2,14 @@
   display: block;
 }
 
-.bank-login-image {
+.bank-payment-image {
   position: relative;
   top: 0;
   height: 70px;
   text-align: center;
 }
 
-.bank-login-name {
+.bank-payment-name {
   position: relative;
   bottom: 0;
   line-height: 1.5em;

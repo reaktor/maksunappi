@@ -11,12 +11,25 @@ var basePath = "/epayments",
     rejectPath = basePath + "/reject";
 
 var buttonTemplate = _.template(
-  '<form id="<%= id %>-form" method="POST" action="<%= paymentUrl %>" class="payment-button">'+
-  '<div id="<%= id %>-login" style="cursor: pointer">' +
-  '  <div class="bank-login-image"><img src="<%= imgPath %>" alt="<%= name %>"></div>' +
-  '  <div class="bank-login-name"><a href="#"><%= name %></a></div>' +
+  '<form id="<%= id %>-payment-form" method="POST" action="<%= paymentUrl %>" class="payment-button">'+
+  '<div id="<%= id %>-payment" style="cursor: pointer">' +
+  '  <div class="bank-payment-image"><img src="<%= imgPath %>" alt="<%= name %>"></div>' +
+  '  <div class="bank-payment-name"><a href="#"><%= name %></a></div>' +
   '</div>' +
   '<% _.each(_.pairs(bankParams), function (pair) { %><input name="<%= pair[0] %>" value="<%= pair[1] %>" type="hidden"><% }) %>'+
+  '</form>' +
+  '<script>' +
+  'var bankPayment = document.getElementById("<%= id %>-payment");' +
+  'var clickHandler = function() {' +
+  'document.getElementById("<%= id %>-payment-form").submit();' +
+  '};' +
+  'if(bankPayment.addEventListener) {' +
+  'bankPayment.addEventListener("click", clickHandler, false);' +
+  '}'+
+  'else if (bankPayment.attachEvent) {' +
+  'bankPayment.attachEvent("onclick", clickHandler);' +
+  '}' +
+  '</script>' +
   '</form>'
 );
 
