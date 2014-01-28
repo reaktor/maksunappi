@@ -10,5 +10,10 @@ exports.formatToPaymentReference = function(number) {
   var summed = multipliedNumbers.reduce(function(ret, val) {
     return ret + val;
   });
-  return parseInt((numStr + (10 - summed % 10).toString()));
+  return parseInt((numStr + getValidationValue(summed).toString()));
+}
+
+function getValidationValue(num) {
+  var inverse = 10 - num % 10;
+  return inverse == 10 ? 0 : inverse;
 }
