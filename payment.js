@@ -18,7 +18,6 @@ var buttonTemplate = _.template(
   '  <div class="bank-payment-name"><a href="#"><%= name %></a></div>' +
   '</div>' +
   '<% _.each(_.pairs(bankParams), function (pair) { %><input name="<%= pair[0] %>" value="<%= pair[1] %>" type="hidden"><% }) %>'+
-  '</form>' +
   '<script>' +
   'var bankPayment = document.getElementById("<%= id %>-payment");' +
   'var clickHandler = function() {' +

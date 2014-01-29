@@ -40,23 +40,17 @@ var sslOptions = {
 app.use(express.static(__dirname + '/css'))
 
 app.get('/', function (req, res) {
+  var now = moment().format('YYYYMMDDhhmmss');
+  var requestId = now + "1234";
+
   var bankForms = _.map(['nordea', 'alandsbanken', 'aktia'], function (bankId) {
     return payments.paymentButton(bankId, {
       language: 'FI',
-      requestId: '12345',
+      requestId: requestId,
       amount: 5000,
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien."
     });
   });
-
-  var now = moment().format('YYYYMMDDhhmmss');
-  var requestId = now + "123456";
-
-  var bankForms = [payments.paymentButton('nordea', {
-    language: 'FI',
-    requestId: requestId,
-    amount: 5000
-  })];
 
   var html = "<html>"+
     "<head><link rel='stylesheet' type='text/css' href='app.css'></head>"+

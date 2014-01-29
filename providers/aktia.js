@@ -37,7 +37,7 @@ exports.mapParams = function (providerConfig, options) {
     "NET_CANCEL" : providerConfig.returnUrls.cancel,
     "NET_REJECT" : providerConfig.returnUrls.reject,
     "NET_CONFIRM" : providerConfig.confirm,
-    "NET_ALG" : "03"
+    "NET_ALG" : formatAlgorithm(providerConfig)
   };
 };
 
@@ -54,3 +54,7 @@ exports.requestMacParams = function () {
 };
 
 exports.macFormName = 'NET_MAC';
+
+function formatAlgorithm (bankConfig) {
+  return exports.algorithmType(bankConfig) === "sha256" ? "03" : undefined;
+}

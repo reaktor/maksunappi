@@ -7,6 +7,7 @@ describe('Payment reference format', function(){
     assert.equal(12345672, formatter.formatToPaymentReference(1234567));
     assert.equal(13, formatter.formatToPaymentReference(1));
     assert.equal(110, formatter.formatToPaymentReference(11));
+    assert.equal("2014012911041312349", formatter.formatToPaymentReference("201401291104131234"));
   });
 });
 
