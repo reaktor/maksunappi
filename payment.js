@@ -74,7 +74,7 @@ exports.create = function (globalOptions, bankOptions) {
 };
 
 function calculateMacForRequest (provider, providerParams, bankConfig) {
-  var valuesForMacCalculation = provider.requestMacParams().map(function(paramKey) {
+  var valuesForMacCalculation = provider.requestMacParams(bankConfig).map(function(paramKey) {
     return providerParams[paramKey];
   });
   valuesForMacCalculation.push(bankConfig.checksumKey);

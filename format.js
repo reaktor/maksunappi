@@ -1,5 +1,6 @@
 var _ = require('underscore')._;
 _.str = require('underscore.string');
+var helpers = require('./helpers');
 
 var MAX_ROW_LEN = 35;
 var MAX_ROWS = 6;
@@ -90,15 +91,11 @@ exports.formatConfirmation = function (confirm, defaultValue) {
 };
 
 function formatOrDefault(param, formatToParam, defaultValue) {
-  if (isNullOrUndefined(param)) {
+  if (helpers.isNullOrUndefined(param)) {
     return defaultValue;
   } else {
     return formatToParam(param);
   }
-}
-
-function isNullOrUndefined(value) {
-  return _.isNull(value) || _.isUndefined(value);
 }
 
 exports.formatAmount = function (amount) {

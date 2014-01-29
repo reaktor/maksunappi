@@ -1,7 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
 
-// Should be used with payment version 001.
 var MAC_VERSION1 = [
   'NET_VERSION',
   'NET_STAMP',
@@ -11,18 +10,15 @@ var MAC_VERSION1 = [
   'NET_DATE',
   'NET_CUR'
 ];
-// Should be used with payment version 002.
 var MAC_VERSION2 = MAC_VERSION1.concat([
   'NET_RETURN',
   'NET_CANCEL',
   'NET_REJECT'
 ]);
-// Used with payment version 003 (default).
 var MAC_VERSION3 = MAC_VERSION2.concat(['NET_ALG']);
 
 exports.mapParams = function (providerConfig, options) {
-  // TODO: check params
-  // Note: different parameters might be required in different payment versions.
+  validateParams(providerConfig, options);
 
   return {
     "NET_VERSION" : providerConfig.paymentVersion,
@@ -41,6 +37,14 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
+function validateParams (providerConfig, options) {
+  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(providerConfig,
+    ['paymentVersion', 'vendorId', 'currency', 'dueDate', 'returnUrls', 'confirm']);
+
+  parameters.requireInclusionIn(providerConfig, 'dueDate', ['EXPRESS']);
+}
+
 exports.algorithmType = function (bankConfig) {
   if (bankConfig.paymentVersion == "003") {
     return "sha256";
@@ -49,8 +53,13 @@ exports.algorithmType = function (bankConfig) {
   }
 };
 
-exports.requestMacParams = function () {
-  return MAC_VERSION3;
+exports.requestMacParams = function (bankConfig) {
+  switch (bankConfig.paymentVersion) {
+    case "001": return MAC_VERSION1;
+    case "002": return MAC_VERSION2;
+    case "003": return MAC_VERSION3;
+    default: throw new Error("Unknown payment version '" + bankConfig.paymentVersion + "'.");
+  }
 };
 
 exports.macFormName = 'NET_MAC';
