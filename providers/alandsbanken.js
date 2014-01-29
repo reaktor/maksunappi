@@ -1,6 +1,16 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
 
+var MAC_PARAMS = [
+  'AAB_VERSION',
+  'AAB_STAMP',
+  'AAB_RCV_ID',
+  'AAB_AMOUNT',
+  'AAB_REF',
+  'AAB_DATE',
+  'AAB_CUR'
+];
+
 exports.mapParams = function (providerConfig, options) {
   parameters.requireParams(options, ['requestId', 'amount']);
   parameters.requireParams(providerConfig,
@@ -34,14 +44,8 @@ exports.algorithmType = function () {
   return 'md5';
 };
 
-exports.requestMacParams = function() {
-  return ['AAB_VERSION',
-    'AAB_STAMP',
-    'AAB_RCV_ID',
-    'AAB_AMOUNT',
-    'AAB_REF',
-    'AAB_DATE',
-    'AAB_CUR'];
+exports.requestMacParams = function (providerConfig, formParams) {
+  return parameters.macParams(formParams, MAC_PARAMS, [], [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'AAB_MAC';

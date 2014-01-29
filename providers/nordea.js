@@ -1,6 +1,16 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
 
+var MAC_PARAMS = [
+  'SOLOPMT_VERSION',
+  'SOLOPMT_STAMP',
+  'SOLOPMT_RCV_ID',
+  'SOLOPMT_AMOUNT',
+  'SOLOPMT_REF',
+  'SOLOPMT_DATE',
+  'SOLOPMT_CUR'
+];
+
 exports.mapParams = function (providerConfig, options) {
   parameters.requireParams(options, ['requestId', 'amount']);
   parameters.requireParams(providerConfig,
@@ -24,7 +34,6 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_PMTTYPE: options.mobile ? 'M' : undefined,
     SOLOPMT_RCV_ACCOUNT: providerConfig.vendorAccount,
     SOLOPMT_RCV_NAME: providerConfig.vendorName
-    // TODO: MAC
   };
 };
 
@@ -32,14 +41,8 @@ exports.algorithmType = function () {
   return 'md5';
 };
 
-exports.requestMacParams = function() {
-  return ['SOLOPMT_VERSION',
-    'SOLOPMT_STAMP',
-    'SOLOPMT_RCV_ID',
-    'SOLOPMT_AMOUNT',
-    'SOLOPMT_REF',
-    'SOLOPMT_DATE',
-    'SOLOPMT_CUR'];
+exports.requestMacParams = function (providerConfig, formParams) {
+  return parameters.macParams(formParams, MAC_PARAMS, [], [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'SOLOPMT_MAC';

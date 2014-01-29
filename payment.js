@@ -56,7 +56,7 @@ exports.create = function (globalOptions, bankOptions) {
         })
       };
 
-      var mac = calculateMacForRequest(provider, providerParams.bankParams, bankConfig);
+      var mac = macForRequest(provider, providerParams.bankParams, bankConfig);
       providerParams.bankParams[provider.macFormName] = mac;
       var params = _.extend(commonParams(bankConfig), providerParams);
 
@@ -73,12 +73,10 @@ exports.create = function (globalOptions, bankOptions) {
   return paymentGen;
 };
 
-function calculateMacForRequest (provider, providerParams, bankConfig) {
-  var valuesForMacCalculation = provider.requestMacParams(bankConfig).map(function(paramKey) {
-    return providerParams[paramKey];
-  });
-  valuesForMacCalculation.push(bankConfig.checksumKey);
-  return generateMac(valuesForMacCalculation, provider.algorithmType(bankConfig));
+function macForRequest (provider, providerParams, bankConfig) {
+  var paramsForMac = provider.requestMacParams(bankConfig, providerParams);
+
+  return generateMac(paramsForMac, provider.algorithmType(bankConfig));
 }
 
 function generateMac(params, algorithmType) {

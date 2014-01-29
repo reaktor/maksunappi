@@ -70,12 +70,21 @@ function flatMap(collection, fun) {
 }
 
 exports.formatDueDate = function (date, defaultValue) {
-  return formatOrDefault(date, toParam, defaultValue);
-
-  function toParam(date) {
-    return _.str.sprintf("%02d.%02d.%4d",
-      date.getDate(), date.getMonth() + 1, date.getFullYear());
+  // TODO: log a warning if this changes the date?
+  if (date && helpers.lessThanIgnoreTime(date, new Date())) {
+    return exports.dueDateToday();
+  } else {
+    return formatOrDefault(date, dueDate, defaultValue);
   }
+};
+
+function dueDate(date) {
+  return _.str.sprintf("%02d.%02d.%4d",
+    date.getDate(), date.getMonth() + 1, date.getFullYear());
+}
+
+exports.dueDateToday = function () {
+  return dueDate(new Date());
 };
 
 exports.formatConfirmation = function (confirm, defaultValue) {

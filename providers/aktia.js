@@ -53,14 +53,19 @@ exports.algorithmType = function (bankConfig) {
   }
 };
 
-exports.requestMacParams = function (bankConfig) {
-  switch (bankConfig.paymentVersion) {
+exports.requestMacParams = function (providerConfig, formParams) {
+  var macParams = macParamsForVersion(providerConfig.paymentVersion);
+  return parameters.macParams(formParams, macParams, [], [providerConfig.checksumKey]);
+};
+
+function macParamsForVersion(paymentVersion) {
+  switch (paymentVersion) {
     case "001": return MAC_VERSION1;
     case "002": return MAC_VERSION2;
     case "003": return MAC_VERSION3;
-    default: throw new Error("Unknown payment version '" + bankConfig.paymentVersion + "'.");
+    default: throw new Error("Unknown payment version '" + paymentVersion + "'.");
   }
-};
+}
 
 exports.macFormName = 'NET_MAC';
 

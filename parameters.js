@@ -16,3 +16,23 @@ exports.requireInclusionIn = function (params, paramName, allowed) {
       "': '" + params[paramName] + "'." )
   }
 };
+
+exports.pick = function (params, keys) {
+  return _.map(keys, function (key) {
+    return params[key];
+  });
+};
+
+exports.macParams = function (formParams, keys, addToStart, addToEnd) {
+  var params = exports.pick(formParams, keys);
+
+  _.each(addToStart, function (value) {
+    params.unshift(value);
+  });
+
+  _.each(addToEnd, function (value) {
+    params.push(value);
+  });
+
+  return params;
+};

@@ -41,10 +41,10 @@
 
     {"id" : "danskebank",
       "name" : "DanskeBank",
-      "paymentUrl" : "https://verkkopankki.sampopankki.fi/SP/vemaha/VemahaApp",
+      "paymentUrl" : "https://verkkopankki.danskebank.fi/SP/vemaha/VemahaApp",
       "imgPath" : "https://www.danskebank.fi/verkkopalvelu/logo.gif",
-      "paymentVersion" : "0003",
-      "vendorId" : "000000000000 ",
+      "paymentVersion" : "4",
+      "vendorId" : "000000000000",
       "currency" : "EUR",
       "checksumKey" : "jumCLB4T2ceZWGJ9ztjuhn5FaeZnTm5HpfDXWU2APRqfDcsrBs8mqkFARzm7uXKd"
     },
