@@ -1,5 +1,1 @@
-// Provider stub
-
-exports.mapParams = function (providerConfig, options) {
-  return {};
-};
+module.exports = require('./aktia-handelsbanken');

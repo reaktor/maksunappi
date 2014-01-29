@@ -6,7 +6,7 @@
      "name" : "Handelsbanken",
      "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/SHBlogin.html",
      "imgPath" : "images/logo_handelsbanken.gif",
-     "paymentVersion" : "001",
+     "paymentVersion" : "003",
      "vendorId" : "0000000000",
      "vendorAccount" : "448710-126",
      "currency" : "EUR",
