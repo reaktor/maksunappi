@@ -43,9 +43,7 @@ casper.test.begin("Nordea Payment Cancel", 1, function(test) {
   });
 
   casper.then(function() {
-    //TODO get commented code to work
-    //this.click(x("//a[.='Paluu myyjälle']"));
-    this.click(x("/html/body/table/tbody/tr[2]/td/div/div/p[2]/a"));
+    this.click(x("//a[contains(text(), 'Paluu myyjälle')]"));
   });
 
   casper.then(function(){
