@@ -33,10 +33,11 @@
      "paymentUrl" : "https://kultaraha.op.fi/cgi-bin/krcgi",
      "imgPath" : "images/logo_op.jpg",
      "paymentVersion" : "0001",
-     "vendorId" : "",
+     "vendorId" : "Esittelymyyja",
      "currency" : "EUR",
-     "keyVersion" : "0001",
-     "checksumKey" : ""
+     "keyVersion" : "1",
+     "confirm" : "K",
+     "checksumKey" : "Esittelykauppiaansalainentunnus"
     },
 
     {"id" : "danskebank",

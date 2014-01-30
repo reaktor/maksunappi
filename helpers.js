@@ -11,3 +11,7 @@ exports.lessThanIgnoreTime = function (date1, date2) {
 
   return withoutTime(date1) < withoutTime(date2);
 };
+
+exports.getElemenByIdxOrDefault = function(array, idx, def) {
+  return array && array.length - 1 >= idx ?  array[idx] : def;
+};
