@@ -148,15 +148,16 @@ function returnUrlConfig (hostUrl) {
 }
 
 function extendDefaults (bankOpts) {
-  return _.map(config.banks, function (bank) {
+  return _.map(config.banks, function (customBank) {
+    var bankWithDefaults = _.extend({}, config.defaultBank, bank);
     var vendorOpts = _.find(bankOpts, function (bankConf) {
-      return bankConf.id == bank.id;
+      return bankConf.id == bankWithDefaults.id;
     });
 
     if (vendorOpts) {
-      return _.extend({}, bank, vendorOpts);
+      return _.extend({}, bankWithDefaults, vendorOpts);
     } else {
-      return bank;
+      return bankWithDefaults;
     }
   });
 }

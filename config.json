@@ -1,6 +1,12 @@
 {
   "port" : 8081,
 
+  "defaultBank" : {
+    "currency" : "EUR",
+    "dueDate" : "EXPRESS",
+    "algorithmType" : "md5"
+  },
+
   "banks" : [
     {"id" : "handelsbanken",
      "name" : "Handelsbanken",
@@ -9,8 +15,6 @@
      "paymentVersion" : "003",
      "vendorId" : "0000000000",
      "vendorAccount" : "448710-126",
-     "currency" : "EUR",
-     "dueDate" : "EXPRESS",
      "confirm" : "YES",
      "checksumKey" : "11111111111111111111"
     },
@@ -21,8 +25,6 @@
      "imgPath" : "images/logo_nordea.gif",
      "paymentVersion" : "0003",
      "vendorId" : "12345678",
-     "dueDate" : "EXPRESS",
-     "currency" : "EUR",
      "checksumKey" : "LEHTI",
      "keyVersion" : "0001",
      "confirm" : "YES"
@@ -34,7 +36,6 @@
      "imgPath" : "images/logo_op.jpg",
      "paymentVersion" : "0001",
      "vendorId" : "Esittelymyyja",
-     "currency" : "EUR",
      "keyVersion" : "1",
      "confirm" : "K",
      "checksumKey" : "Esittelykauppiaansalainentunnus"
@@ -46,7 +47,6 @@
       "imgPath" : "https://www.danskebank.fi/verkkopalvelu/logo.gif",
       "paymentVersion" : "4",
       "vendorId" : "000000000000",
-      "currency" : "EUR",
       "checksumKey" : "jumCLB4T2ceZWGJ9ztjuhn5FaeZnTm5HpfDXWU2APRqfDcsrBs8mqkFARzm7uXKd"
     },
 
@@ -57,8 +57,6 @@
       "paymentVersion" : "003",
       "vendorId" : "0000000000",
       "vendorAccount" : "448710-126",
-      "currency" : "EUR",
-      "dueDate" : "EXPRESS",
       "confirm" : "YES",
       "checksumKey" : "11111111111111111111"
     },
@@ -70,8 +68,6 @@
       "paymentVersion" : "0002",
       "vendorId" : "TAPESHOPID",
       "vendorAccount" : "363630-01652643",
-      "currency" : "EUR",
-      "dueDate" : "EXPRESS",
       "confirm" : "YES",
       "checksumKey" : "PAPUKAIJA",
       "vendorName" : "",
@@ -85,8 +81,6 @@
       "paymentVersion" : "0002",
       "vendorId" : "AABESHOPID",
       "vendorAccount" : "660100-01130855",
-      "currency" : "EUR",
-      "dueDate" : "EXPRESS",
       "confirm" : "YES",
       "checksumKey" : "PAPEGOJA",
       "vendorName" : "TESTIKAUPPA",
@@ -102,8 +96,6 @@
       "paymentVersion" : "0002",
       "vendorId" : "SPANKKIESHOPID",
       "vendorAccount" : "FI4139390001002369",
-      "currency" : "EUR",
-      "dueDate" : "EXPRESS",
       "confirm" : "YES",
       "checksumKey" : "SPANKKI",
       "vendorName" : "",
