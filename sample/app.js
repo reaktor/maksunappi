@@ -37,7 +37,7 @@ var sslOptions = {
   rejectUnauthorized: false
 };
 
-app.use(express.static(__dirname + '/css'))
+app.use(express.static(__dirname + '/css'));
 
 app.get('/', function (req, res) {
   var now = moment().format('YYYYMMDDhhmmss');

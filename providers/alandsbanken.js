@@ -12,17 +12,13 @@ var MAC_PARAMS = [
 ];
 
 exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount']);
-  parameters.requireParams(providerConfig,
-    ['paymentVersion', 'vendorId', 'vendorAccount', 'vendorName',
-     'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion',
-     'cookie']);
+  validateParams(providerConfig, options);
 
   return {
     "AAB_VERSION" : providerConfig.paymentVersion,
     "AAB_STAMP" : options.requestId,
     "AAB_RCV_ID" : providerConfig.vendorId,
-    "AAB_RCV_ACCOUNT" : options.vendorAccount,
+    "AAB_RCV_ACCOUNT" : providerConfig.vendorAccount,
     "AAB_RCV_NAME" : providerConfig.vendorName,
     "AAB_LANGUAGE" : formatting.formatLanguage(options.language, formatting.mapEnglishToDefault),
     "AAB_AMOUNT" : formatting.formatAmount(options.amount),
@@ -39,6 +35,14 @@ exports.mapParams = function (providerConfig, options) {
     "BC_UseBVCookie" : providerConfig.cookie
   };
 };
+
+function validateParams (providerConfig, options) {
+  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(providerConfig,
+    ['paymentVersion', 'vendorId', 'vendorAccount', 'vendorName',
+      'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion',
+      'cookie']);
+}
 
 exports.algorithmType = function () {
   return 'md5';
