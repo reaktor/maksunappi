@@ -148,7 +148,7 @@ function returnUrlConfig (hostUrl) {
 }
 
 function extendDefaults (bankOpts) {
-  return _.map(config.banks, function (customBank) {
+  return _.map(config.banks, function (bank) {
     var bankWithDefaults = _.extend({}, config.defaultBank, bank);
     var vendorOpts = _.find(bankOpts, function (bankConf) {
       return bankConf.id == bankWithDefaults.id;
