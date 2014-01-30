@@ -25,14 +25,8 @@ exports.pick = function (params, keys) {
 
 exports.macParams = function (formParams, keys, addToStart, addToEnd) {
   var params = exports.pick(formParams, keys);
+  addToStart = addToStart || [];
+  addToEnd = addToEnd || [];
 
-  _.each(addToStart, function (value) {
-    params.unshift(value);
-  });
-
-  _.each(addToEnd, function (value) {
-    params.push(value);
-  });
-
-  return params;
+  return addToStart.concat(params).concat(addToEnd);
 };
