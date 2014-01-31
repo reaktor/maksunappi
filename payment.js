@@ -76,11 +76,11 @@ exports.create = function (globalOptions, bankOptions) {
 function macForRequest (provider, providerParams, bankConfig) {
   var paramsForMac = provider.requestMacParams(bankConfig, providerParams);
 
-  return generateMac(paramsForMac, provider.algorithmType(bankConfig));
+  return generateMac(paramsForMac, provider.algorithmType(bankConfig), bankConfig.macSeparator);
 }
 
-function generateMac(params, algorithmType) {
-  var joinedParams = params.join("&") + "&";
+function generateMac(params, algorithmType, separator) {
+  var joinedParams = params.join(separator) + separator;
   return crypto.createHash(algorithmType.toLowerCase()).update(joinedParams).digest('hex').toUpperCase();
 }
 

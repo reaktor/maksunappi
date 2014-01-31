@@ -4,7 +4,8 @@
   "defaultBank" : {
     "currency" : "EUR",
     "dueDate" : "EXPRESS",
-    "algorithmType" : "md5"
+    "algorithmType" : "md5",
+    "macSeparator" : "&"
   },
 
   "banks" : [
@@ -38,7 +39,8 @@
      "vendorId" : "Esittelymyyja",
      "keyVersion" : "1",
      "confirm" : "K",
-     "checksumKey" : "Esittelykauppiaansalainentunnus"
+     "checksumKey" : "Esittelykauppiaansalainentunnus",
+     "macSeparator" : ""
     },
 
     {"id" : "danskebank",
