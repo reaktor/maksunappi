@@ -1,23 +1,10 @@
-var config = require("../../config.json");
+var config = require("../../../config.json");
+var helpers = require('../../../helpers');
+
+require = patchRequire(require);
 var x = require('casper').selectXPath;
-var helpers = require('../../helpers');
-var _ = require('underscore')._;
 
-var commonOptions = {
-  username: '11111111',
-  password: '123456',
-  securityCode: '123456'
-};
-
-var handelsbankenOptions = _.extend({}, commonOptions, { bankName: 'Handelsbanken' });
-var aktiaOptions = _.extend({}, commonOptions, { bankName: 'Aktia' });
-
-var bankOptions = [aktiaOptions, handelsbankenOptions];
-
-_.each(bankOptions, testPayment);
-_.each(bankOptions, testCancel);
-
-function testPayment(options) {
+exports.testPayment = function (casper, options) {
   casper.test.begin(options.bankName + " Payment", 1, function (test) {
     casper.start('https://localhost:' + config.port, function() {
       this.click("#"+options.bankName.toLowerCase()+"-payment");
@@ -48,9 +35,9 @@ function testPayment(options) {
       test.done();
     });
   });
-}
+};
 
-function testCancel(options) {
+exports.testCancel = function (casper, options) {
   casper.test.begin(options.bankName+" Payment Cancel", 1, function (test) {
 
     casper.start('https://localhost:' + config.port, function() {
@@ -74,4 +61,4 @@ function testCancel(options) {
       test.done();
     });
   });
-}
+};
