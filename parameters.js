@@ -30,3 +30,9 @@ exports.macParams = function (formParams, keys, addToStart, addToEnd) {
 
   return addToStart.concat(params).concat(addToEnd);
 };
+
+exports.requireSatisfies = function (params, paramName, condition, message) {
+  if (!condition(params[paramName])) {
+    throw new Error(message ? message : "Invalid value for '" + paramName + "': '" + params[paramName] +"'.");
+  }
+};

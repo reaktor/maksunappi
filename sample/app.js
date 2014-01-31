@@ -41,9 +41,9 @@ app.use(express.static(__dirname + '/css'));
 
 app.get('/', function (req, res) {
   var now = moment().format('YYYYMMDDhhmmss');
-  var requestId = now + "1234";
+  var requestId = now;
 
-  var bankForms = _.map(['nordea', 'alandsbanken', 'aktia', 'danskebank', 'handelsbanken', 'op'], function (bankId) {
+  var bankForms = _.map(['nordea', 'alandsbanken', 'aktia', 'danskebank', 'handelsbanken', 'op', 'tapiola'], function (bankId) {
     return payments.paymentButton(bankId, {
       language: 'FI',
       requestId: requestId,

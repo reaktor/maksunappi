@@ -1,5 +1,3 @@
-// Provider stub
+var shared = require('./alandsbanken-tapiola');
 
-exports.mapParams = function (providerConfig, options) {
-  return {};
-};
+module.exports = shared;

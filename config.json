@@ -72,8 +72,9 @@
       "vendorAccount" : "363630-01652643",
       "confirm" : "YES",
       "checksumKey" : "PAPUKAIJA",
-      "vendorName" : "",
-      "language" : "1"
+      "vendorName" : "TESTIKAUPPA",
+      "language" : "1",
+      "keyVersion" : "0001"
     },
 
     {"id" : "alandsbanken",
