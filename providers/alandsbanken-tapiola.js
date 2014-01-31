@@ -41,9 +41,7 @@ function validateParams (providerConfig, options) {
       'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion']);
 
   parameters.requireInclusionIn(providerConfig, 'dueDate', ['EXPRESS']);
-  parameters.requireSatisfies(options, 'requestId', function (requestId) {
-    return requestId.toString().length < 16;
-  }, providerConfig.name + " requestId '" + options.requestId + "' is too long.");
+  parameters.requireLengthMax(options, 'requestId', 15);
 }
 
 exports.algorithmType = function () {
