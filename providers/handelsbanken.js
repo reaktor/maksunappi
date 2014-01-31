@@ -1,1 +1,1 @@
-module.exports = require('./aktia-handelsbanken');
+module.exports = require('./net-shared');

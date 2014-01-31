@@ -101,8 +101,9 @@
       "vendorAccount" : "FI4139390001002369",
       "confirm" : "YES",
       "checksumKey" : "SPANKKI",
-      "vendorName" : "",
-      "language" : "1"
+      "vendorName" : "TESTIKAUPPA",
+      "language" : "1",
+      "keyVersion" : "0001"
     }
   ]
 }

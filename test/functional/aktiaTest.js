@@ -1,4 +1,4 @@
-var tests = require('./shared/aktiaHandelsbankenTest');
+var tests = require('./shared/NETSharedTest');
 
 var options = {
   bankName: 'Aktia',

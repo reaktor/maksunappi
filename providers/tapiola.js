@@ -1,3 +1,3 @@
-var shared = require('./alandsbanken-tapiola');
+var shared = require('./aab-shared');
 
 module.exports = shared;

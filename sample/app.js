@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
   var now = moment().format('YYYYMMDDhhmmss');
   var requestId = now;
 
-  var bankForms = _.map(['nordea', 'alandsbanken', 'aktia', 'danskebank', 'handelsbanken', 'op', 'tapiola'], function (bankId) {
+  var bankForms = _.map(payments.banks, function (bankId) {
     return payments.paymentButton(bankId, {
       language: 'FI',
       requestId: requestId,

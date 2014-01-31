@@ -1,5 +1,3 @@
-// Provider stub
+var shared = require('./aab-shared');
 
-exports.mapParams = function (providerConfig, options) {
-  return {};
-};
+module.exports = shared;
