@@ -124,7 +124,7 @@ function bindReturnUrlsToHandler (eventEmitter, handler, okUrls, providers, bank
   bindOkUrls(handler, okUrls, bankConfigs, function (req, res, bank) {
     var provider = providers[bank.id];
     var queryData = provider.renameQueryParams(req.query);
-    if (checkMac(provider, bank, req.query, queryData.mac)) {
+    if (_.isEmpty(req.query) || checkMac(provider, bank, req.query, queryData.mac)) {
       eventEmitter.emit('success', req, res, queryData);
     } else {
       eventEmitter.emit('mac-check-failed', req, res, queryData);
