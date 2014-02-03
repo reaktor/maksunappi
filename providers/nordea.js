@@ -66,7 +66,7 @@ exports.isMyQuery = function (query) {
 
 exports.renameQueryParams = function (query) {
   return {
-    version: query.SOLOPMT_RETURN_VERSION,
+    version: parseInt(query.SOLOPMT_RETURN_VERSION),
     requestId: query.SOLOPMT_RETURN_STAMP,
     reference: query.SOLOPMT_RETURN_REF,
     archivedId: query.SOLOPMT_RETURN_PAID,
