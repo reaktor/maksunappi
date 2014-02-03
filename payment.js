@@ -39,14 +39,13 @@ exports.create = function (globalOptions, bankOptions) {
   var paymentGen = Object.create(events.EventEmitter.prototype);
   var hostOptions = _.clone(globalOptions);
   var banks = setupBanks(bankOptions, globalOptions.hostUrl);
-  var bankIds = _.pluck(banks, 'id');
 
   paymentGen.paymentButton = function (bankId, options) {
     var bank = findBank(bankId, banks);
     return createButton(bank, options);
   };
 
-  paymentGen.banks = bankIds;
+  paymentGen.banks = _.pluck(banks, 'id');
 
   bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, banks);
   hostOptions.appHandler.use(express.static(__dirname + '/public'));
