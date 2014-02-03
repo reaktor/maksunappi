@@ -1,6 +1,7 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
 var helpers = require('../helpers');
+var _ = require('underscore')._;
 
 var MAC_PARAMS = [
   'VERSIO',
@@ -59,3 +60,20 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.macFormName = 'TARKISTE';
+
+exports.isMyQuery = function (query) {
+  var keys = _.keys(query);
+  return _.contains(keys, 'MAKSUTUNNUS') &&
+    _.contains(keys, 'ARKISTOINTITUNNUS');
+};
+
+exports.renameQueryParams = function (query) {
+  return {
+    version: parseInt(query.VERSIO),
+    requestId: query.MAKSUTUNNUS,
+    reference: query.VIITE,
+    archivedId: query.ARKISTOINTITUNNUS,
+    mac: query.TARKISTE,
+    macVersion: query["TARKISTE-VERSIO"]
+  };
+};

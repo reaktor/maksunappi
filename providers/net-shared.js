@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var _ = require('underscore')._;
 
 var MAC_VERSION1 = [
   'NET_VERSION',
@@ -72,3 +73,18 @@ exports.macFormName = 'NET_MAC';
 function formatAlgorithm (bankConfig) {
   return exports.algorithmType(bankConfig) === "sha256" ? "03" : undefined;
 }
+
+exports.isMyQuery = function (query) {
+  return _.keys(query)[0].match(/^NET/);
+};
+
+exports.renameQueryParams = function (query) {
+  return {
+    version: parseInt(query.NET_RETURN_VERSION),
+    requestId: query.NET_RETURN_STAMP,
+    reference: query.NET_RETURN_REF,
+    archivedId: query.NET_RETURN_PAID,
+    mac: query.NET_RETURN_MAC,
+    algorithm: parseInt(query.NET_ALG)
+  };
+};

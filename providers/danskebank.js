@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var _ = require('underscore')._;
 
 var SHA256 = '03';
 var MAC_PARAMS = [
@@ -49,3 +50,24 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.macFormName = 'TARKISTE';
+
+exports.isMyQuery = function (query) {
+  var keys = _.keys(query);
+  return _.contains(keys, 'KNRO') &&
+    _.contains(keys, 'VALUUTTA') &&
+    _.contains(keys, 'STATUS');
+};
+
+exports.renameQueryParams = function (query) {
+  return {
+    version: parseInt(query.VERSIO),
+    reference: query.VIITE,
+    mac: query.TARKISTE,
+    currency: query.VALUUTTA,
+    vendorId: query.KNRO,
+    dueDate: query.ERAPAIVA,
+    paymentStatus: query.STATUS,
+    paymentSum: query.SUMMA,
+    paymentMethod: query.MTAPA
+  };
+};

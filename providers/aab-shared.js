@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var _ = require('underscore')._;
 
 var MAC_PARAMS = [
   'AAB_VERSION',
@@ -53,3 +54,17 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.macFormName = 'AAB_MAC';
+
+exports.isMyQuery = function (query) {
+  return _.keys(query)[0].match(/^AAB/);
+};
+
+exports.renameQueryParams = function (query) {
+  return {
+    version: parseInt(query["AAB-RETURN-VERSION"]),
+    requestId: query["AAB-RETURN-STAMP"],
+    reference: query["AAB-RETURN-REF"],
+    archivedId: query["AAB-RETURN-PAID"],
+    mac: query["AAB-RETURN-MAC"]
+  };
+};

@@ -68,7 +68,7 @@ exports.create = function (globalOptions, bankOptions) {
 
   paymentGen.banks = bankIds;
 
-  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler);
+  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, _.values(providers));
 
   return paymentGen;
 };
@@ -119,7 +119,17 @@ function findBank (bankId, bankConfigs) {
   });
 }
 
-function bindReturnUrlsToHandler (eventEmitter, handler) {
+function extendWithSharedProviders (providers) {
+  var cloned = _.clone(providers);
+  cloned.push(require('./providers/aab-shared'));
+  cloned.push(require('./providers/net-shared'));
+
+  return cloned;
+}
+
+function bindReturnUrlsToHandler (eventEmitter, handler, providerList) {
+  var providers = extendWithSharedProviders(providerList);
+
   handler.post(okPath, ok);
   handler.get(okPath, ok);
   handler.get(cancelPath, function (req, res) {
@@ -129,12 +139,31 @@ function bindReturnUrlsToHandler (eventEmitter, handler) {
     eventEmitter.emit('reject', req, res);
   });
 
-  function checkMac (req) { return true; }
-  function ok (req, res) {
-    if (checkMac) {
-      eventEmitter.emit('success', req, res);
+  function findProviderFor (returnQuery) {
+    return _.find(providers, function (provider) {
+      return provider.isMyQuery(returnQuery);
+    });
+  }
+
+  function toCommonFormat (request) {
+    var returnQuery = request.query;
+    var provider = findProviderFor(returnQuery);
+    if (provider) {
+      return provider.renameQueryParams(returnQuery);
     } else {
-      eventEmitter.emit('mac-check-failed', req, res);
+      throw new Error("Got return query from unknown provider (referer: "+
+        request.headers.referer+"): " + returnQuery.toString());
+    }
+  }
+
+  function checkMac (req) { return true; }
+
+  function ok (req, res) {
+    var queryData = toCommonFormat(req);
+    if (checkMac) {
+      eventEmitter.emit('success', req, res, queryData);
+    } else {
+      eventEmitter.emit('mac-check-failed', req, res, queryData);
     }
   }
 }

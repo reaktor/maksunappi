@@ -11,3 +11,7 @@ exports.mapParams = function (providerConfig, options) {
 
   return params;
 };
+
+exports.isMyQuery = function (query) {
+  return false;
+};

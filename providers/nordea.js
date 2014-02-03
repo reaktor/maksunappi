@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var _ = require('underscore')._;
 
 var MAC_PARAMS = [
   'SOLOPMT_VERSION',
@@ -46,3 +47,17 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.macFormName = 'SOLOPMT_MAC';
+
+exports.isMyQuery = function (query) {
+  return _.keys(query)[0].match(/^SOLOPMT/);
+};
+
+exports.renameQueryParams = function (query) {
+  return {
+    version: parseInt(query.SOLOPMT_RETURN_VERSION),
+    requestId: query.SOLOPMT_RETURN_STAMP,
+    reference: query.SOLOPMT_RETURN_REF,
+    archivedId: query.SOLOPMT_RETURN_PAID,
+    mac: query.SOLOPMT_RETURN_MAC
+  };
+};
