@@ -41,7 +41,7 @@ exports.formatMessage = function (message, rowLimit) {
   if(rowLimit) {
     MAX_ROWS = rowLimit;
   }
-  var words = flatMap(_.str.words(message), function (word) {
+  var words = flatMap(_.str.words(message.trim()), function (word) {
     return _.str.chop(word, MAX_ROW_LEN)
   });
 
