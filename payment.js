@@ -69,7 +69,7 @@ function createButton (bank, options) {
 
     return buttonTemplate(params);
   } else {
-    throw new Error("No provider or configuration found for id '" + bankId + "'.");
+    throw new Error("No provider or configuration found for id '" + bank.id + "'.");
   }
 }
 
