@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var helpers = require('../helpers');
 var _ = require('underscore')._;
 
 var MAC_PARAMS = [
@@ -10,6 +11,13 @@ var MAC_PARAMS = [
   'SOLOPMT_REF',
   'SOLOPMT_DATE',
   'SOLOPMT_CUR'
+];
+
+var RETURN_MAC_PARAMS = [
+  'SOLOPMT_RETURN_VERSION',
+  'SOLOPMT_RETURN_STAMP',
+  'SOLOPMT_RETURN_REF',
+  'SOLOPMT_RETURN_PAID'
 ];
 
 exports.mapParams = function (providerConfig, options) {
@@ -23,10 +31,10 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_RCV_ID: providerConfig.vendorId,
     SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.allowEnglish),
     SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
-    SOLOPMT_REF: options.paymentReference,
+    SOLOPMT_REF: formatting.formatToPaymentReference(options.requestId),
     SOLOPMT_DATE: formatting.formatDueDate(options.dueDate, providerConfig.dueDate),
     SOLOPMT_MSG: formatting.formatMessage(options.message),
-    SOLOPMT_RETURN: providerConfig.returnUrls.ok,
+    SOLOPMT_RETURN: providerConfig.returnUrls.ok.url,
     SOLOPMT_CANCEL: providerConfig.returnUrls.cancel,
     SOLOPMT_REJECT: providerConfig.returnUrls.reject,
     SOLOPMT_CONFIRM: formatting.formatConfirmation(options.confirm, providerConfig.confirm),
@@ -46,6 +54,10 @@ exports.requestMacParams = function (providerConfig, formParams) {
   return parameters.macParams(formParams, MAC_PARAMS, [], [providerConfig.checksumKey]);
 };
 
+exports.returnMacParams = function (providerConfig, queryParams) {
+  return parameters.macParams(queryParams, RETURN_MAC_PARAMS, [], [providerConfig.checksumKey]);
+};
+
 exports.macFormName = 'SOLOPMT_MAC';
 
 exports.isMyQuery = function (query) {
@@ -54,7 +66,7 @@ exports.isMyQuery = function (query) {
 
 exports.renameQueryParams = function (query) {
   return {
-    version: parseInt(query.SOLOPMT_RETURN_VERSION),
+    version: query.SOLOPMT_RETURN_VERSION,
     requestId: query.SOLOPMT_RETURN_STAMP,
     reference: query.SOLOPMT_RETURN_REF,
     archivedId: query.SOLOPMT_RETURN_PAID,

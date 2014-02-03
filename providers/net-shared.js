@@ -30,7 +30,7 @@ exports.mapParams = function (providerConfig, options) {
     "NET_REF" : formatting.formatToPaymentReference(options.requestId),
     "NET_DATE" : providerConfig.dueDate,
     "NET_MSG" : formatting.formatMessage(options.message),
-    "NET_RETURN" : providerConfig.returnUrls.ok,
+    "NET_RETURN" : providerConfig.returnUrls.ok.url,
     "NET_CANCEL" : providerConfig.returnUrls.cancel,
     "NET_REJECT" : providerConfig.returnUrls.reject,
     "NET_CONFIRM" : providerConfig.confirm,
@@ -57,6 +57,10 @@ exports.algorithmType = function (bankConfig) {
 exports.requestMacParams = function (providerConfig, formParams) {
   var macParams = macParamsForVersion(providerConfig.paymentVersion);
   return parameters.macParams(formParams, macParams, [], [providerConfig.checksumKey]);
+};
+
+exports.returnMacParams = function (providerConfig, queryParams) {
+  return parameters.macParams(queryParams, [], [], [providerConfig.checksumKey]);
 };
 
 function macParamsForVersion(paymentVersion) {

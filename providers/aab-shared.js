@@ -26,7 +26,7 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_REF" : formatting.formatToPaymentReference(options.requestId),
     "AAB_DATE" : providerConfig.dueDate,
     "AAB_MSG" : formatting.formatMessage(options.message),
-    "AAB_RETURN" : providerConfig.returnUrls.ok,
+    "AAB_RETURN" : providerConfig.returnUrls.ok.url,
     "AAB_CANCEL" : providerConfig.returnUrls.cancel,
     "AAB_REJECT" : providerConfig.returnUrls.reject,
     "AAB_CONFIRM" : providerConfig.confirm,
@@ -51,6 +51,10 @@ exports.algorithmType = function (bankConfig) {
 
 exports.requestMacParams = function (providerConfig, formParams) {
   return parameters.macParams(formParams, MAC_PARAMS, [], [providerConfig.checksumKey]);
+};
+
+exports.returnMacParams = function (providerConfig, queryParams) {
+  return parameters.macParams(queryParams, [], [], [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'AAB_MAC';

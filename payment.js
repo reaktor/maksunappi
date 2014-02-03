@@ -40,9 +40,10 @@ exports.create = function (globalOptions, bankOptions) {
 
   var paymentGen = Object.create(events.EventEmitter.prototype);
   var hostOptions = _.clone(globalOptions);
-  var returnUrls = returnUrlConfig(hostOptions.hostUrl);
-  var banks = extendAllWith(extendDefaults(bankOptions), returnUrls);
-  var bankIds = _.pluck(banks, 'id');
+  var banksWithoutUrls = extendDefaults(bankOptions);
+  var bankIds = _.pluck(banksWithoutUrls, 'id');
+  var returnUrls = returnUrlConfig(hostOptions.hostUrl, bankIds);
+  var banks = addReturnUrls(banksWithoutUrls, returnUrls);
   var providers = createProviders(bankIds);
 
   paymentGen.paymentButton = function (bankId, options) {
@@ -68,7 +69,7 @@ exports.create = function (globalOptions, bankOptions) {
 
   paymentGen.banks = bankIds;
 
-  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, _.values(providers));
+  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, returnUrls.ok, providers, banks);
 
   return paymentGen;
 };
@@ -119,61 +120,61 @@ function findBank (bankId, bankConfigs) {
   });
 }
 
-function extendWithSharedProviders (providers) {
-  var cloned = _.clone(providers);
-  cloned.push(require('./providers/aab-shared'));
-  cloned.push(require('./providers/net-shared'));
-
-  return cloned;
-}
-
-function bindReturnUrlsToHandler (eventEmitter, handler, providerList) {
-  var providers = extendWithSharedProviders(providerList);
-
-  handler.post(okPath, ok);
-  handler.get(okPath, ok);
-  handler.get(cancelPath, function (req, res) {
-    eventEmitter.emit('cancel', req, res);
-  });
-  handler.get(rejectPath, function (req, res) {
-    eventEmitter.emit('reject', req, res);
-  });
-
-  function findProviderFor (returnQuery) {
-    return _.find(providers, function (provider) {
-      return provider.isMyQuery(returnQuery);
-    });
-  }
-
-  function toCommonFormat (request) {
-    var returnQuery = request.query;
-    var provider = findProviderFor(returnQuery);
-    if (provider) {
-      return provider.renameQueryParams(returnQuery);
-    } else {
-      throw new Error("Got return query from unknown provider (referer: "+
-        request.headers.referer+"): " + returnQuery.toString());
-    }
-  }
-
-  function checkMac (req) { return true; }
-
-  function ok (req, res) {
-    var queryData = toCommonFormat(req);
-    if (checkMac) {
+function bindReturnUrlsToHandler (eventEmitter, handler, okUrls, providers, bankConfigs) {
+  bindOkUrls(handler, okUrls, bankConfigs, function (req, res, bank) {
+    var provider = providers[bank.id];
+    var queryData = provider.renameQueryParams(req.query);
+    if (checkMac(provider, bank, req.query, queryData.mac)) {
       eventEmitter.emit('success', req, res, queryData);
     } else {
       eventEmitter.emit('mac-check-failed', req, res, queryData);
     }
-  }
+  });
+
+  handler.get(cancelPath, function (req, res) {
+    eventEmitter.emit('cancel', req, res);
+  });
+
+  handler.get(rejectPath, function (req, res) {
+    eventEmitter.emit('reject', req, res);
+  });
 }
 
-function returnUrlConfig (hostUrl) {
-  return { returnUrls: {
-    ok: hostUrl + okPath,
+function bindOkUrls (handler, okUrls, bankConfigs, okCallback) {
+  _.each(_.pairs(okUrls), function (urlConfig) {
+    var callback = function (req, res) {
+      okCallback(req, res, _.find(bankConfigs, function (bank) {
+        return bank.id == urlConfig[0];
+      }));
+    };
+
+    var okPath = urlConfig[1].path;
+    handler.post(okPath, callback);
+    handler.get(okPath, callback);
+  });
+}
+
+function checkMac (provider, bank, query, expected) {
+  var macParams = provider.returnMacParams(bank, query);
+  var mac = generateMac(macParams, provider.algorithmType(bank), bank.macSeparator);
+  return mac === expected;
+}
+
+function returnUrlConfig (hostUrl, bankIds) {
+  var okUrls = {};
+  _.each(bankIds, function (bankId) {
+    var bankPath = okPath + '/' + bankId;
+    okUrls[bankId] = {
+      url: hostUrl + bankPath,
+      path: bankPath
+    };
+  });
+
+  return {
+    ok: okUrls,
     cancel: hostUrl + cancelPath,
     reject: hostUrl + rejectPath
-  }};
+  };
 }
 
 function extendDefaults (bankOpts) {
@@ -191,8 +192,14 @@ function extendDefaults (bankOpts) {
   });
 }
 
-function extendAllWith (bankConfigs, extension) {
+function addReturnUrls (bankConfigs, returnUrls) {
   return _.map(bankConfigs, function (bank) {
-    return _.extend({}, bank, extension);
+    return _.extend({}, bank, {
+      returnUrls: {
+        reject: returnUrls.reject,
+        cancel: returnUrls.cancel,
+        ok: returnUrls.ok[bank.id]
+      }
+    });
   });
 }

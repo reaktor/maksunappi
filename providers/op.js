@@ -36,7 +36,7 @@ exports.mapParams = function (providerConfig, options) {
     "VIEST1" : line1,
     "VIEST2" : line2,
     "TARKISTE-VERSIO" : providerConfig.keyVersion,
-    "PALUU-LINKKI" : providerConfig.returnUrls.ok,
+    "PALUU-LINKKI" : providerConfig.returnUrls.ok.url,
     "PERUUTUS-LINKKI" : providerConfig.returnUrls.cancel,
     "VAHVISTUS" : providerConfig.confirm,
     "VALUUTTALAJI" : providerConfig.currency,
@@ -57,6 +57,10 @@ exports.algorithmType = function (bankConfig) {
 
 exports.requestMacParams = function (providerConfig, formParams) {
   return parameters.macParams(formParams, MAC_PARAMS, [], [providerConfig.checksumKey]);
+};
+
+exports.returnMacParams = function (providerConfig, queryParams) {
+  return parameters.macParams(queryParams, [], [], [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'TARKISTE';

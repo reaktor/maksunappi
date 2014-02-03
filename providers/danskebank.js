@@ -26,7 +26,7 @@ exports.mapParams = function (providerConfig, options) {
     VALUUTTA: providerConfig.currency,
     VERSIO: providerConfig.paymentVersion,
     ERAPAIVA: dueDate(options.dueDate),
-    OKURL: providerConfig.returnUrls.ok,
+    OKURL: providerConfig.returnUrls.ok.url,
     VIRHEURL: providerConfig.returnUrls.reject,
     lng: formatting.formatLanguage(options.langCode, formatting.allowEnglish),
     ALG: SHA256
@@ -47,6 +47,10 @@ exports.algorithmType = function (bankConfig) {
 
 exports.requestMacParams = function (providerConfig, formParams) {
   return parameters.macParams(formParams, MAC_PARAMS, [providerConfig.checksumKey]);
+};
+
+exports.returnMacParams = function (providerConfig, queryParams) {
+  return parameters.macParams(queryParams, [], [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'TARKISTE';
