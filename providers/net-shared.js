@@ -18,6 +18,14 @@ var MAC_VERSION2 = MAC_VERSION1.concat([
 ]);
 var MAC_VERSION3 = MAC_VERSION2.concat(['NET_ALG']);
 
+var RETURN_MAC_PARAMS = [
+  'NET_RETURN_VERSION',
+  'NET_RETURN_STAMP',
+  'NET_RETURN_REF',
+  'NET_RETURN_PAID',
+  'NET_ALG'
+];
+
 exports.mapParams = function (providerConfig, options) {
   validateParams(providerConfig, options);
 
@@ -60,7 +68,7 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.returnMacParams = function (providerConfig, queryParams) {
-  return parameters.macParams(queryParams, [], [], [providerConfig.checksumKey]);
+  return parameters.macParams(queryParams, RETURN_MAC_PARAMS, [], [providerConfig.checksumKey]);
 };
 
 function macParamsForVersion(paymentVersion) {
