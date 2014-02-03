@@ -14,6 +14,16 @@ var MAC_PARAMS = [
   'ERAPAIVA'
 ];
 
+var RETURN_MAC_PARAMS = [
+  'VIITE',
+  'SUMMA',
+  'STATUS',
+  'KNRO',
+  'VERSIO',
+  'VALUUTTA',
+  'ERAPAIVA'
+];
+
 exports.mapParams = function (providerConfig, options) {
   parameters.requireParams(options, ['amount', 'requestId']);
   parameters.requireParams(providerConfig,
@@ -50,7 +60,7 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.returnMacParams = function (providerConfig, queryParams) {
-  return parameters.macParams(queryParams, [], [providerConfig.checksumKey]);
+  return parameters.macParams(queryParams, RETURN_MAC_PARAMS, [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'TARKISTE';
