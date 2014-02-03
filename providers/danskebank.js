@@ -40,8 +40,8 @@ function dueDate(dateParam) {
   }
 }
 
-exports.algorithmType = function () {
-  return 'sha256';
+exports.algorithmType = function (bankConfig) {
+  return bankConfig.algorithmType;
 };
 
 exports.requestMacParams = function (providerConfig, formParams) {

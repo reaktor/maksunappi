@@ -49,7 +49,8 @@
       "imgPath" : "https://www.danskebank.fi/verkkopalvelu/logo.gif",
       "paymentVersion" : "4",
       "vendorId" : "000000000000",
-      "checksumKey" : "jumCLB4T2ceZWGJ9ztjuhn5FaeZnTm5HpfDXWU2APRqfDcsrBs8mqkFARzm7uXKd"
+      "checksumKey" : "jumCLB4T2ceZWGJ9ztjuhn5FaeZnTm5HpfDXWU2APRqfDcsrBs8mqkFARzm7uXKd",
+      "algorithmType" : "sha256"
     },
 
     {"id" : "aktia",

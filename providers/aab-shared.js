@@ -44,8 +44,8 @@ function validateParams (providerConfig, options) {
   parameters.requireLengthMax(options, 'requestId', 15);
 }
 
-exports.algorithmType = function () {
-  return 'md5';
+exports.algorithmType = function (bankConfig) {
+  return bankConfig.algorithmType;
 };
 
 exports.requestMacParams = function (providerConfig, formParams) {

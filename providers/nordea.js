@@ -37,8 +37,8 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
-exports.algorithmType = function () {
-  return 'md5';
+exports.algorithmType = function (bankConfig) {
+  return bankConfig.algorithmType;
 };
 
 exports.requestMacParams = function (providerConfig, formParams) {

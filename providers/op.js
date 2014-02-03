@@ -50,8 +50,8 @@ function splittedAndFormattedMessage(rawMessage) {
   return message.split('\r\n');
 }
 
-exports.algorithmType = function () {
-  return 'md5';
+exports.algorithmType = function (bankConfig) {
+  return bankConfig.algorithmType;
 };
 
 exports.requestMacParams = function (providerConfig, formParams) {
