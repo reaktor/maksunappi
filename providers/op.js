@@ -15,6 +15,14 @@ var MAC_PARAMS = [
   'TARKISTE-VERSIO'
 ];
 
+var RETURN_MAC_PARAMS = [
+  'VERSIO',
+  'MAKSUTUNNUS',
+  'VIITE',
+  'ARKISTOINTITUNNUS',
+  'TARKISTE-VERSIO'
+];
+
 exports.mapParams = function (providerConfig, options) {
   parameters.requireParams(options, ['requestId', 'amount']);
   parameters.requireParams(providerConfig,
@@ -60,7 +68,8 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.returnMacParams = function (providerConfig, queryParams) {
-  return parameters.macParams(queryParams, [], [], [providerConfig.checksumKey]);
+  return _.map(parameters.macParams(queryParams, RETURN_MAC_PARAMS, [], [providerConfig.checksumKey]),
+    function (value) { return value.trim(); });
 };
 
 exports.macFormName = 'TARKISTE';
