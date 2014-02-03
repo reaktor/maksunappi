@@ -2,15 +2,6 @@ var _ = require('underscore')._;
 var assert = require("assert");
 var formatter = require("../../format");
 
-describe('Payment reference format', function(){
-  it('should convert series of numbers to valid referenceFormat', function(){
-    assert.equal(12345672, formatter.formatToPaymentReference(1234567));
-    assert.equal(13, formatter.formatToPaymentReference(1));
-    assert.equal(110, formatter.formatToPaymentReference(11));
-    assert.equal("2014012911041312349", formatter.formatToPaymentReference("201401291104131234"));
-  });
-});
-
 describe('Message formatting', function () {
   it('should split a message into rows of max 35 characters each', function () {
     var message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "+

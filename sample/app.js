@@ -49,7 +49,8 @@ app.get('/', function (req, res) {
       language: 'FI',
       requestId: requestId,
       amount: 5000,
-      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien."
+      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien.",
+      reference : payments.referenceNumbers.toFinnishPaymentReference(requestId)
     });
   });
 

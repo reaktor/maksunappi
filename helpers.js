@@ -18,3 +18,11 @@ exports.times = function (times, execute) {
 exports.getElemenByIdxOrDefault = function(array, idx, def) {
   return array && array.length - 1 >= idx ?  array[idx] : def;
 };
+
+exports.sum = function (collection) {
+  return _.reduce(collection, function (acc, n) { return acc + n; }, 0);
+}
+
+exports.flatMap = function (collection, fun) {
+  return _.flatten(_.map(collection, fun));
+}

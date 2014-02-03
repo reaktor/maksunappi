@@ -30,7 +30,7 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_RCV_NAME" : providerConfig.vendorName,
     "AAB_LANGUAGE" : formatting.formatLanguage(options.language, formatting.mapEnglishToDefault),
     "AAB_AMOUNT" : formatting.formatAmount(options.amount),
-    "AAB_REF" : formatting.formatToPaymentReference(options.requestId),
+    "AAB_REF" : options.reference,
     "AAB_DATE" : providerConfig.dueDate,
     "AAB_MSG" : formatting.formatMessage(options.message),
     "AAB_RETURN" : providerConfig.returnUrls.ok.url,

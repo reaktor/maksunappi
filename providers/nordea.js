@@ -31,7 +31,7 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_RCV_ID: providerConfig.vendorId,
     SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.allowEnglish),
     SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
-    SOLOPMT_REF: formatting.formatToPaymentReference(options.requestId),
+    SOLOPMT_REF: options.reference,
     SOLOPMT_DATE: formatting.formatDueDate(options.dueDate, providerConfig.dueDate),
     SOLOPMT_MSG: formatting.formatMessage(options.message),
     SOLOPMT_RETURN: providerConfig.returnUrls.ok.url,

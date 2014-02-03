@@ -39,7 +39,7 @@ exports.mapParams = function (providerConfig, options) {
     "MAKSUTUNNUS" : options.requestId,
     "MYYJA" : providerConfig.vendorId,
     "SUMMA" : formatting.formatAmount(options.amount),
-    "VIITE" :  formatting.formatToPaymentReference(options.requestId),
+    "VIITE" :  options.reference,
     "VIESTI" : formatting.formatMessage(options.message),
     "VIEST1" : line1,
     "VIEST2" : line2,

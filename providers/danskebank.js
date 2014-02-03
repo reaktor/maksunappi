@@ -32,7 +32,7 @@ exports.mapParams = function (providerConfig, options) {
   return {
     KNRO: providerConfig.vendorId,
     SUMMA: formatting.formatAmount(options.amount),
-    VIITE: formatting.formatToPaymentReference(options.requestId),
+    VIITE: options.reference,
     VALUUTTA: providerConfig.currency,
     VERSIO: providerConfig.paymentVersion,
     ERAPAIVA: dueDate(options.dueDate),

@@ -1,7 +1,8 @@
 var crypto = require("crypto"),
     events = require('events'),
     _ = require('underscore')._,
-    express = require('express');
+    express = require('express'),
+    converter = require('./referenceConverter');
 
 var config = require('./config.json');
 var parameters = require('./parameters');
@@ -44,7 +45,7 @@ exports.create = function (globalOptions, bankOptions) {
     var bank = findBank(bankId, banks);
     return createButton(bank, options);
   };
-
+  paymentGen.referenceNumbers = converter;
   paymentGen.banks = _.pluck(banks, 'id');
 
   bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, banks);

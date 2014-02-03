@@ -35,7 +35,7 @@ exports.mapParams = function (providerConfig, options) {
     "NET_SELLER_ID" : providerConfig.vendorId,
     "NET_AMOUNT" : formatting.formatAmount(options.amount),
     "NET_CUR" : providerConfig.currency,
-    "NET_REF" : formatting.formatToPaymentReference(options.requestId),
+    "NET_REF" : options.reference,
     "NET_DATE" : providerConfig.dueDate,
     "NET_MSG" : formatting.formatMessage(options.message),
     "NET_RETURN" : providerConfig.returnUrls.ok.url,

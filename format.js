@@ -7,41 +7,12 @@ var MAX_ROWS = 6;
 var LINEBREAK = '\r\n';
 var DEFAULT_LANGUAGE = 1;
 
-exports.formatToPaymentReference = function(numericIdentifier) {
-  var numStr = numericIdentifier.toString();
-  var digits = numStr.split("").map(function(num) {
-    return parseInt(num);
-  });
-
-  var multipliers = [7, 3, 1];
-  var reversedMultiplierSeq = cycleUpto(multipliers, digits.length);
-  var weightedIdentifier = _.zip(reversedMultiplierSeq, digits.reverse());
-  var weightedSum = sum(_.map(weightedIdentifier, function (pair) {
-    return pair[0] * pair[1];
-  }));
-
-  return numStr + referenceCheckNumber(weightedSum).toString();
-};
-
-function referenceCheckNumber(sum) {
-  var inverse = 10 - sum % 10;
-  return inverse == 10 ? 0 : inverse;
-}
-
-function cycleUpto(collection, length) {
-  return cycle(collection, Math.ceil(length / collection.length)).slice(0, length);
-}
-
-function cycle(collection, times) {
-  return flatMap(_.range(times), function (_) { return collection; });
-}
-
 exports.formatMessage = function (message, rowLimit) {
   if (!message) return undefined;
   if(rowLimit) {
     MAX_ROWS = rowLimit;
   }
-  var words = flatMap(_.str.words(message.trim()), function (word) {
+  var words = helpers.flatMap(_.str.words(message.trim()), function (word) {
     return _.str.chop(word, MAX_ROW_LEN)
   });
 
@@ -62,14 +33,6 @@ exports.formatMessage = function (message, rowLimit) {
 
   return rows.slice(0, MAX_ROWS).join(LINEBREAK);
 };
-
-function sum(collection) {
-  return _.reduce(collection, function (acc, n) { return acc + n; }, 0);
-}
-
-function flatMap(collection, fun) {
-  return _.flatten(_.map(collection, fun));
-}
 
 exports.formatDueDate = function (date, defaultValue) {
   // TODO: log a warning if this changes the date?
