@@ -36,43 +36,55 @@ var buttonTemplate = _.template(
 exports.create = function (globalOptions, bankOptions) {
   parameters.requireParams(globalOptions, ['appHandler', 'hostUrl']);
 
-  globalOptions.appHandler.use(express.static(__dirname + '/public'));
-
   var paymentGen = Object.create(events.EventEmitter.prototype);
   var hostOptions = _.clone(globalOptions);
-  var banksWithoutUrls = extendDefaults(bankOptions);
-  var bankIds = _.pluck(banksWithoutUrls, 'id');
-  var returnUrls = returnUrlConfig(hostOptions.hostUrl, bankIds);
-  var banks = addReturnUrls(banksWithoutUrls, returnUrls);
-  var providers = createProviders(bankIds);
+  var banks = setupBanks(bankOptions, globalOptions.hostUrl);
+  var bankIds = _.pluck(banks, 'id');
 
   paymentGen.paymentButton = function (bankId, options) {
-    var bankConfig = findBank(bankId, banks);
-    var provider = providers[bankId];
-
-    if (provider && bankConfig) {
-      var providerParams = {
-        bankParams: removeIf(provider.mapParams(bankConfig, options), function (k, v) {
-          return !v;
-        })
-      };
-
-      var mac = macForRequest(provider, providerParams.bankParams, bankConfig);
-      providerParams.bankParams[provider.macFormName] = mac;
-      var params = _.extend(commonParams(bankConfig), providerParams);
-
-      return buttonTemplate(params);
-    } else {
-      throw new Error("No provider or configuration found for id '" + bankId + "'.");
-    }
+    var bank = findBank(bankId, banks);
+    return createButton(bank, options);
   };
 
   paymentGen.banks = bankIds;
 
-  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, returnUrls.ok, providers, banks);
+  bindReturnUrlsToHandler(paymentGen, hostOptions.appHandler, banks);
+  hostOptions.appHandler.use(express.static(__dirname + '/public'));
 
   return paymentGen;
 };
+
+function createButton (bank, options) {
+  var provider = bank.provider;
+  if (provider && bank) {
+    var providerParams = {
+      bankParams: removeIf(provider.mapParams(bank, options), function (k, v) {
+        return !v;
+      })
+    };
+
+    providerParams.bankParams[provider.macFormName] =
+      macForRequest(provider, providerParams.bankParams, bank);
+    var params = _.extend(commonParams(bank), providerParams);
+
+    return buttonTemplate(params);
+  } else {
+    throw new Error("No provider or configuration found for id '" + bankId + "'.");
+  }
+}
+
+function setupBanks(bankOptions, hostUrl) {
+  var banksWithoutUrls = extendDefaults(bankOptions);
+  var bankIds = _.pluck(banksWithoutUrls, 'id');
+  var returnUrls = returnUrlConfig(hostUrl, bankIds);
+  return addProviders(addReturnUrls(banksWithoutUrls, returnUrls));
+}
+
+function addProviders (banks) {
+  return _.map(banks, function (bank) {
+    return _.extend({}, bank, { provider: require('./providers/'+bank.id) });
+  });
+}
 
 function macForRequest (provider, providerParams, bankConfig) {
   var paramsForMac = provider.requestMacParams(bankConfig, providerParams);
@@ -105,26 +117,18 @@ function commonParams(bank) {
   };
 }
 
-function createProviders (banks) {
-  var providers = {};
-  _.each(banks, function (bankId) {
-    providers[bankId] = require('./providers/'+bankId);
-  });
-
-  return providers;
-}
-
 function findBank (bankId, bankConfigs) {
   return _.find(bankConfigs, function (bank) {
     return bank.id == bankId;
   });
 }
 
-function bindReturnUrlsToHandler (eventEmitter, handler, okUrls, providers, bankConfigs) {
-  bindOkUrls(handler, okUrls, bankConfigs, function (req, res, bank) {
-    var provider = providers[bank.id];
+function bindReturnUrlsToHandler (eventEmitter, handler, banks) {
+  bindOkUrls(handler, banks, function (req, res, bank) {
+    var provider = bank.provider;
     var queryData = provider.renameQueryParams(req.query);
-    if (_.isEmpty(req.query) || checkMac(provider, bank, req.query, queryData.mac)) {
+
+    if (_.isEmpty(req.query) || checkMac(bank, req.query, queryData.mac)) {
       eventEmitter.emit('success', req, res, queryData);
     } else {
       eventEmitter.emit('mac-check-failed', req, res, queryData);
@@ -140,23 +144,21 @@ function bindReturnUrlsToHandler (eventEmitter, handler, okUrls, providers, bank
   });
 }
 
-function bindOkUrls (handler, okUrls, bankConfigs, okCallback) {
-  _.each(_.pairs(okUrls), function (urlConfig) {
+function bindOkUrls (handler, banks, okCallback) {
+  _.each(banks, function (bank) {
     var callback = function (req, res) {
-      okCallback(req, res, _.find(bankConfigs, function (bank) {
-        return bank.id == urlConfig[0];
-      }));
+      okCallback(req, res, bank);
     };
 
-    var okPath = urlConfig[1].path;
+    var okPath = bank.returnUrls.ok.path;
     handler.post(okPath, callback);
     handler.get(okPath, callback);
   });
 }
 
-function checkMac (provider, bank, query, expected) {
-  var macParams = provider.returnMacParams(bank, query);
-  var mac = generateMac(macParams, provider.algorithmType(bank), bank.macSeparator);
+function checkMac (bank, query, expected) {
+  var macParams = bank.provider.returnMacParams(bank, query);
+  var mac = generateMac(macParams, bank.provider.algorithmType(bank), bank.macSeparator);
   return mac === expected;
 }
 
