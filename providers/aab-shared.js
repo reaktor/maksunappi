@@ -12,6 +12,13 @@ var MAC_PARAMS = [
   'AAB_CUR'
 ];
 
+var RETURN_MAC_PARAMS = [
+  'AAB-RETURN-VERSION',
+  'AAB-RETURN-STAMP',
+  'AAB-RETURN-REF',
+  'AAB-RETURN-PAID'
+];
+
 exports.mapParams = function (providerConfig, options) {
   validateParams(providerConfig, options);
 
@@ -54,7 +61,7 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.returnMacParams = function (providerConfig, queryParams) {
-  return parameters.macParams(queryParams, [], [], [providerConfig.checksumKey]);
+  return parameters.macParams(queryParams, RETURN_MAC_PARAMS, [], [providerConfig.checksumKey]);
 };
 
 exports.macFormName = 'AAB_MAC';
