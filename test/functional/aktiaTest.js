@@ -7,5 +7,4 @@ var options = {
   securityCode: '123456'
 };
 
-tests.testPayment(casper, options);
-tests.testCancel(casper, options);
+tests.runTests(casper, options);

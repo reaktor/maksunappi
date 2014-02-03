@@ -4,10 +4,13 @@ var helpers = require('../../../helpers');
 require = patchRequire(require);
 var x = require('casper').selectXPath;
 
-exports.testPayment = function (casper, options) {
+exports.runTests = function (casper, options) {
+  var returnLinkSelector = "//a[contains(text(), '"+options.returnLinkText+"')]";
+  var bankId = options.id || options.bankName.toLowerCase();
+
   casper.test.begin(options.bankName + " Payment", 1, function (test) {
     casper.start('https://localhost:' + config.port, function() {
-      this.click("#"+(options.id || options.bankName.toLowerCase())+"-payment");
+      this.click("#"+bankId+"-payment");
     });
 
     casper.then(function() {
@@ -30,8 +33,8 @@ exports.testPayment = function (casper, options) {
       this.click('button[type="submit"][name="btn_accept"]');
     });
 
-    casper.waitForSelector(x("//a[contains(text(), '"+options.returnLinkText+"')]"), function() {
-      this.click(x("//a[contains(text(), '"+options.returnLinkText+"')]"));
+    casper.waitForSelector(x(returnLinkSelector), function() {
+      this.click(x(returnLinkSelector));
     });
 
     casper.waitForSelector('#success', function () {
@@ -43,17 +46,15 @@ exports.testPayment = function (casper, options) {
       test.done();
     });
   });
-};
 
-exports.testCancel = function (casper, options) {
   casper.test.begin(options.bankName+" Payment Cancel", 1, function (test) {
 
     casper.start('https://localhost:' + config.port, function() {
-      this.click("#"+(options.id || options.bankName.toLowerCase())+"-payment");
+      this.click("#"+bankId+"-payment");
     });
 
     casper.then(function() {
-      this.click(x("//a[contains(text(), '"+options.returnLinkText+"')]"));
+      this.click(x(returnLinkSelector));
     });
 
     casper.then(function(){

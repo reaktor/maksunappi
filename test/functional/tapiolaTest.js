@@ -8,5 +8,4 @@ var options = {
   returnLinkText: 'Takaisin'
 };
 
-tests.testPayment(casper, options);
-tests.testCancel(casper, options);
+tests.runTests(casper, options);

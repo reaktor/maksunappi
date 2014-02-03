@@ -4,7 +4,7 @@ var helpers = require('../../../helpers');
 require = patchRequire(require);
 var x = require('casper').selectXPath;
 
-exports.testPayment = function (casper, options) {
+exports.runTests = function (casper, options) {
   casper.test.begin(options.bankName + " Payment", 1, function (test) {
     casper.start('https://localhost:' + config.port, function() {
       this.click("#"+options.bankName.toLowerCase()+"-payment");
@@ -35,9 +35,7 @@ exports.testPayment = function (casper, options) {
       test.done();
     });
   });
-};
 
-exports.testCancel = function (casper, options) {
   casper.test.begin(options.bankName+" Payment Cancel", 1, function (test) {
 
     casper.start('https://localhost:' + config.port, function() {
