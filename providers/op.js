@@ -48,7 +48,7 @@ exports.mapParams = function (providerConfig, options) {
     "PERUUTUS-LINKKI" : providerConfig.returnUrls.cancel,
     "VAHVISTUS" : formatting.formatBoolean(providerConfig.confirm, formatting.booleanFormats.KOrE),
     "VALUUTTALAJI" : providerConfig.currency,
-    "ERAPVM" : options.dueDate
+    "ERAPVM" : formatting.formatDueDate(options.dueDate, providerConfig.dueDate)
   };
 };
 
