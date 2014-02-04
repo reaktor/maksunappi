@@ -13,10 +13,10 @@
      "name" : "Handelsbanken",
      "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/SHBlogin.html",
      "imgPath" : "images/logo_handelsbanken.gif",
-     "paymentVersion" : "3",
+     "paymentVersion" : 3,
      "vendorId" : "0000000000",
      "vendorAccount" : "448710-126",
-     "confirm" : "YES",
+     "confirm" : true,
      "checksumKey" : "11111111111111111111"
     },
 
@@ -24,21 +24,21 @@
      "name" : "Nordea",
      "paymentUrl" : "https://solo3.nordea.fi/cgi-bin/SOLOPM01",
      "imgPath" : "images/logo_nordea.gif",
-     "paymentVersion" : "3",
+     "paymentVersion" : 3,
      "vendorId" : "12345678",
      "checksumKey" : "LEHTI",
-     "keyVersion" : "1",
-     "confirm" : "YES"
+     "keyVersion" : 1,
+     "confirm" : true
     },
 
     {"id" : "op",
      "name" : "Osuuspankkiryhmä",
      "paymentUrl" : "https://kultaraha.op.fi/cgi-bin/krcgi",
      "imgPath" : "images/logo_op.jpg",
-     "paymentVersion" : "1",
+     "paymentVersion" : 1,
      "vendorId" : "Esittelymyyja",
-     "keyVersion" : "1",
-     "confirm" : "K",
+     "keyVersion" : 1,
+     "confirm" : true,
      "checksumKey" : "Esittelykauppiaansalainentunnus",
      "macSeparator" : ""
     },
@@ -47,7 +47,7 @@
       "name" : "DanskeBank",
       "paymentUrl" : "https://verkkopankki.danskebank.fi/SP/vemaha/VemahaApp",
       "imgPath" : "https://www.danskebank.fi/verkkopalvelu/logo.gif",
-      "paymentVersion" : "4",
+      "paymentVersion" : 4,
       "vendorId" : "000000000000",
       "checksumKey" : "jumCLB4T2ceZWGJ9ztjuhn5FaeZnTm5HpfDXWU2APRqfDcsrBs8mqkFARzm7uXKd",
       "algorithmType" : "sha256"
@@ -57,10 +57,10 @@
       "name" : "Aktia",
       "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/login.html",
       "imgPath" : "images/logo_sppop.gif",
-      "paymentVersion" : "3",
+      "paymentVersion" : 3,
       "vendorId" : "0000000000",
       "vendorAccount" : "448710-126",
-      "confirm" : "YES",
+      "confirm" : true,
       "checksumKey" : "11111111111111111111"
     },
 
@@ -71,26 +71,26 @@
       "paymentVersion" : "2",
       "vendorId" : "TAPESHOPID",
       "vendorAccount" : "363630-01652643",
-      "confirm" : "YES",
+      "confirm" : true,
       "checksumKey" : "PAPUKAIJA",
       "vendorName" : "TESTIKAUPPA",
       "language" : "1",
-      "keyVersion" : "1"
+      "keyVersion" : 1
     },
 
     {"id" : "alandsbanken",
       "name" : "Ålandsbanken",
       "paymentUrl" : "https://online.alandsbanken.fi/service/paybutton",
       "imgPath" : "images/logo_alandsbanken.gif",
-      "paymentVersion" : "2",
+      "paymentVersion" : 2,
       "vendorId" : "AABESHOPID",
       "vendorAccount" : "660100-01130855",
-      "confirm" : "YES",
+      "confirm" : true,
       "checksumKey" : "PAPEGOJA",
       "vendorName" : "TESTIKAUPPA",
       "language" : "1",
-      "cookie" : "no",
-      "keyVersion" : "1"
+      "cookie" : false,
+      "keyVersion" : 1
     },
 
     {"id" : "spankki",
@@ -100,11 +100,11 @@
       "paymentVersion" : "2",
       "vendorId" : "SPANKKIESHOPID",
       "vendorAccount" : "FI4139390001002369",
-      "confirm" : "YES",
+      "confirm" : true,
       "checksumKey" : "SPANKKI",
       "vendorName" : "TESTIKAUPPA",
       "language" : "1",
-      "keyVersion" : "1"
+      "keyVersion" : 1
     }
   ]
 }

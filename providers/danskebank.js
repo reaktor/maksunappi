@@ -38,7 +38,7 @@ exports.mapParams = function (providerConfig, options) {
     ERAPAIVA: dueDate(options.dueDate),
     OKURL: providerConfig.returnUrls.ok.url,
     VIRHEURL: providerConfig.returnUrls.reject,
-    lng: formatting.formatLanguage(options.langCode, formatting.allowEnglish),
+    lng: formatting.formatLanguage(options.langCode, formatting.languageFormats.allowEnglish),
     ALG: SHA256
   };
 };

@@ -28,7 +28,7 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_RCV_ID" : providerConfig.vendorId,
     "AAB_RCV_ACCOUNT" : providerConfig.vendorAccount,
     "AAB_RCV_NAME" : providerConfig.vendorName,
-    "AAB_LANGUAGE" : formatting.formatLanguage(options.language, formatting.mapEnglishToDefault),
+    "AAB_LANGUAGE" : formatting.formatLanguage(options.language, formatting.languageFormats.mapEnglishToDefault),
     "AAB_AMOUNT" : formatting.formatAmount(options.amount),
     "AAB_REF" : options.reference,
     "AAB_DATE" : providerConfig.dueDate,
@@ -36,7 +36,7 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_RETURN" : providerConfig.returnUrls.ok.url,
     "AAB_CANCEL" : providerConfig.returnUrls.cancel,
     "AAB_REJECT" : providerConfig.returnUrls.reject,
-    "AAB_CONFIRM" : providerConfig.confirm,
+    "AAB_CONFIRM" : formatting.formatBoolean(providerConfig.confirm),
     "AAB_KEYVERS" : formatVersion(providerConfig.keyVersion),
     "AAB_CUR" : providerConfig.currency
   };

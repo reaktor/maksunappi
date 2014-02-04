@@ -41,7 +41,7 @@ exports.mapParams = function (providerConfig, options) {
     "NET_RETURN" : providerConfig.returnUrls.ok.url,
     "NET_CANCEL" : providerConfig.returnUrls.cancel,
     "NET_REJECT" : providerConfig.returnUrls.reject,
-    "NET_CONFIRM" : providerConfig.confirm,
+    "NET_CONFIRM" : formatting.formatBoolean(providerConfig.confirm),
     "NET_ALG" : formatAlgorithm(providerConfig)
   };
 };

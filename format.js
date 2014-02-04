@@ -7,6 +7,35 @@ var MAX_ROWS = 6;
 var LINEBREAK = '\r\n';
 var DEFAULT_LANGUAGE = 1;
 
+exports.booleanFormats = {
+  YesOrNo: {
+    true: 'YES',
+    false: 'NO'
+  },
+  KOrE: {
+    true: 'K',
+    false: 'E'
+  }
+};
+
+exports.languageFormats = {
+  allowEnglish: {
+    FI: DEFAULT_LANGUAGE,
+    SV: 2,
+    EN: 3
+  },
+  mapEnglishToDefault: {
+    FI: DEFAULT_LANGUAGE,
+    SV: 2,
+    EN: DEFAULT_LANGUAGE
+  }
+}
+
+exports.formatBoolean = function (boolean, format) {
+  var formatter = format || exports.booleanFormats.YesOrNo;
+  return formatter[!!boolean];
+};
+
 exports.formatVersionNumber = function (versionStr, toLength) {
   var len = toLength || 1;
   return _.str.sprintf('%0'+len+'d', parseInt(versionStr.toString()));
@@ -57,18 +86,6 @@ exports.dueDateToday = function () {
   return dueDate(new Date());
 };
 
-exports.formatConfirmation = function (confirm, defaultValue) {
-  return formatOrDefault(confirm, toParam, defaultValue);
-
-  function toParam(confirm) {
-    if (confirm) {
-      return "YES";
-    } else {
-      return "NO";
-    }
-  }
-};
-
 function formatOrDefault(param, formatToParam, defaultValue) {
   if (helpers.isNullOrUndefined(param)) {
     return defaultValue;
@@ -79,18 +96,6 @@ function formatOrDefault(param, formatToParam, defaultValue) {
 
 exports.formatAmount = function (amount) {
   return _.str.numberFormat(amount, 2, ',', '');
-};
-
-exports.allowEnglish = {
-  FI: DEFAULT_LANGUAGE,
-  SV: 2,
-  EN: 3
-};
-
-exports.mapEnglishToDefault = {
-  FI: DEFAULT_LANGUAGE,
-  SV: 2,
-  EN: DEFAULT_LANGUAGE
 };
 
 exports.formatLanguage = function (langCode, mapping) {

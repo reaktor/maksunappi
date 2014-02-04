@@ -46,7 +46,7 @@ exports.mapParams = function (providerConfig, options) {
     "TARKISTE-VERSIO" : providerConfig.keyVersion,
     "PALUU-LINKKI" : providerConfig.returnUrls.ok.url,
     "PERUUTUS-LINKKI" : providerConfig.returnUrls.cancel,
-    "VAHVISTUS" : providerConfig.confirm,
+    "VAHVISTUS" : formatting.formatBoolean(providerConfig.confirm, formatting.booleanFormats.KOrE),
     "VALUUTTALAJI" : providerConfig.currency,
     "ERAPVM" : options.dueDate
   };

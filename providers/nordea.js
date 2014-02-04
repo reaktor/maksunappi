@@ -29,7 +29,7 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_VERSION: formatVersion(providerConfig.paymentVersion),
     SOLOPMT_STAMP: options.requestId,
     SOLOPMT_RCV_ID: providerConfig.vendorId,
-    SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.allowEnglish),
+    SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.languageFormats.allowEnglish),
     SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
     SOLOPMT_REF: options.reference,
     SOLOPMT_DATE: formatting.formatDueDate(options.dueDate, providerConfig.dueDate),
@@ -37,7 +37,7 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_RETURN: providerConfig.returnUrls.ok.url,
     SOLOPMT_CANCEL: providerConfig.returnUrls.cancel,
     SOLOPMT_REJECT: providerConfig.returnUrls.reject,
-    SOLOPMT_CONFIRM: formatting.formatConfirmation(options.confirm, providerConfig.confirm),
+    SOLOPMT_CONFIRM: formatting.formatBoolean(providerConfig.confirm),
     SOLOPMT_KEYVERS: formatVersion(providerConfig.keyVersion),
     SOLOPMT_CUR: providerConfig.currency,
     SOLOPMT_PMTTYPE: options.mobile ? 'M' : undefined,
@@ -49,7 +49,6 @@ exports.mapParams = function (providerConfig, options) {
 function formatVersion(versionNumber) {
   return formatting.formatVersionNumber(versionNumber, 4);
 }
-
 
 exports.algorithmType = function (bankConfig) {
   return bankConfig.algorithmType;
