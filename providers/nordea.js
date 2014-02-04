@@ -53,6 +53,7 @@ function validateParams (providerConfig, options) {
   parameters.requireLengthMax(options, 'message', 420);
   parameters.requireLengthMax(providerConfig, 'currency', 3);
   parameters.requireLengthMax(providerConfig, 'vendorName', 30);
+  parameters.requireLengthBetween(providerConfig, 'vendorId', 8, 15);
   parameters.requireLengthBetween(providerConfig, 'reference', 2, 25);
   parameters.requireLengthBetween(providerConfig, 'vendorAccount', 8, 42);
   parameters.requireUrlLengthMax(providerConfig.returnUrls, 120);
