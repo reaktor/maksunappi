@@ -4,11 +4,11 @@ var formatting = require('../format');
 
 module.exports = shared;
 
-exports.mapParams = function (providerConfig, options) {
-  var params = shared.mapParams(providerConfig, options);
+exports.mapParams = function (options) {
+  var params = shared.mapParams(options);
 
-  parameters.requireParams(providerConfig, ['cookie']);
-  params.BC_UseBVCookie = formatCookie(providerConfig.cookie);
+  parameters.requireParams(options, ['cookie']);
+  params.BC_UseBVCookie = formatCookie(options.cookie);
 
   return params;
 };

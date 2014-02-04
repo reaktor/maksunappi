@@ -19,26 +19,26 @@ var RETURN_MAC_PARAMS = [
   'AAB-RETURN-PAID'
 ];
 
-exports.mapParams = function (providerConfig, options) {
-  validateParams(providerConfig, options);
+exports.mapParams = function (options) {
+  validateParams(options);
 
   return {
-    "AAB_VERSION" : formatVersion(providerConfig.paymentVersion),
+    "AAB_VERSION" : formatVersion(options.paymentVersion),
     "AAB_STAMP" : options.requestId,
-    "AAB_RCV_ID" : providerConfig.vendorId,
-    "AAB_RCV_ACCOUNT" : providerConfig.vendorAccount,
-    "AAB_RCV_NAME" : providerConfig.vendorName,
+    "AAB_RCV_ID" : options.vendorId,
+    "AAB_RCV_ACCOUNT" : options.vendorAccount,
+    "AAB_RCV_NAME" : options.vendorName,
     "AAB_LANGUAGE" : formatting.formatLanguage(options.language, formatting.languageFormats.mapEnglishToDefault),
     "AAB_AMOUNT" : formatting.formatAmount(options.amount),
     "AAB_REF" : options.reference,
-    "AAB_DATE" : providerConfig.dueDate,
+    "AAB_DATE" : formatting.formatDueDate(options.dueDate),
     "AAB_MSG" : formatting.formatMessage(options.messageOnlyForWebForm),
-    "AAB_RETURN" : providerConfig.returnUrls.ok.url,
-    "AAB_CANCEL" : providerConfig.returnUrls.cancel,
-    "AAB_REJECT" : providerConfig.returnUrls.reject,
-    "AAB_CONFIRM" : formatting.formatBoolean(providerConfig.confirm),
-    "AAB_KEYVERS" : formatVersion(providerConfig.keyVersion),
-    "AAB_CUR" : providerConfig.currency
+    "AAB_RETURN" : options.returnUrls.ok.url,
+    "AAB_CANCEL" : options.returnUrls.cancel,
+    "AAB_REJECT" : options.returnUrls.reject,
+    "AAB_CONFIRM" : formatting.formatBoolean(options.confirm),
+    "AAB_KEYVERS" : formatVersion(options.keyVersion),
+    "AAB_CUR" : options.currency
   };
 };
 
@@ -46,13 +46,12 @@ function formatVersion(versionNumber) {
   return formatting.formatVersionNumber(versionNumber, 4);
 }
 
-function validateParams (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount', 'reference']);
-  parameters.requireParams(providerConfig,
-    ['paymentVersion', 'vendorId', 'vendorAccount', 'vendorName',
-      'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion', 'language']);
+function validateParams (options) {
+  parameters.requireParams(options, ['requestId', 'amount', 'reference',
+    'paymentVersion', 'vendorId', 'vendorAccount', 'vendorName',
+    'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion', 'language']);
 
-  parameters.requireInclusionIn(providerConfig, 'dueDate', ['EXPRESS']);
+  parameters.requireInclusionIn(options, 'dueDate', ['EXPRESS']);
   parameters.requireLengthMax(options, 'requestId', 15);
 }
 

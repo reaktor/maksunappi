@@ -24,20 +24,19 @@ var RETURN_MAC_PARAMS = [
   'ERAPAIVA'
 ];
 
-exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['amount', 'reference']);
-  parameters.requireParams(providerConfig,
-    ['vendorId', 'currency', 'paymentVersion', 'returnUrls', 'dueDate', 'algorithmType']);
+exports.mapParams = function (options) {
+  parameters.requireParams(options, ['amount', 'reference', 'vendorId',
+    'currency', 'paymentVersion', 'returnUrls', 'dueDate', 'algorithmType']);
 
   return {
-    KNRO: providerConfig.vendorId,
+    KNRO: options.vendorId,
     SUMMA: formatting.formatAmount(options.amount),
     VIITE: options.reference,
-    VALUUTTA: providerConfig.currency,
-    VERSIO: formatting.formatVersionNumber(providerConfig.paymentVersion, 1),
+    VALUUTTA: options.currency,
+    VERSIO: formatting.formatVersionNumber(options.paymentVersion, 1),
     ERAPAIVA: dueDate(options.dueDate),
-    OKURL: providerConfig.returnUrls.ok.url,
-    VIRHEURL: providerConfig.returnUrls.reject,
+    OKURL: options.returnUrls.ok.url,
+    VIRHEURL: options.returnUrls.reject,
     lng: formatting.formatLanguage(options.langCode, formatting.languageFormats.allowEnglish),
     ALG: SHA256
   };
@@ -47,7 +46,7 @@ function dueDate(dateParam) {
   if (dateParam == 'EXPRESS' || dateParam == 'HETI') {
     return formatting.dueDateToday();
   } else {
-    return formatting.formatDueDate(dateParam, formatting.dueDateToday());
+    return formatting.formatDueDate(dateParam);
   }
 }
 

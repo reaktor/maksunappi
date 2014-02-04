@@ -66,14 +66,14 @@ exports.formatMessage = function (message, rowLimit) {
   return rows.slice(0, rowLimit || MAX_ROWS).join(LINEBREAK);
 };
 
-exports.formatDueDate = function (date, defaultValue) {
+exports.formatDueDate = function (date) {
   // TODO: log a warning if this changes the date?
   if (date == 'EXPRESS' || date == 'HETI') {
     return date;
   } else if (date && helpers.lessThanIgnoreTime(date, new Date())) {
     return exports.dueDateToday();
   } else {
-    return formatOrDefault(date, dueDate, defaultValue);
+    return dueDate(date);
   }
 };
 
@@ -85,14 +85,6 @@ function dueDate(date) {
 exports.dueDateToday = function () {
   return dueDate(new Date());
 };
-
-function formatOrDefault(param, formatToParam, defaultValue) {
-  if (helpers.isNullOrUndefined(param)) {
-    return defaultValue;
-  } else {
-    return formatToParam(param);
-  }
-}
 
 exports.formatAmount = function (amount) {
   var value = parseInt(amount);

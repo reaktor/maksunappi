@@ -20,29 +20,28 @@ var RETURN_MAC_PARAMS = [
   'SOLOPMT_RETURN_PAID'
 ];
 
-exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount']);
-  parameters.requireParams(providerConfig,
-    ['paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
+exports.mapParams = function (options) {
+  parameters.requireParams(options, ['requestId', 'amount',
+    'paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
 
   return {
-    SOLOPMT_VERSION: formatVersion(providerConfig.paymentVersion),
+    SOLOPMT_VERSION: formatVersion(options.paymentVersion),
     SOLOPMT_STAMP: options.requestId,
-    SOLOPMT_RCV_ID: providerConfig.vendorId,
+    SOLOPMT_RCV_ID: options.vendorId,
     SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.languageFormats.allowEnglish),
     SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
     SOLOPMT_REF: options.reference,
-    SOLOPMT_DATE: formatting.formatDueDate(options.dueDate, providerConfig.dueDate),
+    SOLOPMT_DATE: formatting.formatDueDate(options.dueDate),
     SOLOPMT_MSG: formatting.formatMessage(options.message),
-    SOLOPMT_RETURN: providerConfig.returnUrls.ok.url,
-    SOLOPMT_CANCEL: providerConfig.returnUrls.cancel,
-    SOLOPMT_REJECT: providerConfig.returnUrls.reject,
-    SOLOPMT_CONFIRM: formatting.formatBoolean(providerConfig.confirm),
-    SOLOPMT_KEYVERS: formatVersion(providerConfig.keyVersion),
-    SOLOPMT_CUR: providerConfig.currency,
+    SOLOPMT_RETURN: options.returnUrls.ok.url,
+    SOLOPMT_CANCEL: options.returnUrls.cancel,
+    SOLOPMT_REJECT: options.returnUrls.reject,
+    SOLOPMT_CONFIRM: formatting.formatBoolean(options.confirm),
+    SOLOPMT_KEYVERS: formatVersion(options.keyVersion),
+    SOLOPMT_CUR: options.currency,
     SOLOPMT_PMTTYPE: options.mobile ? 'M' : undefined,
-    SOLOPMT_RCV_ACCOUNT: providerConfig.vendorAccount,
-    SOLOPMT_RCV_NAME: providerConfig.vendorName
+    SOLOPMT_RCV_ACCOUNT: options.vendorAccount,
+    SOLOPMT_RCV_NAME: options.vendorName
   };
 };
 

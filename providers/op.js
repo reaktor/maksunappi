@@ -23,10 +23,9 @@ var RETURN_MAC_PARAMS = [
   'TARKISTE-VERSIO'
 ];
 
-exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount', 'reference']);
-  parameters.requireParams(providerConfig,
-      ['paymentVersion', 'vendorId', 'keyVersion', 'currency', 'returnUrls']
+exports.mapParams = function (options) {
+  parameters.requireParams(options, ['requestId', 'amount', 'reference',
+    'paymentVersion', 'vendorId', 'keyVersion', 'currency', 'returnUrls']
   );
 
   var splittedMessage = splitAndFormatMessage(options.message);
@@ -35,20 +34,20 @@ exports.mapParams = function (providerConfig, options) {
 
   return {
     "action_id" : "701",
-    "VERSIO" : formatting.formatVersionNumber(providerConfig.paymentVersion, 4),
+    "VERSIO" : formatting.formatVersionNumber(options.paymentVersion, 4),
     "MAKSUTUNNUS" : options.requestId,
-    "MYYJA" : providerConfig.vendorId,
+    "MYYJA" : options.vendorId,
     "SUMMA" : formatting.formatAmount(options.amount),
     "VIITE" :  options.reference,
     "VIESTI" : formatting.formatMessage(options.messageOnlyForWebForm),
     "VIEST1" : line1,
     "VIEST2" : line2,
-    "TARKISTE-VERSIO" : providerConfig.keyVersion,
-    "PALUU-LINKKI" : providerConfig.returnUrls.ok.url,
-    "PERUUTUS-LINKKI" : providerConfig.returnUrls.cancel,
-    "VAHVISTUS" : formatting.formatBoolean(providerConfig.confirm, formatting.booleanFormats.KOrE),
-    "VALUUTTALAJI" : providerConfig.currency,
-    "ERAPVM" : formatting.formatDueDate(options.dueDate, providerConfig.dueDate)
+    "TARKISTE-VERSIO" : options.keyVersion,
+    "PALUU-LINKKI" : options.returnUrls.ok.url,
+    "PERUUTUS-LINKKI" : options.returnUrls.cancel,
+    "VAHVISTUS" : formatting.formatBoolean(options.confirm, formatting.booleanFormats.KOrE),
+    "VALUUTTALAJI" : options.currency,
+    "ERAPVM" : formatting.formatDueDate(options.dueDate)
   };
 };
 

@@ -26,32 +26,31 @@ var RETURN_MAC_PARAMS = [
   'NET_ALG'
 ];
 
-exports.mapParams = function (providerConfig, options) {
-  validateParams(providerConfig, options);
+exports.mapParams = function (options) {
+  validateParams(options);
 
   return {
-    "NET_VERSION" : formatting.formatVersionNumber(providerConfig.paymentVersion, 3),
+    "NET_VERSION" : formatting.formatVersionNumber(options.paymentVersion, 3),
     "NET_STAMP" : options.requestId,
-    "NET_SELLER_ID" : providerConfig.vendorId,
+    "NET_SELLER_ID" : options.vendorId,
     "NET_AMOUNT" : formatting.formatAmount(options.amount),
-    "NET_CUR" : providerConfig.currency,
+    "NET_CUR" : options.currency,
     "NET_REF" : options.reference,
-    "NET_DATE" : providerConfig.dueDate,
+    "NET_DATE" : formatting.formatDueDate(options.dueDate),
     "NET_MSG" : formatting.formatMessage(options.messageOnlyForWebForm),
-    "NET_RETURN" : providerConfig.returnUrls.ok.url,
-    "NET_CANCEL" : providerConfig.returnUrls.cancel,
-    "NET_REJECT" : providerConfig.returnUrls.reject,
-    "NET_CONFIRM" : formatting.formatBoolean(providerConfig.confirm),
-    "NET_ALG" : formatAlgorithm(providerConfig)
+    "NET_RETURN" : options.returnUrls.ok.url,
+    "NET_CANCEL" : options.returnUrls.cancel,
+    "NET_REJECT" : options.returnUrls.reject,
+    "NET_CONFIRM" : formatting.formatBoolean(options.confirm),
+    "NET_ALG" : formatAlgorithm(options)
   };
 };
 
-function validateParams (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount', 'reference']);
-  parameters.requireParams(providerConfig,
-    ['paymentVersion', 'vendorId', 'currency', 'dueDate', 'returnUrls', 'confirm']);
+function validateParams (options) {
+  parameters.requireParams(options, ['requestId', 'amount', 'reference',
+    'paymentVersion', 'vendorId', 'currency', 'dueDate', 'returnUrls', 'confirm']);
 
-  parameters.requireInclusionIn(providerConfig, 'dueDate', ['EXPRESS']);
+  parameters.requireInclusionIn(options, 'dueDate', ['EXPRESS']);
 }
 
 exports.algorithmType = function (bankConfig) {

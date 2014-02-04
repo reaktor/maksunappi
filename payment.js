@@ -57,8 +57,9 @@ exports.create = function (globalOptions, bankOptions) {
 function createButton (bank, options) {
   var provider = bank.provider;
   if (provider && bank) {
+    var formParams = provider.mapParams(_.extend({}, bank, options));
     var providerParams = {
-      bankParams: removeIf(provider.mapParams(bank, options), function (k, v) {
+      bankParams: removeIf(formParams, function (k, v) {
         return !v;
       })
     };
