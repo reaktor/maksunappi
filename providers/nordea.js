@@ -21,9 +21,7 @@ var RETURN_MAC_PARAMS = [
 ];
 
 exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount']);
-  parameters.requireParams(providerConfig,
-    ['paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
+  validateParams(providerConfig, options);
 
   return {
     SOLOPMT_VERSION: formatVersion(providerConfig.paymentVersion),
@@ -45,6 +43,20 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_RCV_NAME: providerConfig.vendorName
   };
 };
+
+function validateParams (providerConfig, options) {
+  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(providerConfig,
+    ['paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
+
+  parameters.requireLengthMax(options, 'requestId', 20);
+  parameters.requireLengthMax(options, 'message', 420);
+  parameters.requireLengthMax(providerConfig, 'currency', 3);
+  parameters.requireLengthMax(providerConfig, 'vendorName', 30);
+  parameters.requireLengthBetween(providerConfig, 'reference', 2, 25);
+  parameters.requireLengthBetween(providerConfig, 'vendorAccount', 8, 42);
+  parameters.requireUrlLengthMax(providerConfig.returnUrls, 120);
+}
 
 function formatVersion(versionNumber) {
   return formatting.formatVersionNumber(versionNumber, 4);

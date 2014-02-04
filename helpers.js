@@ -1,5 +1,9 @@
 var _ = require('underscore')._;
 
+exports.isEmpty = function (value) {
+  return exports.isNullOrUndefined(value) || value === "";
+};
+
 exports.isNullOrUndefined = function (value) {
   return _.isNull(value) || _.isUndefined(value);
 };
@@ -21,8 +25,8 @@ exports.getElemenByIdxOrDefault = function(array, idx, def) {
 
 exports.sum = function (collection) {
   return _.reduce(collection, function (acc, n) { return acc + n; }, 0);
-}
+};
 
 exports.flatMap = function (collection, fun) {
   return _.flatten(_.map(collection, fun));
-}
+};
