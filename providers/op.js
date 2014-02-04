@@ -29,7 +29,7 @@ exports.mapParams = function (providerConfig, options) {
       ['currency', 'returnUrls']
   );
 
-  var splittedMessage = splittedAndFormattedMessage(options.message);
+  var splittedMessage = splitAndFormatMessage(options.message);
   var line1 = helpers.getElemenByIdxOrDefault(splittedMessage, 0 , "");
   var line2 = helpers.getElemenByIdxOrDefault(splittedMessage, 1 , "");
 
@@ -52,7 +52,7 @@ exports.mapParams = function (providerConfig, options) {
   };
 };
 
-function splittedAndFormattedMessage(rawMessage) {
+function splitAndFormatMessage(rawMessage) {
   var lines = 2;
   var message = formatting.formatMessage(rawMessage, lines);
   if (!message) return undefined;

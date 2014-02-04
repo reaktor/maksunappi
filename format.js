@@ -43,9 +43,7 @@ exports.formatVersionNumber = function (versionStr, toLength) {
 
 exports.formatMessage = function (message, rowLimit) {
   if (!message) return undefined;
-  if(rowLimit) {
-    MAX_ROWS = rowLimit;
-  }
+
   var words = helpers.flatMap(_.str.words(message.trim()), function (word) {
     return _.str.chop(word, MAX_ROW_LEN)
   });
@@ -65,7 +63,7 @@ exports.formatMessage = function (message, rowLimit) {
     return memo;
   }, [""]);
 
-  return rows.slice(0, MAX_ROWS).join(LINEBREAK);
+  return rows.slice(0, rowLimit || MAX_ROWS).join(LINEBREAK);
 };
 
 exports.formatDueDate = function (date, defaultValue) {
