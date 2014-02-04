@@ -93,7 +93,12 @@ function formatOrDefault(param, formatToParam, defaultValue) {
 }
 
 exports.formatAmount = function (amount) {
-  return _.str.numberFormat(amount, 2, ',', '');
+  var value = parseInt(amount);
+  if (isNaN(value)) {
+    throw new Error("Invalid amount: '" + amount + "'.");
+  } else {
+    return _.str.numberFormat(value, 2, ',', '');
+  }
 };
 
 exports.formatLanguage = function (langCode, mapping) {
