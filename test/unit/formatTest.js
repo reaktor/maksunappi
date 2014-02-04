@@ -54,3 +54,15 @@ describe('Language formatting', function () {
     }, /Unsupported language code 'se'/);
   });
 });
+
+describe('Payment version formatting', function () {
+  it('should pad the version number with zeros up to the given length', function () {
+    assert.equal('002', formatter.formatVersionNumber(2, 3));
+    assert.equal('0005', formatter.formatVersionNumber("5", 4));
+    assert.equal('1', formatter.formatVersionNumber('1', 1));
+  });
+
+  it('should ignore leading zeros in the input', function () {
+    assert.equal('003', formatter.formatVersionNumber("0003", 3));
+  });
+});

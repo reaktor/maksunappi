@@ -26,7 +26,7 @@ exports.mapParams = function (providerConfig, options) {
     ['paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
 
   return {
-    SOLOPMT_VERSION: providerConfig.paymentVersion,
+    SOLOPMT_VERSION: formatting.formatVersionNumber(providerConfig.paymentVersion, 4),
     SOLOPMT_STAMP: options.requestId,
     SOLOPMT_RCV_ID: providerConfig.vendorId,
     SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.allowEnglish),

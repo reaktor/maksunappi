@@ -34,7 +34,7 @@ exports.mapParams = function (providerConfig, options) {
     SUMMA: formatting.formatAmount(options.amount),
     VIITE: options.reference,
     VALUUTTA: providerConfig.currency,
-    VERSIO: providerConfig.paymentVersion,
+    VERSIO: formatting.formatVersionNumber(providerConfig.paymentVersion, 1),
     ERAPAIVA: dueDate(options.dueDate),
     OKURL: providerConfig.returnUrls.ok.url,
     VIRHEURL: providerConfig.returnUrls.reject,

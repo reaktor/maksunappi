@@ -35,7 +35,7 @@ exports.mapParams = function (providerConfig, options) {
 
   return {
     "action_id" : "701",
-    "VERSIO" : providerConfig.paymentVersion,
+    "VERSIO" : formatting.formatVersionNumber(providerConfig.paymentVersion, 4),
     "MAKSUTUNNUS" : options.requestId,
     "MYYJA" : providerConfig.vendorId,
     "SUMMA" : formatting.formatAmount(options.amount),

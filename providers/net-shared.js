@@ -30,7 +30,7 @@ exports.mapParams = function (providerConfig, options) {
   validateParams(providerConfig, options);
 
   return {
-    "NET_VERSION" : providerConfig.paymentVersion,
+    "NET_VERSION" : formatting.formatVersionNumber(providerConfig.paymentVersion, 3),
     "NET_STAMP" : options.requestId,
     "NET_SELLER_ID" : providerConfig.vendorId,
     "NET_AMOUNT" : formatting.formatAmount(options.amount),
@@ -55,7 +55,7 @@ function validateParams (providerConfig, options) {
 }
 
 exports.algorithmType = function (bankConfig) {
-  if (bankConfig.paymentVersion == "003") {
+  if (parseInt(bankConfig.paymentVersion) == 3) {
     return "sha256";
   } else {
     return "md5";
@@ -72,10 +72,10 @@ exports.returnMacParams = function (providerConfig, queryParams) {
 };
 
 function macParamsForVersion(paymentVersion) {
-  switch (paymentVersion) {
-    case "001": return MAC_VERSION1;
-    case "002": return MAC_VERSION2;
-    case "003": return MAC_VERSION3;
+  switch (parseInt(paymentVersion)) {
+    case 1: return MAC_VERSION1;
+    case 2: return MAC_VERSION2;
+    case 3: return MAC_VERSION3;
     default: throw new Error("Unknown payment version '" + paymentVersion + "'.");
   }
 }

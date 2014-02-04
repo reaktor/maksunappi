@@ -23,7 +23,7 @@ exports.mapParams = function (providerConfig, options) {
   validateParams(providerConfig, options);
 
   return {
-    "AAB_VERSION" : providerConfig.paymentVersion,
+    "AAB_VERSION" : formatting.formatVersionNumber(providerConfig.paymentVersion, 4),
     "AAB_STAMP" : options.requestId,
     "AAB_RCV_ID" : providerConfig.vendorId,
     "AAB_RCV_ACCOUNT" : providerConfig.vendorAccount,

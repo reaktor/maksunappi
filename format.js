@@ -7,6 +7,11 @@ var MAX_ROWS = 6;
 var LINEBREAK = '\r\n';
 var DEFAULT_LANGUAGE = 1;
 
+exports.formatVersionNumber = function (versionStr, toLength) {
+  var len = toLength || 1;
+  return _.str.sprintf('%0'+len+'d', parseInt(versionStr.toString()));
+};
+
 exports.formatMessage = function (message, rowLimit) {
   if (!message) return undefined;
   if(rowLimit) {
