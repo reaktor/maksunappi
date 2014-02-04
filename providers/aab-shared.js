@@ -54,13 +54,6 @@ function validateParams (providerConfig, options) {
 
   parameters.requireInclusionIn(providerConfig, 'dueDate', ['EXPRESS']);
   parameters.requireLengthMax(options, 'requestId', 15);
-  parameters.requireLengthMax(options, 'reference', 20);
-  parameters.requireLengthMax(options, 'messageOnlyForWebForm', 245);
-  parameters.requireLengthBetween(providerConfig, 'vendorId', 8, 15);
-  parameters.requireLengthMax(providerConfig, 'vendorAccount', 34);
-  parameters.requireLengthMax(providerConfig, 'vendorName', 15);
-  parameters.requireLengthMax(providerConfig, 'currency', 3);
-  parameters.requireUrlLengthMax(providerConfig.returnUrls, 199);
 }
 
 exports.algorithmType = function (bankConfig) {
