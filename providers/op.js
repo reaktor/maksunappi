@@ -73,12 +73,6 @@ exports.returnMacParams = function (providerConfig, queryParams) {
 
 exports.macFormName = 'TARKISTE';
 
-exports.isMyQuery = function (query) {
-  var keys = _.keys(query);
-  return _.contains(keys, 'MAKSUTUNNUS') &&
-    _.contains(keys, 'ARKISTOINTITUNNUS');
-};
-
 exports.renameQueryParams = function (query) {
   return {
     version: parseInt(query.VERSIO),

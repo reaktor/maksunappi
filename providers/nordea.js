@@ -63,10 +63,6 @@ exports.returnMacParams = function (providerConfig, queryParams) {
 
 exports.macFormName = 'SOLOPMT_MAC';
 
-exports.isMyQuery = function (query) {
-  return _.keys(query)[0].match(/^SOLOPMT/);
-};
-
 exports.renameQueryParams = function (query) {
   return {
     version: parseInt(query.SOLOPMT_RETURN_VERSION),

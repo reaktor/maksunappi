@@ -69,10 +69,6 @@ exports.returnMacParams = function (providerConfig, queryParams) {
 
 exports.macFormName = 'AAB_MAC';
 
-exports.isMyQuery = function (query) {
-  return _.keys(query)[0].match(/^AAB/);
-};
-
 exports.renameQueryParams = function (query) {
   return {
     version: parseInt(query["AAB-RETURN-VERSION"]),

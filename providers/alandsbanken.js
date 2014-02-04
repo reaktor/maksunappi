@@ -16,7 +16,3 @@ exports.mapParams = function (options) {
 function formatCookie (value) {
   return formatting.formatBoolean(value).toLowerCase();
 }
-
-exports.isMyQuery = function (query) {
-  return false;
-};

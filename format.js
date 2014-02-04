@@ -29,7 +29,7 @@ exports.languageFormats = {
     SV: 2,
     EN: DEFAULT_LANGUAGE
   }
-}
+};
 
 exports.formatBoolean = function (boolean, format) {
   var formatter = format || exports.booleanFormats.YesOrNo;

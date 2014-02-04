@@ -85,10 +85,6 @@ function formatAlgorithm (bankConfig) {
   return exports.algorithmType(bankConfig) === "sha256" ? "03" : undefined;
 }
 
-exports.isMyQuery = function (query) {
-  return _.keys(query)[0].match(/^NET/);
-};
-
 exports.renameQueryParams = function (query) {
   return {
     version: parseInt(query.NET_RETURN_VERSION),
