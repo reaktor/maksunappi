@@ -26,7 +26,7 @@ exports.mapParams = function (providerConfig, options) {
     ['paymentVersion', 'vendorId', 'dueDate', 'keyVersion', 'currency', 'returnUrls']);
 
   return {
-    SOLOPMT_VERSION: formatting.formatVersionNumber(providerConfig.paymentVersion, 4),
+    SOLOPMT_VERSION: formatVersion(providerConfig.paymentVersion),
     SOLOPMT_STAMP: options.requestId,
     SOLOPMT_RCV_ID: providerConfig.vendorId,
     SOLOPMT_LANGUAGE: formatting.formatLanguage(options.language, formatting.allowEnglish),
@@ -38,13 +38,18 @@ exports.mapParams = function (providerConfig, options) {
     SOLOPMT_CANCEL: providerConfig.returnUrls.cancel,
     SOLOPMT_REJECT: providerConfig.returnUrls.reject,
     SOLOPMT_CONFIRM: formatting.formatConfirmation(options.confirm, providerConfig.confirm),
-    SOLOPMT_KEYVERS: providerConfig.keyVersion,
+    SOLOPMT_KEYVERS: formatVersion(providerConfig.keyVersion),
     SOLOPMT_CUR: providerConfig.currency,
     SOLOPMT_PMTTYPE: options.mobile ? 'M' : undefined,
     SOLOPMT_RCV_ACCOUNT: providerConfig.vendorAccount,
     SOLOPMT_RCV_NAME: providerConfig.vendorName
   };
 };
+
+function formatVersion(versionNumber) {
+  return formatting.formatVersionNumber(versionNumber, 4);
+}
+
 
 exports.algorithmType = function (bankConfig) {
   return bankConfig.algorithmType;

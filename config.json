@@ -27,7 +27,7 @@
      "paymentVersion" : "3",
      "vendorId" : "12345678",
      "checksumKey" : "LEHTI",
-     "keyVersion" : "0001",
+     "keyVersion" : "1",
      "confirm" : "YES"
     },
 
@@ -75,7 +75,7 @@
       "checksumKey" : "PAPUKAIJA",
       "vendorName" : "TESTIKAUPPA",
       "language" : "1",
-      "keyVersion" : "0001"
+      "keyVersion" : "1"
     },
 
     {"id" : "alandsbanken",
@@ -90,7 +90,7 @@
       "vendorName" : "TESTIKAUPPA",
       "language" : "1",
       "cookie" : "no",
-      "keyVersion" : "0001"
+      "keyVersion" : "1"
     },
 
     {"id" : "spankki",
@@ -104,7 +104,7 @@
       "checksumKey" : "SPANKKI",
       "vendorName" : "TESTIKAUPPA",
       "language" : "1",
-      "keyVersion" : "0001"
+      "keyVersion" : "1"
     }
   ]
 }

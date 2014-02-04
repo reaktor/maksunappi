@@ -23,7 +23,7 @@ exports.mapParams = function (providerConfig, options) {
   validateParams(providerConfig, options);
 
   return {
-    "AAB_VERSION" : formatting.formatVersionNumber(providerConfig.paymentVersion, 4),
+    "AAB_VERSION" : formatVersion(providerConfig.paymentVersion),
     "AAB_STAMP" : options.requestId,
     "AAB_RCV_ID" : providerConfig.vendorId,
     "AAB_RCV_ACCOUNT" : providerConfig.vendorAccount,
@@ -37,10 +37,14 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_CANCEL" : providerConfig.returnUrls.cancel,
     "AAB_REJECT" : providerConfig.returnUrls.reject,
     "AAB_CONFIRM" : providerConfig.confirm,
-    "AAB_KEYVERS" : providerConfig.keyVersion,
+    "AAB_KEYVERS" : formatVersion(providerConfig.keyVersion),
     "AAB_CUR" : providerConfig.currency
   };
 };
+
+function formatVersion(versionNumber) {
+  return formatting.formatVersionNumber(versionNumber, 4);
+}
 
 function validateParams (providerConfig, options) {
   parameters.requireParams(options, ['requestId', 'amount']);
