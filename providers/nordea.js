@@ -65,7 +65,7 @@ exports.macFormName = 'SOLOPMT_MAC';
 
 exports.renameQueryParams = function (query) {
   return {
-    version: parseInt(query.SOLOPMT_RETURN_VERSION),
+    version: helpers.toIntOrUndefined(query.SOLOPMT_RETURN_VERSION),
     requestId: query.SOLOPMT_RETURN_STAMP,
     reference: query.SOLOPMT_RETURN_REF,
     archivedId: query.SOLOPMT_RETURN_PAID,

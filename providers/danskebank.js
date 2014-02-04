@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var helpers = require('../helpers');
 var _ = require('underscore')._;
 
 var SHA256 = '03';
@@ -66,7 +67,7 @@ exports.macFormName = 'TARKISTE';
 
 exports.renameQueryParams = function (query) {
   return {
-    version: parseInt(query.VERSIO),
+    version: helpers.toIntOrUndefined(query.VERSIO),
     reference: query.VIITE,
     mac: query.TARKISTE,
     currency: query.VALUUTTA,

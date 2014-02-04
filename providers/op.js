@@ -75,7 +75,7 @@ exports.macFormName = 'TARKISTE';
 
 exports.renameQueryParams = function (query) {
   return {
-    version: parseInt(query.VERSIO),
+    version: helpers.toIntOrUndefined(query.VERSIO),
     requestId: query.MAKSUTUNNUS,
     reference: query.VIITE,
     archivedId: query.ARKISTOINTITUNNUS,

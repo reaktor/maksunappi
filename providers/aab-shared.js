@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var helpers = require('../helpers');
 var _ = require('underscore')._;
 
 var MAC_PARAMS = [
@@ -71,7 +72,7 @@ exports.macFormName = 'AAB_MAC';
 
 exports.renameQueryParams = function (query) {
   return {
-    version: parseInt(query["AAB-RETURN-VERSION"]),
+    version: helpers.toIntOrUndefined(query["AAB-RETURN-VERSION"]),
     requestId: query["AAB-RETURN-STAMP"],
     reference: query["AAB-RETURN-REF"],
     archivedId: query["AAB-RETURN-PAID"],

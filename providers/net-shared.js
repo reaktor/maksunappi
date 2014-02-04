@@ -1,5 +1,6 @@
 var formatting = require('../format');
 var parameters = require('../parameters');
+var helpers = require('../helpers');
 var _ = require('underscore')._;
 
 var MAC_VERSION1 = [
@@ -87,11 +88,11 @@ function formatAlgorithm (bankConfig) {
 
 exports.renameQueryParams = function (query) {
   return {
-    version: parseInt(query.NET_RETURN_VERSION),
+    version: helpers.toIntOrUndefined(query.NET_RETURN_VERSION),
     requestId: query.NET_RETURN_STAMP,
     reference: query.NET_RETURN_REF,
     archivedId: query.NET_RETURN_PAID,
     mac: query.NET_RETURN_MAC,
-    algorithm: parseInt(query.NET_ALG)
+    algorithm: helpers.toIntOrUndefined(query.NET_ALG)
   };
 };
