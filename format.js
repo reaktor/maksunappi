@@ -68,7 +68,9 @@ exports.formatMessage = function (message, rowLimit) {
 
 exports.formatDueDate = function (date, defaultValue) {
   // TODO: log a warning if this changes the date?
-  if (date && helpers.lessThanIgnoreTime(date, new Date())) {
+  if (date == 'EXPRESS' || date == 'HETI') {
+    return date;
+  } else if (date && helpers.lessThanIgnoreTime(date, new Date())) {
     return exports.dueDateToday();
   } else {
     return formatOrDefault(date, dueDate, defaultValue);
