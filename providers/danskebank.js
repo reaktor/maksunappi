@@ -25,9 +25,9 @@ var RETURN_MAC_PARAMS = [
 ];
 
 exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['amount', 'requestId']);
+  parameters.requireParams(options, ['amount', 'reference']);
   parameters.requireParams(providerConfig,
-    ['vendorId', 'currency', 'paymentVersion', 'returnUrls']);
+    ['vendorId', 'currency', 'paymentVersion', 'returnUrls', 'dueDate', 'algorithmType']);
 
   return {
     KNRO: providerConfig.vendorId,

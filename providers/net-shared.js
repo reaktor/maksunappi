@@ -47,7 +47,7 @@ exports.mapParams = function (providerConfig, options) {
 };
 
 function validateParams (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(options, ['requestId', 'amount', 'reference']);
   parameters.requireParams(providerConfig,
     ['paymentVersion', 'vendorId', 'currency', 'dueDate', 'returnUrls', 'confirm']);
 

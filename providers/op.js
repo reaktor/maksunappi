@@ -24,9 +24,9 @@ var RETURN_MAC_PARAMS = [
 ];
 
 exports.mapParams = function (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(options, ['requestId', 'amount', 'reference']);
   parameters.requireParams(providerConfig,
-      ['currency', 'returnUrls']
+      ['paymentVersion', 'vendorId', 'keyVersion', 'currency', 'returnUrls']
   );
 
   var splittedMessage = splitAndFormatMessage(options.message);

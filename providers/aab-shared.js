@@ -47,10 +47,10 @@ function formatVersion(versionNumber) {
 }
 
 function validateParams (providerConfig, options) {
-  parameters.requireParams(options, ['requestId', 'amount']);
+  parameters.requireParams(options, ['requestId', 'amount', 'reference']);
   parameters.requireParams(providerConfig,
     ['paymentVersion', 'vendorId', 'vendorAccount', 'vendorName',
-      'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion']);
+      'dueDate', 'currency', 'returnUrls', 'confirm', 'keyVersion', 'language']);
 
   parameters.requireInclusionIn(providerConfig, 'dueDate', ['EXPRESS']);
   parameters.requireLengthMax(options, 'requestId', 15);
