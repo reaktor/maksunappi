@@ -41,12 +41,10 @@ var sslOptions = {
 app.use(express.static(__dirname + '/css'));
 
 app.get('/', function (req, res) {
-  var now = moment().format('YYYYMMDDhhmmss');
-  var requestId = now;
+  var requestId = moment().format('YYYYMMDDhhmmss');
 
   var bankForms = _.map(payments.banks, function (bankId) {
     return payments.paymentButton(bankId, {
-      language: 'FI',
       requestId: requestId,
       amount: 5000,
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pellentesque dui dictum, fermentum risus non, congue tortor. Nam ornare sapien.",

@@ -74,7 +74,7 @@
       "confirm" : true,
       "checksumKey" : "PAPUKAIJA",
       "vendorName" : "TESTIKAUPPA",
-      "language" : "1",
+      "language" : "FI",
       "keyVersion" : 1
     },
 
@@ -88,7 +88,7 @@
       "confirm" : true,
       "checksumKey" : "PAPEGOJA",
       "vendorName" : "TESTIKAUPPA",
-      "language" : "1",
+      "language" : "FI",
       "cookie" : false,
       "keyVersion" : 1
     },
@@ -103,7 +103,7 @@
       "confirm" : true,
       "checksumKey" : "SPANKKI",
       "vendorName" : "TESTIKAUPPA",
-      "language" : "1",
+      "language" : "FI",
       "keyVersion" : 1
     }
   ]
