@@ -32,7 +32,7 @@ exports.mapParams = function (providerConfig, options) {
     "AAB_AMOUNT" : formatting.formatAmount(options.amount),
     "AAB_REF" : options.reference,
     "AAB_DATE" : providerConfig.dueDate,
-    "AAB_MSG" : formatting.formatMessage(options.message),
+    "AAB_MSG" : formatting.formatMessage(options.messageOnlyForWebForm),
     "AAB_RETURN" : providerConfig.returnUrls.ok.url,
     "AAB_CANCEL" : providerConfig.returnUrls.cancel,
     "AAB_REJECT" : providerConfig.returnUrls.reject,

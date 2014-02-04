@@ -37,7 +37,7 @@ exports.mapParams = function (providerConfig, options) {
     "NET_CUR" : providerConfig.currency,
     "NET_REF" : options.reference,
     "NET_DATE" : providerConfig.dueDate,
-    "NET_MSG" : formatting.formatMessage(options.message),
+    "NET_MSG" : formatting.formatMessage(options.messageOnlyForWebForm),
     "NET_RETURN" : providerConfig.returnUrls.ok.url,
     "NET_CANCEL" : providerConfig.returnUrls.cancel,
     "NET_REJECT" : providerConfig.returnUrls.reject,

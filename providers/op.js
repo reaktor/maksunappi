@@ -40,7 +40,7 @@ exports.mapParams = function (providerConfig, options) {
     "MYYJA" : providerConfig.vendorId,
     "SUMMA" : formatting.formatAmount(options.amount),
     "VIITE" :  options.reference,
-    "VIESTI" : formatting.formatMessage(options.message),
+    "VIESTI" : formatting.formatMessage(options.messageOnlyForWebForm),
     "VIEST1" : line1,
     "VIEST2" : line2,
     "TARKISTE-VERSIO" : providerConfig.keyVersion,
