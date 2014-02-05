@@ -17,13 +17,13 @@ exports.toFinnishPaymentReference = function(numericIdentifier) {
   return numStr + referenceCheckNumber(weightedSum).toString();
 };
 
-http://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/RF-viitteen_kayttoonotto_Suomessa_1.12.2010.pdf
+// http://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/RF-viitteen_kayttoonotto_Suomessa_1.12.2010.pdf
 exports.toRFReference = function(finnishReferenceNumber) {
   var RFtoStr = "271500"
   var refStr = finnishReferenceNumber.toString() + RFtoStr;
   var checksumStr = rfCheckNumber(refStr);
   return "RF" + checksumStr + finnishReferenceNumber.toString();
-}
+};
 
 function rfCheckNumber(refStr) {
   var remainder = modulo(refStr , 97);

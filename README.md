@@ -1,17 +1,107 @@
 maksunappi
 ==========
 
-A Node.js library for online payments in Finland.
+A Node.js library for online payments in Finland. Includes test
+configurations for Tapiola, Nordea, DanskeBank, Handelsbanken, OP,
+Aktia, Ålandsbanken and S-Pankki.
 
-##Bank configuration
-The following table describes the different options you can use to configure the banks.
-Those options are then mapped to the bank specific form fields.
+Currently requires Express.
+
+## About
+
+Made at [Reaktor](http://reaktor.fi).
+
+Apply for juicy positions at [reaktor.fi/careers](http://reaktor.fi/careers) or
+[futurerockstar.fi](http://futurerockstar.fi/).
+
+## Install
+
+```
+npm install maksunappi
+```
+
+## Testing
+
+Run tests with grunt.
+
+## Usage and configuration
+
+### Basic usage (using default configurations)
+
+```javascript
+var generalOptions = {
+  appHandler: app, // an Express application
+  hostUrl: 'http://domain.here.com:port', // required for return URLs
+};
+
+var maksunappi = require('maksunappi').create(generalOptions);
+```
+
+## Bank configuration
+
+### Changing configurations (code example)
+
+```javascript
+var bankOptions = [
+  {
+    id : 'nordea',
+    imgPath : '/path/to/my/image.png',
+    vendorId : 'production id',
+    checksumKey : 'production key'
+  },
+  {
+    id : 'tapiola',
+    name: 'LähiTapiola',
+    algorithmType: 'sha256'
+  }
+];
+
+var maksunappi = require('maksunappi').create(generalOptions, bankOptions);
+```
+
+The following options can only be configured in this initial configuration phase
+(see "Bank configuration options" below for other options that can be configured
+either here on on a per-request basis):
+
+- `id` - identifier for the bank (this identifies the bank you are about to configure, see below for options)
+- `authUrl` - url for the online payments service
+- `imgPath` - path for the image used for the HTML form (or "button")
+- `checksumKey` - vendor specific key used in computing the MAC
+
+Possible values for `id` are:
+
+| Bank          | ID            |
+| ------------- | ------------- |
+| Aktia         | aktia         |
+| Danskebank    | alandsbanken  |
+| Handelsbanken | handelsbanken |
+| LähiTapiola   | tapiola       |
+| Nordea        | nordea        |
+| Osuuspankki   | op            |
+| S-Pankki      | spankki       |
+| Ålandsbanken  | alandsbanken  |
+
+Configuration options with an unrecognized `id` are ignored.
+
+### Bank configuration options
+
+The following table describes the different options you can use to configure banks.
+These options are then mapped to bank specific form fields.
 E.g paymentVersion is mapped to 'NET_VERSION' in Aktia's case and to 'VERSIO' in DanskeBank's.
+
+Any of these options may be either set as general options for a bank in the initial
+configuration or overridden in button options on a per-request basis.
+
+The library performs minimal checks on inputs. Required fields are checked but
+reference numbers and input lengths are generally not. Depending on the field
+and bank, not observing the length limits specified in bank specific interface
+specification documents may or may not have an effect on the success of the request.
+Failure to provide an input for a required field results in an exception.
 
 M = mandatory, O = optional, - = not in use
 
 |  Field        | Aktia         | Ålandsbanken  | Danskebank | Handelsbanken | Nordea | Osuuspankki | S-Pankki | Tapiola |
-| ------------- |  -------------|  -----        | ---------  |  ----------   |  ----  |    ------   |  ------  | ------  |
+| ------------- | ------------- | ------------- | ---------- | ------------- | ------ | ----------- | -------- | ------- |
 | paymentVersion|  M            |   M           |     M      |      M        |   M    |      M      |    M     |    M    |
 | requestId     |  M            |   M           |     -      |      M        |   M    |      M      |    M     |    M    |
 | vendorId      |  M            |   M           |     M      |      M        |   M    |      M      |    M     |    M    |
@@ -28,6 +118,130 @@ M = mandatory, O = optional, - = not in use
 | cookie        |  -            |   M           |     -      |      -        |   -    |      -      |    -     |    -    |
 | algorithmType |  -            |   -           |     M      |      -        |   -    |      -      |    -     |    -    |
 | mobile        |  -            |   -           |     -      |      -        |   O    |      -      |    -     |    -    |
-|messageOnlyForWebForm | O      |   O           |     -      |      O        |   -    |      O      |    O     |    O    |
+| messageOnlyForWebForm | O     |   O           |     -      |      O        |   -    |      O      |    O     |    O    |
 
 Notice that Aktia and Handelsbanken share the same mandatory and optional fields and so do S-Pankki and Tapiola.
+
+#### Input formatting
+
+Option values should be in the following formats:
+
+|  Field        | Format                   | Example           | Notes                                                           |
+| ------------- | ------------------------ | ----------------- | --------------------------------------------------------------- |
+| paymentVersion| (convertible to) integer | 3 / "3" / "003"   | Is automatically formatted to comply with bank specifications.  |
+| requestId     | string of numbers        | "201401301400391" | Integer values are fine too (watch out for floating point precision problems). |
+| vendorId      | string                   | "TAPESHOPID" / "12345678"| |
+| vendorAccount | string                   | "448710-126"      |          |
+| vendorName    | string                   | "TESTIKAUPPA"     |          |
+| language      | ISO 693-1 (string)       | "FI" / "SV" / "EN"|          |
+| amount        | floating point / integer | 25 / 50.5         |          |
+| currency      | string                   | "EUR"             |          |
+| reference     | string                   | "2014013014003919"| See "Generating reference numbers" below. |
+| dueDate       | string / JavaScript Date | "EXPRESS" / `new Date()`| See "Additional notes" below |
+| message       | string                   |                   | Is automatically split into rows according to bank specifications. The message may be clipped if too long. |
+| confirm       | boolean                  | `true` / `false`  |                            |
+| keyVersion    | (convertible to) integer |                   | Similar to paymentVersion. |
+| cookie        | boolean                  |                   |                            |
+| algorithmType | string                   | 'md5' / 'sha256'  | 'md5' is the default for most banks. |
+| mobile        | boolean                  |                   |                            |
+| messageOnlyForWebForm | string           |                   |                            |
+
+
+***Additional notes concerning due dates:***
+
+Always use either "EXPRESS" or a JavaScript Date object, not e.g. date strings.
+"EXPRESS" works with all banks (for DanskeBank, the library converts it into a date).
+Dates in the past are automatically converted into today's date.
+
+Note that some banks (namely Ålandsbanken, S-Pankki and Tapiola) only allow
+EXPRESS payments.
+
+#### Mapping to form fields
+
+TODO
+
+### Create payment HTML forms for configured banks
+
+```javascript
+var requestId = "123456789876543";
+var referenceNum = <generate reference here> // see "Generating reference numbers" below
+var options = {
+                requestId: requestId,
+                amount: 25,
+                message: "Lorem ipsum dolor sit amet...",
+                reference: referenceNum,
+                language: 'FI'
+              }
+
+var buttonHtml = maksunappi.paymentButton('nordea', options);
+```
+
+...or if you just want the request parameters without generating any HTML:
+
+```javascript
+var params = maksunappi.buildRequestParams('nordea', options);
+```
+
+### Generating reference numbers / check numbers
+
+Finnish reference number:
+
+```javascript
+var numericIdentifier = '1234556789'; // e.g. a timestamp + an id
+var referenceNumber = maksunappi.referenceNumbers.toFinnishPaymentReference(numericIdentifier);
+```
+
+International RF reference number:
+
+```javascript
+var referenceNumber = maksunappi.referenceNumbers.toRFReference(numericIdentifier);
+```
+
+Usually if the bank requires both a requestId and a reference, you should
+use the requestId as the basis (numericIdentifier) for the reference number.
+
+### Get a listing of all configured banks (IDs)
+
+```javascript
+var banks = maksunappi.banks
+// => ['tapiola', 'danskebank', 'handelsbanken', 'nordea',
+//     'op', 'aktia', 'alandsbanken', 'spankki']
+```
+
+### Response handling
+
+The module binds paths `/epayments/ok/<bank id>` (GET and POST, for all bank ids),
+`/epayments/cancel` (only GET) and `/epayments/reject` (only GET) to the given
+Express app for use as return urls.
+
+Response handling is event based.
+
+```javascript
+maksunappi.on('success', function (request, response, data) {
+  // Payment was successful and the customer returned to the site.
+  // Normalized query data can be accessed in the data parameter.
+  // Note: for many banks, the query string is empty unless the "confirm"
+  // parameter is set to true.
+});
+
+maksunappi.on('mac-check-failed', function (request, response, data) {
+  // Same as above but MAC check failed, so the data was faulty.
+});
+
+maksunappi.on('cancel', function (request, response) {
+  // User cancelled the payment.
+});
+
+maksunappi.on('reject', function (request, response) {
+  // The payment was rejected by the bank.
+});
+```
+
+### Normalized response data
+
+TODO
+
+### Sample application
+
+See `sample/app.js` for a simple usage example. Run the
+sample app locally with `node sample/start-sample.js`.
