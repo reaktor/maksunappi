@@ -212,7 +212,7 @@ var numericIdentifier = '1234556789'; // e.g. a timestamp + an id
 var referenceNumber = maksunappi.referenceNumbers.toFinnishPaymentReference(numericIdentifier);
 ```
 
-International RF reference number:
+International RF reference number (might not be supported by all banks):
 
 ```javascript
 var referenceNumber = maksunappi.referenceNumbers.toRFReference(numericIdentifier);
