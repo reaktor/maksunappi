@@ -1,7 +1,7 @@
 var _ = require('underscore')._;
 _.str = require('underscore.string');
 var helpers = require('./helpers');
-
+var logger = require('./logger').getLogger();
 var MAX_ROW_LEN = 35;
 var MAX_ROWS = 6;
 var LINEBREAK = '\r\n';
@@ -63,14 +63,19 @@ exports.formatMessage = function (message, rowLimit) {
     return memo;
   }, [""]);
 
+  if(rows.length > rowLimit || rows.length > MAX_ROWS){
+    logger.warn("Slicing something off from the message for bank statement: "
+    + message);
+  }
   return rows.slice(0, rowLimit || MAX_ROWS).join(LINEBREAK);
 };
 
 exports.formatDueDate = function (date) {
-  // TODO: log a warning if this changes the date?
   if (date == 'EXPRESS' || date == 'HETI') {
     return date;
   } else if (date && helpers.lessThanIgnoreTime(date, new Date())) {
+    logger.warn("Due date: " + date.toUTCString() + " was before today." +
+      " Changing Due date to be today");
     return exports.dueDateToday();
   } else {
     return dueDate(date);
