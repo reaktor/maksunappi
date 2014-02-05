@@ -133,7 +133,7 @@ Option values should be in the following formats:
 | vendorId      | string                   | "TAPESHOPID" / "12345678"| |
 | vendorAccount | string                   | "448710-126"      |          |
 | vendorName    | string                   | "TESTIKAUPPA"     |          |
-| language      | ISO 693-1 (string)       | "FI" / "SV" / "EN"|          |
+| language      | ISO 693-1 (string)       | "FI" / "SV" / "EN"| Note that some banks only support a subset of these languages ("FI"/"SV"). |
 | amount        | floating point / integer | 25 / 50.5         |          |
 | currency      | string                   | "EUR"             |          |
 | reference     | string                   | "2014013014003919"| See "Generating reference numbers" below. |
@@ -158,7 +158,28 @@ EXPRESS payments.
 
 #### Mapping to form fields
 
-TODO
+The following table describes the mapping from options to bank specific form fields,
+if you need to refer to the original specifications for help with parameters.
+
+|  Field        | Aktia         | Ålandsbanken    | Danskebank | Handelsbanken | Nordea              | Osuuspankki     | S-Pankki        | Tapiola         |
+| ------------- | ------------- | --------------- | ---------- | ------------- | ------------------- | --------------- | --------------- | --------------- |
+| paymentVersion| NET_VERSION   | AAB_VERSION     | VERSIO     | NET_VERSION   | SOLOPMT_VERSION     | VERSIO          | AAB_VERSION     | AAB_VERSION     |
+| requestId     | NET_STAMP     | AAB_STAMP       |     -      | NET_STAMP     | SOLOPMT_STAMP       | MAKSUTUNNUS     | AAB_STAMP       | AAB_STAMP       |
+| vendorId      | NET_SELLER_ID | AAB_RCV_ID      | KNRO       | NET_SELLER_ID | SOLOPMT_RCV_ID      | MYYJA           | AAB_RCV_ID      | AAB_RCV_ID      |
+| vendorAccount |  -            | AAB_RCV_ACCOUNT |     -      |      -        | SOLOPMT_RCV_ACCOUNT |      -          | AAB_RCV_ACCOUNT | AAB_RCV_ACCOUNT |
+| vendorName    |  -            | AAB_RCV_NAME    |     -      |      -        | SOLOPMT_RCV_NAME    |      -          | AAB_RCV_NAME    | AAB_RCV_NAME    |
+| language      |  -            | AAB_LANGUAGE    | lng        |      -        | SOLOPMT_LANGUAGE    |      -          | AAB_LANGUAGE    | AAB_LANGUAGE    |
+| amount        | NET_AMOUNT    | AAB_AMOUNT      | SUMMA      | NET_AMOUNT    | SOLOPMT_AMOUNT      | SUMMA           | AAB_AMOUNT      | AAB_AMOUNT      |
+| currency      | NET_CUR       | AAB_CUR         | VALUUTTA   | NET_CUR       | SOLOPMT_CUR         | VALUUTTALAJI    | AAB_CUR         | AAB_CUR         |
+| reference     | NET_REF       | AAB_REF         | VIITE      | NET_REF       | SOLOPMT_REF         | VIITE           | AAB_REF         | AAB_REF         |
+| dueDate       | NET_DATE      | AAB_DATE        | ERAPAIVA   | NET_DATE      | SOLOPMT_DATE        | ERAPVM          | AAB_DATE        | AAB_DATE        |
+| message       |  -            |   -             |     -      |      -        | SOLOPMT_MSG         | VIEST1 / VIEST2 |    -            |    -            |
+| confirm       | NET_CONFIRM   | AAB_CONFIRM     |     -      | NET_CONFIRM   | SOLOPMT_CONFIRM     | VAHVISTUS       | AAB_CONFIRM     | AAB_CONFIRM     |
+| keyVersion    |  -            | AAB_KEYVERS     |     -      |      -        | SOLOPMT_KEYVERS     | TARKISTE-VERSIO | AAB_KEYVERS     | AAB_KEYVERS     |
+| cookie        |  -            | BC_UseBVCookie  |     -      |      -        |   -                 |      -          |    -            |    -            |
+| algorithmType |  -            |   -             | ALG        |      -        |   -                 |      -          |    -            |    -            |
+| mobile        |  -            |   -             |     -      |      -        | SOLOPMT_PMTTYPE     |      -          |    -            |    -            |
+| messageOnlyForWebForm |NET_MSG| AAB_MSG         |     -      | NET_MSG       |   -                 | VIESTI          | AAB_MSG         | AAB_MSG         |
 
 ### Create payment HTML forms for configured banks
 
