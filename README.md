@@ -9,10 +9,10 @@ Currently requires Express.
 
 ## About
 
-Made at [Reaktor](http://reaktor.fi).
+From [Reaktor](http://reaktor.fi) with love.
 
-Apply for juicy positions at [reaktor.fi/careers](http://reaktor.fi/careers) or
-[futurerockstar.fi](http://futurerockstar.fi/).
+Apply for juicy positions at [reaktor.fi/careers](http://reaktor.fi/careers) and prepare
+for [The Culling](http://youtu.be/3Jym9rfQgec).
 
 ## Install
 
