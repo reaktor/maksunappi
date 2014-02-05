@@ -164,14 +164,14 @@ TODO
 
 ```javascript
 var requestId = "123456789876543";
-var referenceNum = <generate reference here> // see "Generating reference numbers" below
+var referenceNum = <generate reference here>; // see "Generating reference numbers" below
 var options = {
                 requestId: requestId,
                 amount: 25,
                 message: "Lorem ipsum dolor sit amet...",
                 reference: referenceNum,
                 language: 'FI'
-              }
+              };
 
 var buttonHtml = maksunappi.paymentButton('nordea', options);
 ```
@@ -239,7 +239,27 @@ maksunappi.on('reject', function (request, response) {
 
 ### Normalized response data
 
-TODO
+The normalized query string data contains the following fields:
+
+X = present, - = not present
+
+|  Field        | Aktia         | Ålandsbanken  | Danskebank | Handelsbanken | Nordea | Osuuspankki | S-Pankki | Tapiola |
+| ------------- | ------------- | ------------- | ---------- | ------------- | ------ | ----------- | -------- | ------- |
+| version       |  X            |   X           |     X      |      X        |   X    |      X      |    X     |    X    |
+| requestId     |  X            |   X           |     -      |      X        |   X    |      X      |    X     |    X    |
+| reference     |  X            |   X           |     X      |      X        |   X    |      X      |    X     |    X    |
+| archivedId    |  X            |   X           |     -      |      X        |   X    |      X      |    X     |    X    |
+| mac           |  X            |   X           |     X      |      X        |   X    |      X      |    X     |    X    |
+| algorithm     |  X            |   -           |     -      |      X        |   -    |      -      |    -     |    -    |
+| macVersion    |  -            |   -           |     -      |      -        |   -    |      X      |    -     |    -    |
+| currency      |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
+| vendorId      |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
+| dueDate       |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
+| paymentStatus |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
+| paymentSum    |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
+| paymentMethod |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
+
+Version numbers (currency, version) are converted to integers in the normalized data.
 
 ### Sample application
 
