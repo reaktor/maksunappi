@@ -41,10 +41,16 @@ exports.create = function (globalOptions, bankOptions) {
   var hostOptions = _.clone(globalOptions);
   var banks = setupBanks(bankOptions, globalOptions.hostUrl);
 
+  paymentGen.buildRequestParams = function (bankId, options) {
+    var bank = findBank(bankId, banks);
+    return requestParams(bank, options);
+  };
+
   paymentGen.paymentButton = function (bankId, options) {
     var bank = findBank(bankId, banks);
     return createButton(bank, options);
   };
+
   paymentGen.referenceNumbers = converter;
   paymentGen.banks = _.pluck(banks, 'id');
 
@@ -54,24 +60,30 @@ exports.create = function (globalOptions, bankOptions) {
   return paymentGen;
 };
 
-function createButton (bank, options) {
+function requestParams (bank, options) {
   var provider = bank.provider;
   if (provider && bank) {
     var formParams = provider.mapParams(_.extend({}, bank, options));
-    var providerParams = {
-      bankParams: removeIf(formParams, function (k, v) {
-        return !v;
-      })
-    };
+    var nonEmptyParams = removeIf(formParams, function (k, v) {
+      return !v;
+    });
 
-    providerParams.bankParams[provider.macFormName] =
-      macForRequest(provider, providerParams.bankParams, bank);
-    var params = _.extend(commonParams(bank), providerParams);
+    nonEmptyParams[provider.macFormName] =
+      macForRequest(provider, nonEmptyParams, bank);
 
-    return buttonTemplate(params);
+    return nonEmptyParams;
   } else {
     throw new Error("No provider or configuration found for id '" + bank.id + "'.");
   }
+}
+
+function createButton (bank, options) {
+  var bankParams = requestParams(bank, options);
+  var params = _.extend(commonParams(bank), {
+    bankParams: bankParams
+  });
+
+  return buttonTemplate(params);
 }
 
 function setupBanks(bankOptions, hostUrl) {
