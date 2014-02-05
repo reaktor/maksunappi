@@ -22,7 +22,8 @@
   "dependencies": {
     "express": "3.4.8",
     "underscore": "1.5.2",
-    "underscore.string": "2.3.3"
+    "underscore.string": "2.3.3",
+    "winston" : "0.7.2"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

@@ -32,6 +32,7 @@ Run tests with grunt.
 var generalOptions = {
   appHandler: app, // an Express application
   hostUrl: 'http://domain.here.com:port', // required for return URLs
+  logger : logger //optional winston logger instance
 };
 
 var maksunappi = require('maksunappi').create(generalOptions);

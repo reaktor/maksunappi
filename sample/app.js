@@ -3,11 +3,18 @@ var express = require('express'),
     fs = require('fs'),
     _ = require('underscore')._,
     moment = require("moment"),
-    app = express();
+    app = express(),
+    winston = require('winston');
+
+
+var logger = new (winston.Logger)({
+  transports: [new (winston.transports.Console)({level : "warn"})]
+});
 
 var options = {
   appHandler: app,
-  hostUrl: "https://localhost:8081"
+  hostUrl: "https://localhost:8081",
+  logger : logger
 };
 
 var payments = require(__dirname + '/../payment').create(options);

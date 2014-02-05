@@ -35,6 +35,7 @@ var buttonTemplate = _.template(
 );
 
 exports.create = function (globalOptions, bankOptions) {
+  initLogger(globalOptions);
   parameters.requireParams(globalOptions, ['appHandler', 'hostUrl']);
 
   var paymentGen = Object.create(events.EventEmitter.prototype);
@@ -59,6 +60,13 @@ exports.create = function (globalOptions, bankOptions) {
 
   return paymentGen;
 };
+
+function initLogger(globalOptions) {
+  var logger = require('./logger');
+  if(globalOptions.logger){
+    logger.setLogger(globalOptions.logger);
+  }
+}
 
 function requestParams (bank, options) {
   var provider = bank.provider;
