@@ -123,6 +123,9 @@ M = mandatory, O = optional, - = not in use
 
 Notice that Aktia and Handelsbanken share the same mandatory and optional fields and so do S-Pankki and Tapiola.
 
+Do remember to configure vendorName and vendorAccount for all banks which require them
+when not using the test credentials (vendorId, checksumKey)!
+
 #### Input formatting
 
 Option values should be in the following formats:

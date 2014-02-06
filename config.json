@@ -15,7 +15,6 @@
      "imgPath" : "images/logo_handelsbanken.gif",
      "paymentVersion" : 3,
      "vendorId" : "0000000000",
-     "vendorAccount" : "448710-126",
      "confirm" : true,
      "checksumKey" : "11111111111111111111"
     },
@@ -59,7 +58,6 @@
       "imgPath" : "images/logo_sppop.gif",
       "paymentVersion" : 3,
       "vendorId" : "0000000000",
-      "vendorAccount" : "448710-126",
       "confirm" : true,
       "checksumKey" : "11111111111111111111"
     },
