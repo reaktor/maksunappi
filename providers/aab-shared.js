@@ -33,7 +33,7 @@ exports.mapParams = function (options) {
     "AAB_AMOUNT" : formatting.formatAmount(options.amount),
     "AAB_REF" : options.reference,
     "AAB_DATE" : formatting.formatDueDate(options.dueDate),
-    "AAB_MSG" : formatting.formatMessage(options.messageOnlyForWebForm),
+    "AAB_MSG" : formatting.formatMessage(options.messageForWebForm),
     "AAB_RETURN" : options.returnUrls.ok.url,
     "AAB_CANCEL" : options.returnUrls.cancel,
     "AAB_REJECT" : options.returnUrls.reject,

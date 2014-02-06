@@ -113,13 +113,13 @@ M = mandatory, O = optional, - = not in use
 | currency      |  M            |   M           |     M      |      M        |   M    |      M      |    M     |    M    |
 | reference     |  M            |   M           |     M      |      M        |   O    |      M      |    M     |    M    |
 | dueDate       |  M            |   M           |     M      |      M        |   M    |      O      |    M     |    M    |
-| message       |  -            |   -           |     -      |      -        |   O    |      O      |    -     |    -    |
+| messageForBankStatement |  -  |   -           |     -      |      -        |   O    |      O      |    -     |    -    |
 | confirm       |  M            |   M           |     -      |      M        |   O    |      O      |    M     |    M    |
 | keyVersion    |  -            |   M           |     -      |      -        |   M    |      M      |    M     |    M    |
 | cookie        |  -            |   M           |     -      |      -        |   -    |      -      |    -     |    -    |
 | algorithmType |  -            |   -           |     M      |      -        |   -    |      -      |    -     |    -    |
 | mobile        |  -            |   -           |     -      |      -        |   O    |      -      |    -     |    -    |
-| messageOnlyForWebForm | O     |   O           |     -      |      O        |   -    |      O      |    O     |    O    |
+| messageForWebForm | O         |   O           |     -      |      O        |   -    |      O      |    O     |    O    |
 
 Notice that Aktia and Handelsbanken share the same mandatory and optional fields and so do S-Pankki and Tapiola.
 
@@ -139,13 +139,13 @@ Option values should be in the following formats:
 | currency      | string                   | "EUR"             |          |
 | reference     | string                   | "2014013014003919"| See "Generating reference numbers" below. |
 | dueDate       | string / JavaScript Date | "EXPRESS" / `new Date()`| See "Additional notes" below |
-| message       | string                   |                   | Is automatically split into rows according to bank specifications. The message may be clipped if too long. Message is shown in the bank statement |
+| messageForBankStatement | string         |                   | Is automatically split into rows according to bank specifications. The message may be clipped if too long. Message is shown in the bank statement |
 | confirm       | boolean                  | `true` / `false`  |                            |
 | keyVersion    | (convertible to) integer |                   | Similar to paymentVersion. |
 | cookie        | boolean                  |                   |                            |
 | algorithmType | string                   | 'md5' / 'sha256'  | 'md5' is the default for most banks. |
 | mobile        | boolean                  |                   |                            |
-| messageOnlyForWebForm | string           |                   | message is only shown to the buyer in the webform                           |
+| messageForWebForm | string               |                   | message is only shown to the buyer in the webform                           |
 
 
 ***Additional notes concerning due dates:***
@@ -174,13 +174,13 @@ if you need to refer to the original specifications for help with parameters.
 | currency      | NET_CUR       | AAB_CUR         | VALUUTTA   | NET_CUR       | SOLOPMT_CUR         | VALUUTTALAJI    | AAB_CUR         | AAB_CUR         |
 | reference     | NET_REF       | AAB_REF         | VIITE      | NET_REF       | SOLOPMT_REF         | VIITE           | AAB_REF         | AAB_REF         |
 | dueDate       | NET_DATE      | AAB_DATE        | ERAPAIVA   | NET_DATE      | SOLOPMT_DATE        | ERAPVM          | AAB_DATE        | AAB_DATE        |
-| message       |  -            |   -             |     -      |      -        | SOLOPMT_MSG         | VIEST1 / VIEST2 |    -            |    -            |
+| messageForBankStatement |  -  |   -             |     -      |      -        | SOLOPMT_MSG         | VIEST1 / VIEST2 |    -            |    -            |
 | confirm       | NET_CONFIRM   | AAB_CONFIRM     |     -      | NET_CONFIRM   | SOLOPMT_CONFIRM     | VAHVISTUS       | AAB_CONFIRM     | AAB_CONFIRM     |
 | keyVersion    |  -            | AAB_KEYVERS     |     -      |      -        | SOLOPMT_KEYVERS     | TARKISTE-VERSIO | AAB_KEYVERS     | AAB_KEYVERS     |
 | cookie        |  -            | BC_UseBVCookie  |     -      |      -        |   -                 |      -          |    -            |    -            |
 | algorithmType |  -            |   -             | ALG        |      -        |   -                 |      -          |    -            |    -            |
 | mobile        |  -            |   -             |     -      |      -        | SOLOPMT_PMTTYPE     |      -          |    -            |    -            |
-| messageOnlyForWebForm |NET_MSG| AAB_MSG         |     -      | NET_MSG       |   -                 | VIESTI          | AAB_MSG         | AAB_MSG         |
+| messageForWebForm |NET_MSG    | AAB_MSG         |     -      | NET_MSG       |   -                 | VIESTI          | AAB_MSG         | AAB_MSG         |
 
 ### Create payment HTML forms for configured banks
 
@@ -190,7 +190,7 @@ var referenceNum = <generate reference here>; // see "Generating reference numbe
 var options = {
                 requestId: requestId,
                 amount: 25,
-                message: "Lorem ipsum dolor sit amet...",
+                messageForBankStatement: "Lorem ipsum dolor sit amet...",
                 reference: referenceNum,
                 language: 'FI'
               };

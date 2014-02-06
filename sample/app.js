@@ -54,7 +54,8 @@ app.get('/', function (req, res) {
     return payments.paymentButton(bankId, {
       requestId: requestId,
       amount: 5000,
-      message: "Lorem ipsum dolor sit amet",
+      messageForBankStatement: "Lorem ipsum dolor sit amet",
+      messageForWebForm: "Lorem ipsum dolor sit amet (webform)",
       reference : payments.referenceNumbers.toFinnishPaymentReference(requestId)
     });
   });

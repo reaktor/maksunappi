@@ -32,7 +32,7 @@ exports.mapParams = function (options) {
     SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
     SOLOPMT_REF: options.reference,
     SOLOPMT_DATE: formatting.formatDueDate(options.dueDate),
-    SOLOPMT_MSG: formatting.formatMessage(options.message),
+    SOLOPMT_MSG: formatting.formatMessage(options.messageForBankStatement),
     SOLOPMT_RETURN: options.returnUrls.ok.url,
     SOLOPMT_CANCEL: options.returnUrls.cancel,
     SOLOPMT_REJECT: options.returnUrls.reject,

@@ -28,7 +28,7 @@ exports.mapParams = function (options) {
     'paymentVersion', 'vendorId', 'keyVersion', 'currency', 'returnUrls']
   );
 
-  var splittedMessage = splitAndFormatMessage(options.message);
+  var splittedMessage = splitAndFormatMessage(options.messageForBankStatement);
   var line1 = helpers.getElemenByIdxOrDefault(splittedMessage, 0 , "");
   var line2 = helpers.getElemenByIdxOrDefault(splittedMessage, 1 , "");
 
@@ -39,7 +39,7 @@ exports.mapParams = function (options) {
     "MYYJA" : options.vendorId,
     "SUMMA" : formatting.formatAmount(options.amount),
     "VIITE" :  options.reference,
-    "VIESTI" : formatting.formatMessage(options.messageOnlyForWebForm),
+    "VIESTI" : formatting.formatMessage(options.messageForWebForm),
     "VIEST1" : line1,
     "VIEST2" : line2,
     "TARKISTE-VERSIO" : options.keyVersion,

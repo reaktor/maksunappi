@@ -38,7 +38,7 @@ exports.mapParams = function (options) {
     "NET_CUR" : options.currency,
     "NET_REF" : options.reference,
     "NET_DATE" : formatting.formatDueDate(options.dueDate),
-    "NET_MSG" : formatting.formatMessage(options.messageOnlyForWebForm),
+    "NET_MSG" : formatting.formatMessage(options.messageForWebForm),
     "NET_RETURN" : options.returnUrls.ok.url,
     "NET_CANCEL" : options.returnUrls.cancel,
     "NET_REJECT" : options.returnUrls.reject,

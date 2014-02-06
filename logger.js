@@ -9,8 +9,8 @@ var logger = new winston.Logger({
 
 exports.setLogger = function(newLogger) {
   newLogger.extend(logger);
-}
+};
 
 exports.getLogger = function(){
   return logger;
-}
+};
