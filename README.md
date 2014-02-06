@@ -1,6 +1,6 @@
 maksunappi
 ==========
-
+[![Build Status](https://travis-ci.org/reaktor/maksunappi.png?branch=master)](https://travis-ci.org/reaktor/maksunappi)
 A Node.js library for online payments in Finland. Includes test
 configurations for Tapiola, Nordea, DanskeBank, Handelsbanken, OP,
 Aktia, Ålandsbanken and S-Pankki.
