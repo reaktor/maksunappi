@@ -139,13 +139,13 @@ Option values should be in the following formats:
 | currency      | string                   | "EUR"             |          |
 | reference     | string                   | "2014013014003919"| See "Generating reference numbers" below. |
 | dueDate       | string / JavaScript Date | "EXPRESS" / `new Date()`| See "Additional notes" below |
-| message       | string                   |                   | Is automatically split into rows according to bank specifications. The message may be clipped if too long. |
+| message       | string                   |                   | Is automatically split into rows according to bank specifications. The message may be clipped if too long. Message is shown in the bank statement |
 | confirm       | boolean                  | `true` / `false`  |                            |
 | keyVersion    | (convertible to) integer |                   | Similar to paymentVersion. |
 | cookie        | boolean                  |                   |                            |
 | algorithmType | string                   | 'md5' / 'sha256'  | 'md5' is the default for most banks. |
 | mobile        | boolean                  |                   |                            |
-| messageOnlyForWebForm | string           |                   |                            |
+| messageOnlyForWebForm | string           |                   | message is only shown to the buyer in the webform                           |
 
 
 ***Additional notes concerning due dates:***
