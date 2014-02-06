@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A Node.js library for online payments in Finland.",
   "main": "payment.js",
+  "scripts": {
+    "test": "grunt --verbose"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/reaktor/maksunappi.git"
