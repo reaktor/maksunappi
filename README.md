@@ -284,7 +284,7 @@ X = present, - = not present
 | paymentSum    |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
 | paymentMethod |  -            |   -           |     X      |      -        |   -    |      -      |    -     |    -    |
 
-Version numbers (currency, version) are converted to integers in the normalized data.
+Version numbers (version, macVersion) are converted to integers in the normalized data.
 
 ### Sample application
 
