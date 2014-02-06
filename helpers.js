@@ -52,3 +52,13 @@ exports.removeIfEmpty = function (params) {
     return exports.isEmpty(v);
   });
 };
+
+exports.parseDate = function (dateString) {
+  if (exports.isEmpty(dateString)) return undefined;
+
+  var year = dateString.slice(0, 4);
+  var month = dateString.slice(4, 6);
+  var day = dateString.slice(6, 8);
+
+  return new Date(year, parseInt(month)-1, day);
+};
