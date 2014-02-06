@@ -63,11 +63,15 @@ exports.formatMessage = function (message, rowLimit) {
     return memo;
   }, [""]);
 
-  if(rows.length > rowLimit || rows.length > MAX_ROWS){
-    logger.warn("Slicing something off from the message for bank statement: "
-    + message);
+  var maxRows = rowLimit || MAX_ROWS;
+  var slicedMessage = rows.slice(0, maxRows).join(LINEBREAK);
+
+  if (rows.length > maxRows) {
+    logger.warn("Message was shortened due to row count limit. The new message is:\n"
+      + slicedMessage);
   }
-  return rows.slice(0, rowLimit || MAX_ROWS).join(LINEBREAK);
+
+  return slicedMessage;
 };
 
 exports.formatDueDate = function (date) {
