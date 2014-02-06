@@ -75,7 +75,7 @@ Possible values for `id` are:
 | Bank          | ID            |
 | ------------- | ------------- |
 | Aktia         | aktia         |
-| Danskebank    | alandsbanken  |
+| Danskebank    | danskebank    |
 | Handelsbanken | handelsbanken |
 | LähiTapiola   | tapiola       |
 | Nordea        | nordea        |
