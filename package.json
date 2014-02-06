@@ -1,11 +1,8 @@
 {
   "name": "maksunappi",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A Node.js library for online payments in Finland.",
   "main": "payment.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/reaktor/maksunappi.git"
