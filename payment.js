@@ -2,7 +2,8 @@ var crypto = require("crypto"),
     events = require('events'),
     _ = require('underscore')._,
     express = require('express'),
-    converter = require('./referenceConverter');
+    converter = require('./referenceConverter'),
+    helpers = require('./helpers');
 
 var config = require('./config.json');
 var parameters = require('./parameters');
@@ -72,9 +73,7 @@ function requestParams (bank, options) {
   var provider = bank.provider;
   if (provider && bank) {
     var formParams = provider.mapParams(_.extend({}, bank, options));
-    var nonEmptyParams = removeIf(formParams, function (k, v) {
-      return !v;
-    });
+    var nonEmptyParams = helpers.removeIfEmpty(formParams);
 
     nonEmptyParams[provider.macFormName] =
       macForRequest(provider, nonEmptyParams, bank);
@@ -116,17 +115,6 @@ function macForRequest (provider, providerParams, bankConfig) {
 function generateMac(params, algorithmType, separator) {
   var joinedParams = params.join(separator) + separator;
   return crypto.createHash(algorithmType.toLowerCase()).update(joinedParams).digest('hex').toUpperCase();
-}
-
-function removeIf (params, condition) {
-  var cloned = _.clone(params);
-  _.each(_.keys(cloned), function (key) {
-    if (condition(key, cloned[key])) {
-      delete cloned[key];
-    }
-  });
-
-  return cloned;
 }
 
 function commonParams(bank) {

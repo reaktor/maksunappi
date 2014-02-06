@@ -1,5 +1,9 @@
 var _ = require('underscore')._;
 
+exports.isEmpty = function (value) {
+  return exports.isNullOrUndefined(value) || value === "";
+};
+
 exports.isNullOrUndefined = function (value) {
   return _.isNull(value) || _.isUndefined(value);
 };
@@ -30,4 +34,21 @@ exports.flatMap = function (collection, fun) {
 
 exports.toIntOrUndefined = function (value) {
   return isNaN(value) ? undefined : parseInt(value);
+};
+
+exports.removeIf = function (params, condition) {
+  var cloned = _.clone(params);
+  _.each(_.keys(cloned), function (key) {
+    if (condition(key, cloned[key])) {
+      delete cloned[key];
+    }
+  });
+
+  return cloned;
+};
+
+exports.removeIfEmpty = function (params) {
+  return exports.removeIf(params, function (k, v) {
+    return exports.isEmpty(v);
+  });
 };

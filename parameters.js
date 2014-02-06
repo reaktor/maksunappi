@@ -35,7 +35,7 @@ exports.requireLengthMax = function (params, paramName, maxLength) {
   if (params[paramName].toString().length > maxLength) {
     throw new Error(paramName +" is too long: " + params[paramName] + ".");
   }
-}
+};
 
 exports.requireSatisfies = function (params, paramName, condition, message) {
   if (!condition(params[paramName])) {

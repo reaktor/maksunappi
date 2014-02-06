@@ -24,6 +24,7 @@
      "paymentUrl" : "https://solo3.nordea.fi/cgi-bin/SOLOPM01",
      "imgPath" : "images/logo_nordea.gif",
      "paymentVersion" : 3,
+     "statusQueryVersion" : 1,
      "vendorId" : "12345678",
      "checksumKey" : "LEHTI",
      "keyVersion" : 1,

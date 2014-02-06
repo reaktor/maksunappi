@@ -15,6 +15,10 @@ exports.booleanFormats = {
   KOrE: {
     true: 'K',
     false: 'E'
+  },
+  YOrNothing: {
+    true: 'Y',
+    false: undefined
   }
 };
 
