@@ -216,7 +216,7 @@ var referenceNumber = maksunappi.referenceNumbers.toFinnishPaymentReference(nume
 International RF reference number (might not be supported by all banks):
 
 ```javascript
-var referenceNumber = maksunappi.referenceNumbers.toRFReference(numericIdentifier);
+var referenceNumber = maksunappi.referenceNumbers.toRFReference(finnishReferenceNumber);
 ```
 
 Usually if the bank requires both a requestId and a reference, you should
