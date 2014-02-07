@@ -66,7 +66,7 @@ The following options can only be configured in this initial configuration phase
 either here on on a per-request basis):
 
 - `id` - identifier for the bank (this identifies the bank you are about to configure, see below for options)
-- `authUrl` - url for the online payments service
+- `paymentUrl` - url for the online payments service
 - `imgPath` - path for the image used for the HTML form (or "button")
 - `checksumKey` - vendor specific key used in computing the MAC
 
