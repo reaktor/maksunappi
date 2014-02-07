@@ -53,6 +53,11 @@ exports.create = function (globalOptions, bankOptions) {
     return createButton(bank, options);
   };
 
+  paymentGen.buildStatusQueryParams = function (bankId, options) {
+    var bank = findBank(bankId, banks);
+    return statusQueryParams(bank, options);
+  };
+
   paymentGen.referenceNumbers = converter;
   paymentGen.banks = _.pluck(banks, 'id');
 
@@ -70,8 +75,15 @@ function initLogger(globalOptions) {
 }
 
 function requestParams (bank, options) {
-  var provider = bank.provider;
-  if (provider && bank) {
+  return mapParams(bank, bank.provider, options);
+}
+
+function statusQueryParams(bank, options) {
+  return mapParams(bank, bank.statusProvider, options);
+}
+
+function mapParams (bank, provider, options) {
+  if (provider) {
     var formParams = provider.mapParams(_.extend({}, bank, options));
     var nonEmptyParams = helpers.removeIfEmpty(formParams);
 
@@ -80,7 +92,7 @@ function requestParams (bank, options) {
 
     return nonEmptyParams;
   } else {
-    throw new Error("No provider or configuration found for id '" + bank.id + "'.");
+    throw new Error("No provider found for id '" + bank.id + "'.");
   }
 }
 
@@ -102,7 +114,10 @@ function setupBanks(bankOptions, hostUrl) {
 
 function addProviders (banks) {
   return _.map(banks, function (bank) {
-    return _.extend({}, bank, { provider: require('./providers/payment/'+bank.id) });
+    return _.extend({}, bank, {
+      provider: require('./providers/payment/'+bank.id),
+      statusProvider: require('./providers/status_query/'+bank.id)
+    });
   });
 }
 
@@ -127,9 +142,15 @@ function commonParams(bank) {
 }
 
 function findBank (bankId, bankConfigs) {
-  return _.find(bankConfigs, function (bank) {
+  var bank = _.find(bankConfigs, function (bank) {
     return bank.id == bankId;
   });
+
+  if (bank) {
+    return bank;
+  } else {
+    throw new Error("No configuration found for bank id '" + bankId + "'.");
+  }
 }
 
 function bindReturnUrlsToHandler (eventEmitter, handler, banks) {

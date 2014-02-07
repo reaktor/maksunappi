@@ -1,6 +1,7 @@
 var formatting = require('../../format'),
     parameters = require('../../parameters'),
-    helpers = require('../../helpers');
+    helpers = require('../../helpers'),
+    _ = require('underscore')._;
 
 var MAC_PARAMS = [
   'SOLOPMT_VERSION',
@@ -37,8 +38,10 @@ var RETURN_MAC_PARAMS = [
 
 exports.mapParams = function (options) {
   parameters.requireParams(options, ['requestId', 'statusQueryVersion',
-    'vendorId', 'keyVersion', 'algorithmType']);
-  parameters.requireInclusionIn(options, 'responseType', ['html', 'xml']);
+    'vendorId', 'keyVersion', 'algorithmType', 'timeStamp']);
+  if (parameters.responseType) {
+    parameters.requireInclusionIn(options, 'responseType', ['html', 'xml']);
+  }
 
   return {
     SOLOPMT_VERSION: formatVersion(options.statusQueryVersion),
@@ -50,12 +53,16 @@ exports.mapParams = function (options) {
     SOLOPMT_RESPDETL: formatting.formatBoolean(options.includeResponseDetails, formatting.booleanFormats.YOrNothing),
     SOLOPMT_STAMP: options.requestId,
     SOLOPMT_REF: options.reference,
-    SOLOPMT_AMOUNT: formatting.formatAmount(options.amount),
+    SOLOPMT_AMOUNT: formatAmount(options.amount),
     SOLOPMT_CUR: options.currency,
     SOLOPMT_KEYVERS: formatVersion(options.keyVersion),
     SOLOPMT_ALG: formatting.formatVersionNumber(formatAlgorithm(options.algorithmType), 2)
   };
 };
+
+function formatAmount (amount) {
+  return amount ? formatting.formatAmount(amount) : undefined;
+}
 
 function formatVersion(versionNumber) {
   return formatting.formatVersionNumber(versionNumber, 4);
@@ -75,7 +82,7 @@ exports.algorithmType = function (bankConfig) {
 
 exports.requestMacParams = function (providerConfig, formParams) {
   var macParams = parameters.macParams(formParams, MAC_PARAMS, [], [providerConfig.checksumKey]);
-  return helpers.removeIfEmpty(macParams);
+  return _.compact(macParams);
 };
 
 exports.returnMacParams = function (providerConfig, queryParams) {

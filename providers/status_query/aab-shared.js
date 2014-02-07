@@ -1,5 +1,5 @@
 var parameters = require('../../parameters');
-var formatting = require('../../formatting');
+var formatting = require('../../format');
 
 
 
