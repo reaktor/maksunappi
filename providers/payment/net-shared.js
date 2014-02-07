@@ -1,6 +1,6 @@
-var formatting = require('../format');
-var parameters = require('../parameters');
-var helpers = require('../helpers');
+var formatting = require('../../format');
+var parameters = require('../../parameters');
+var helpers = require('../../helpers');
 var _ = require('underscore')._;
 
 var MAC_VERSION1 = [

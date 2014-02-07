@@ -1,6 +1,6 @@
 var shared = require('./aab-shared');
-var parameters = require('../parameters');
-var formatting = require('../format');
+var parameters = require('../../parameters');
+var formatting = require('../../format');
 
 module.exports = shared;
 

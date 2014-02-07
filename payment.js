@@ -102,7 +102,7 @@ function setupBanks(bankOptions, hostUrl) {
 
 function addProviders (banks) {
   return _.map(banks, function (bank) {
-    return _.extend({}, bank, { provider: require('./providers/'+bank.id) });
+    return _.extend({}, bank, { provider: require('./providers/payment/'+bank.id) });
   });
 }
 
