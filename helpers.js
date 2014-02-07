@@ -20,7 +20,7 @@ exports.times = function (times, execute) {
   _.each(_.range(times), execute);
 };
 
-exports.getElemenByIdxOrDefault = function(array, idx, def) {
+exports.getElementByIdxOrDefault = function(array, idx, def) {
   return array && array.length - 1 >= idx ?  array[idx] : def;
 };
 

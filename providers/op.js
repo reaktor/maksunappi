@@ -28,9 +28,9 @@ exports.mapParams = function (options) {
     'paymentVersion', 'vendorId', 'keyVersion', 'currency', 'returnUrls']
   );
 
-  var splittedMessage = splitAndFormatMessage(options.messageForBankStatement);
-  var line1 = helpers.getElemenByIdxOrDefault(splittedMessage, 0 , "");
-  var line2 = helpers.getElemenByIdxOrDefault(splittedMessage, 1 , "");
+  var splitMessage = splitAndFormatMessage(options.messageForBankStatement);
+  var line1 = helpers.getElementByIdxOrDefault(splitMessage, 0 , "");
+  var line2 = helpers.getElementByIdxOrDefault(splitMessage, 1 , "");
 
   return {
     "action_id" : "701",
