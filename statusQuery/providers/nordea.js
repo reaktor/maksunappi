@@ -99,7 +99,7 @@ exports.renameQueryParams = function (query) {
     archivedId: query.SOLOPMT_PAID,
     paymentType: query.SOLOPMT_STATUS,
     macKeyVersion: helpers.toIntOrUndefined(query.SOLOPMT_KEYVERS),
-    macAlgorithm: query.SOLOPMT_ALG,
+    macAlgorithm: formatReturnAlgorithm(helpers.toIntOrUndefined(query.SOLOPMT_ALG)),
     mac: query.SOLOPMT_MAC
   };
 };
@@ -114,7 +114,9 @@ function convertResponseCode(responseCode) {
 }
 
 function formatReturnAlgorithm (algorithmCode) {
-  if (algorithmCode == 1) {
+  if (algorithmCode === undefined) {
+    return undefined;
+  } else if (algorithmCode === 1) {
     return 'md5';
   } else {
     throw new Error("Received unknown MAC algorithm code from bank: " + algorithmCode);
