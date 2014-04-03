@@ -61,6 +61,8 @@ exports.create = function (globalOptions, bankOptions) {
   return paymentGen;
 };
 
+exports.referenceNumbers = converter;
+
 function initLogger(globalOptions) {
   var logger = require('./logger');
   if(globalOptions.logger){
