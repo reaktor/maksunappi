@@ -96,7 +96,7 @@ exports.dueDateToday = function () {
 };
 
 exports.formatAmount = function (amount) {
-  var value = parseInt(amount);
+  var value = parseFloat(amount);
   if (isNaN(value)) {
     throw new Error("Invalid amount: '" + amount + "'.");
   } else {
