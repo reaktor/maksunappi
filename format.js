@@ -38,7 +38,11 @@ exports.formatBoolean = function (boolean, format) {
 
 exports.formatVersionNumber = function (versionStr, toLength) {
   var len = toLength || 1;
-  return _.str.sprintf('%0'+len+'d', parseInt(versionStr.toString()));
+  if(versionStr) {
+    return _.str.sprintf('%0'+len+'d', parseInt(versionStr.toString()));
+  }
+  else return undefined
+
 };
 
 exports.formatMessage = function (message, rowLimit) {

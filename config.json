@@ -54,12 +54,14 @@
 
     {"id" : "aktia",
       "name" : "Aktia",
-      "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/login.html",
+      "paymentUrl" : "https://auth.aktia.fi/vmtest",
       "imgPath" : "images/logo_sppop.gif",
-      "paymentVersion" : 3,
-      "vendorId" : "0000000000",
+      "paymentVersion" : 10,
+      "vendorId" : "1111111111111",
       "confirm" : true,
-      "checksumKey" : "11111111111111111111"
+      "keyVersion" : 1,
+      "algorithmType" : "sha256",
+      "checksumKey" : "1234567890123456789012345678901234567890123456789012345678901234"
     },
 
     {"id" : "tapiola",

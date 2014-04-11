@@ -18,13 +18,22 @@ var MAC_VERSION2 = MAC_VERSION1.concat([
   'NET_REJECT'
 ]);
 var MAC_VERSION3 = MAC_VERSION2.concat(['NET_ALG']);
-
+var MAC_VERSION10 = MAC_VERSION3.concat(['NET_KEYVERS']);
 var RETURN_MAC_PARAMS = [
   'NET_RETURN_VERSION',
   'NET_RETURN_STAMP',
   'NET_RETURN_REF',
   'NET_RETURN_PAID',
   'NET_ALG'
+];
+
+var RETURN_MAC_PARAMS10 = [
+  'NET_RETURN_VERSION',
+  'NET_ALG',
+  'NET_RETURN_STAMP',
+  'NET_RETURN_REF',
+  'NET_RETURN_PAID',
+  'NET_KEYVERS'
 ];
 
 exports.mapParams = function (options) {
@@ -43,7 +52,8 @@ exports.mapParams = function (options) {
     "NET_CANCEL" : options.returnUrls.cancel,
     "NET_REJECT" : options.returnUrls.reject,
     "NET_CONFIRM" : formatting.formatBoolean(options.confirm),
-    "NET_ALG" : formatAlgorithm(options)
+    "NET_ALG" : formatAlgorithm(options),
+    "NET_KEYVERS" : formatting.formatVersionNumber(options.keyVersion, 4)
   };
 };
 
@@ -55,7 +65,8 @@ function validateParams (options) {
 }
 
 exports.algorithmType = function (bankConfig) {
-  if (parseInt(bankConfig.paymentVersion) == 3) {
+  var paymentVersion = parseInt(bankConfig.paymentVersion);
+  if (paymentVersion == 3 || paymentVersion == 10 ) {
     return "sha256";
   } else {
     return "md5";
@@ -68,14 +79,22 @@ exports.requestMacParams = function (providerConfig, formParams) {
 };
 
 exports.returnMacParams = function (providerConfig, queryParams) {
-  return parameters.macParams(queryParams, RETURN_MAC_PARAMS, [], [providerConfig.checksumKey]);
+  var returnMacParams = macReturnParamsForVersion(providerConfig.paymentVersion);
+  return parameters.macParams(queryParams, returnMacParams, [], [providerConfig.checksumKey]);
 };
 
+function macReturnParamsForVersion(paymentVersion) {
+  switch (parseInt(paymentVersion)) {
+    case 10: return RETURN_MAC_PARAMS10;
+    default: return RETURN_MAC_PARAMS;
+  }
+}
 function macParamsForVersion(paymentVersion) {
   switch (parseInt(paymentVersion)) {
     case 1: return MAC_VERSION1;
     case 2: return MAC_VERSION2;
     case 3: return MAC_VERSION3;
+    case 10: return MAC_VERSION10;
     default: throw new Error("Unknown payment version '" + paymentVersion + "'.");
   }
 }
