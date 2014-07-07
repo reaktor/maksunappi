@@ -103,6 +103,28 @@
       "vendorName" : "TESTIKAUPPA",
       "language" : "FI",
       "keyVersion" : 1
+    },
+
+    {"id" : "saastopankki",
+      "name" : "Säästöpankki",
+      "paymentUrl" : "https://verkkomaksu.saastopankki.fi/vm/login.html",
+      "imgPath" : "images/logo_saastopankki.png",
+      "paymentVersion" : 3,
+      "vendorId" : "0000000000",
+      "confirm" : true,
+      "algorithmType" : "sha256",
+      "checksumKey" : "11111111111111111111"
+    },
+
+    {"id" : "poppankki",
+      "name" : "POPPankki",
+      "paymentUrl" : "https://verkkomaksu.poppankki.fi/vm/login.html",
+      "imgPath" : "images/logo_poppankki.png",
+      "paymentVersion" : 3,
+      "vendorId" : "0000000000",
+      "confirm" : true,
+      "algorithmType" : "sha256",
+      "checksumKey" : "11111111111111111111"
     }
   ]
 }
