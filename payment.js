@@ -180,7 +180,9 @@ function bindOkUrls (handler, banks, okCallback) {
 }
 
 function checkMac (bank, query, expected) {
-  var macParams = bank.provider.returnMacParams(bank, query);
+  var macParams = _.filter(bank.provider.returnMacParams(bank, query), function(param){
+    return typeof param !== "undefined";
+  });
   var mac = generateMac(macParams, bank.provider.algorithmType(bank), bank.macSeparator);
   return mac === expected;
 }
