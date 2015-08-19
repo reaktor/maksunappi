@@ -30,7 +30,7 @@
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-mocha-test": "~0.8.2",
     "grunt-express": "~1.2.1",
-    "grunt-casperjs": "~1.4.0",
+    "grunt-casperjs": "~2.1.0",
     "moment": "2.5.0"
   },
   "bugs": {
