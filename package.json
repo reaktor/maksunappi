@@ -23,14 +23,14 @@
     "express": "3.4.8",
     "underscore": "1.5.2",
     "underscore.string": "2.3.3",
-    "winston" : "0.7.2"
+    "winston" : "0.8.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-mocha-test": "~0.8.2",
     "grunt-express": "~1.2.1",
-    "grunt-casperjs": "~1.4.0",
+    "grunt-casperjs": "~2.1.0",
     "moment": "2.5.0"
   },
   "bugs": {

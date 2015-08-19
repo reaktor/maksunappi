@@ -35,7 +35,8 @@ casper.test.begin(options.bankName + " Payment", 1, function (test) {
   casper.waitForSelector('form[name="confirm_online_payment_form"]', function() {
     this.fill('form[name="confirm_online_payment_form"]', {
       'otc': options.securityCode
-    }, true);
+    }, false);
+    this.click("#pin-confirmation-confirm-button");
   });
 
   casper.waitForSelector("#redirectLink", function() {

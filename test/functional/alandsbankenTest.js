@@ -8,7 +8,7 @@ var options = {
   bankName: 'Alandsbanken',
   id: 'alandsbanken',
   username: '12345678',
-  password: '9999',
+  password: '123456',
   securityCode: '9999',
   returnLinkText: 'Takaisin myyjän sivuille'
 };
@@ -34,14 +34,11 @@ casper.test.begin(options.bankName + " Payment", 1, function (test) {
     }, true);
   });
 
-  casper.then(function() {
+  casper.waitForSelector('form[name="instantPaymentForm"]', function() {
     this.evaluate(function() {
       document.querySelector('select').selectedIndex = 1;
       return true;
     });
-  });
-
-  casper.waitForSelector('form[name="instantPaymentForm"]', function() {
     this.fill('form[name="instantPaymentForm"]', {
       'pincode': options.securityCode
     }, false);
