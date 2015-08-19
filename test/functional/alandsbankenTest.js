@@ -8,7 +8,7 @@ var options = {
   bankName: 'Alandsbanken',
   id: 'alandsbanken',
   username: '12345678',
-  password: '9999',
+  password: '123456',
   securityCode: '9999',
   returnLinkText: 'Takaisin myyjän sivuille'
 };
