@@ -26,21 +26,32 @@ exports.runTests = function (casper, options) {
       }, true);
     });
 
-    casper.waitForSelector('form[name="instantPaymentForm"]', function() {
-      this.fill('form[name="instantPaymentForm"]', {
-        'pincode': options.securityCode
-      }, false);
-      this.click('button[type="submit"][name="btn_accept"]');
-    });
+    if (bankId === 'tapiola') {
+      casper.waitForSelector(x("//p[contains(text(), 'Ei sallittu demokoodeilla')]"), function() {
+        this.click(x(returnLinkSelector));
+      });
 
-    casper.waitForSelector(x(returnLinkSelector), function() {
-      this.click(x(returnLinkSelector));
-    });
+      casper.waitForSelector('#reject', function () {
+        test.assertExists("#reject");
+        this.echo("Successfully rejected payment with "+options.bankName+" demo account as stated in the documentation (chapter 8): http://dokumentit.s-pankki.fi/c/document_library/get_file?uuid=18f5dd29-a484-4934-81f5-cadcfd7ff41c&groupId=10140");
+      });
+    } else {
+      casper.waitForSelector('form[name="instantPaymentForm"]', function() {
+        this.fill('form[name="instantPaymentForm"]', {
+          'pincode': options.securityCode
+        }, false);
+        this.click('button[type="submit"][name="btn_accept"]');
+      });
 
-    casper.waitForSelector('#success', function () {
-      test.assertExists("#success");
-      this.echo("Succesfully paid with "+options.bankName);
-    });
+      casper.waitForSelector(x(returnLinkSelector), function() {
+        this.click(x(returnLinkSelector));
+      });
+
+      casper.waitForSelector('#success', function () {
+        test.assertExists("#success");
+        this.echo("Succesfully paid with "+options.bankName);
+      });
+    }
 
     casper.run(function() {
       test.done();
