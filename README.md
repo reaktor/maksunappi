@@ -3,7 +3,7 @@ maksunappi
 [![Build Status](https://travis-ci.org/reaktor/maksunappi.png?branch=master)](https://travis-ci.org/reaktor/maksunappi)
 
 A Node.js library for online payments in Finland. Includes test
-configurations for Tapiola, Nordea, DanskeBank, Handelsbanken, OP,
+configurations for Nordea, DanskeBank, Handelsbanken, OP,
 Aktia, Ålandsbanken, S-Pankki, Säästöpankki and POP Pankki.
 
 Currently requires Express.
@@ -54,8 +54,8 @@ var bankOptions = [
     checksumKey : 'production key'
   },
   {
-    id : 'tapiola',
-    name: 'LähiTapiola',
+    id : 'op',
+    name: 'Osuuspankki',
     algorithmType: 'sha256'
   }
 ];
@@ -79,7 +79,6 @@ Possible values for `id` are:
 | Aktia         | aktia         |
 | Danskebank    | danskebank    |
 | Handelsbanken | handelsbanken |
-| LähiTapiola   | tapiola       |
 | Nordea        | nordea        |
 | Osuuspankki   | op            |
 | POP Pankki    | poppankki     |
@@ -106,27 +105,27 @@ Failure to provide an input for a required field results in an exception.
 
 M = mandatory, O = optional, - = not in use
 
-|  Field        | Aktia         | Ålandsbanken  | Danskebank | Handelsbanken | Nordea | Osuuspankki | POP Pankki  | S-Pankki | Säästöpankki | Tapiola |
-| ------------- | ------------- | ------------- | ---------- | ------------- | ------ | ----------- | ----------- | -------- | ------------ | ------- |
-| paymentVersion|  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |    M    |
-| requestId     |  M            |   M           |     -      |      M        |   M    |      M      |      M      |    M     |       M      |    M    |
-| vendorId      |  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |    M    |
-| vendorAccount |  -            |   M           |     -      |      -        |   O    |      -      |      -      |    M     |       -      |    M    |
-| vendorName    |  -            |   M           |     -      |      -        |   O    |      -      |      -      |    M     |       -      |    M    |
-| language      |  -            |   M           |     O      |      -        |   O    |      -      |      -      |    M     |       -      |    M    |
-| amount        |  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |    M    |
-| currency      |  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |    M    |
-| reference     |  M            |   M           |     M      |      M        |   O    |      M      |      M      |    M     |       M      |    M    |
-| dueDate       |  M            |   M           |     M      |      M        |   M    |      O      |      M      |    M     |       M      |    M    |
-| messageForBankStatement |  -  |   -           |     -      |      -        |   O    |      O      |      -      |    -     |       -      |    -    |
-| confirm       |  M            |   M           |     -      |      M        |   O    |      O      |      M      |    M     |       M      |    M    |
-| keyVersion    |  -            |   M           |     -      |      -        |   M    |      M      |      -      |    M     |       -      |    M    |
-| cookie        |  -            |   M           |     -      |      -        |   -    |      -      |      -      |    -     |       -      |    -    |
-| algorithmType |  -            |   -           |     M      |      -        |   -    |      -      |      -      |    -     |       -      |    -    |
-| mobile        |  -            |   -           |     -      |      -        |   O    |      -      |      -      |    -     |       -      |    -    |
-| messageForWebForm | O         |   O           |     -      |      O        |   -    |      O      |      O      |    O     |       O      |    O    |
+|  Field        | Aktia         | Ålandsbanken  | Danskebank | Handelsbanken | Nordea | Osuuspankki | POP Pankki  | S-Pankki | Säästöpankki |
+| ------------- | ------------- | ------------- | ---------- | ------------- | ------ | ----------- | ----------- | -------- | ------------ |
+| paymentVersion|  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |
+| requestId     |  M            |   M           |     -      |      M        |   M    |      M      |      M      |    M     |       M      |
+| vendorId      |  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |
+| vendorAccount |  -            |   M           |     -      |      -        |   O    |      -      |      -      |    M     |       -      |
+| vendorName    |  -            |   M           |     -      |      -        |   O    |      -      |      -      |    M     |       -      |
+| language      |  -            |   M           |     O      |      -        |   O    |      -      |      -      |    M     |       -      |
+| amount        |  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |
+| currency      |  M            |   M           |     M      |      M        |   M    |      M      |      M      |    M     |       M      |
+| reference     |  M            |   M           |     M      |      M        |   O    |      M      |      M      |    M     |       M      |
+| dueDate       |  M            |   M           |     M      |      M        |   M    |      O      |      M      |    M     |       M      |
+| messageForBankStatement |  -  |   -           |     -      |      -        |   O    |      O      |      -      |    -     |       -      |
+| confirm       |  M            |   M           |     -      |      M        |   O    |      O      |      M      |    M     |       M      |
+| keyVersion    |  -            |   M           |     -      |      -        |   M    |      M      |      -      |    M     |       -      |
+| cookie        |  -            |   M           |     -      |      -        |   -    |      -      |      -      |    -     |       -      |
+| algorithmType |  -            |   -           |     M      |      -        |   -    |      -      |      -      |    -     |       -      |
+| mobile        |  -            |   -           |     -      |      -        |   O    |      -      |      -      |    -     |       -      |
+| messageForWebForm | O         |   O           |     -      |      O        |   -    |      O      |      O      |    O     |       O      |
 
-Notice that Aktia and Handelsbanken share the same mandatory and optional fields and so do S-Pankki and Tapiola.
+Notice that Aktia and Handelsbanken share the same mandatory and optional fields.
 
 Do remember to configure vendorName and vendorAccount for all banks which require them
 when not using the test credentials (vendorId, checksumKey)!
@@ -162,7 +161,7 @@ Always use either "EXPRESS" or a JavaScript Date object, not e.g. date strings.
 "EXPRESS" works with all banks (for DanskeBank, the library converts it into a date).
 Dates in the past are automatically converted into today's date.
 
-Note that some banks (namely Ålandsbanken, S-Pankki and Tapiola) only allow
+Note that some banks (namely Ålandsbanken and S-Pankki) only allow
 EXPRESS payments.
 
 #### Mapping to form fields
@@ -170,25 +169,25 @@ EXPRESS payments.
 The following table describes the mapping from options to bank specific form fields,
 if you need to refer to the original specifications for help with parameters.
 
-|  Field        | Aktia         | Ålandsbanken    | Danskebank | Handelsbanken | Nordea              | Osuuspankki     | POP Pankki    | S-Pankki        | Säästöpankki  | Tapiola         |
-| ------------- | ------------- | --------------- | ---------- | ------------- | ------------------- | --------------- | ------------- | --------------- | ------------- | --------------- |
-| paymentVersion| NET_VERSION   | AAB_VERSION     | VERSIO     | NET_VERSION   | SOLOPMT_VERSION     | VERSIO          | NET_VERSION   | AAB_VERSION     | NET_VERSION   | AAB_VERSION     |
-| requestId     | NET_STAMP     | AAB_STAMP       |     -      | NET_STAMP     | SOLOPMT_STAMP       | MAKSUTUNNUS     | NET_STAMP     | AAB_STAMP       | NET_STAMP     | AAB_STAMP       |
-| vendorId      | NET_SELLER_ID | AAB_RCV_ID      | KNRO       | NET_SELLER_ID | SOLOPMT_RCV_ID      | MYYJA           | NET_SELLER_ID | AAB_RCV_ID      | NET_SELLER_ID | AAB_RCV_ID      |
-| vendorAccount |  -            | AAB_RCV_ACCOUNT |     -      |      -        | SOLOPMT_RCV_ACCOUNT |      -          |      -        | AAB_RCV_ACCOUNT |      -        | AAB_RCV_ACCOUNT |
-| vendorName    |  -            | AAB_RCV_NAME    |     -      |      -        | SOLOPMT_RCV_NAME    |      -          |      -        | AAB_RCV_NAME    |      -        | AAB_RCV_NAME    |
-| language      |  -            | AAB_LANGUAGE    | lng        |      -        | SOLOPMT_LANGUAGE    |      -          |      -        | AAB_LANGUAGE    |      -        | AAB_LANGUAGE    |
-| amount        | NET_AMOUNT    | AAB_AMOUNT      | SUMMA      | NET_AMOUNT    | SOLOPMT_AMOUNT      | SUMMA           | NET_AMOUNT    | AAB_AMOUNT      | NET_AMOUNT    | AAB_AMOUNT      |
-| currency      | NET_CUR       | AAB_CUR         | VALUUTTA   | NET_CUR       | SOLOPMT_CUR         | VALUUTTALAJI    | NET_CUR       | AAB_CUR         | NET_CUR       | AAB_CUR         |
-| reference     | NET_REF       | AAB_REF         | VIITE      | NET_REF       | SOLOPMT_REF         | VIITE           | NET_REF       | AAB_REF         | NET_REF       | AAB_REF         |
-| dueDate       | NET_DATE      | AAB_DATE        | ERAPAIVA   | NET_DATE      | SOLOPMT_DATE        | ERAPVM          | NET_DATE      | AAB_DATE        | NET_DATE      | AAB_DATE        |
-| messageForBankStatement |  -  |   -             |     -      |      -        | SOLOPMT_MSG         | VIEST1 / VIEST2 |      -        |    -            |      -        |    -            |
-| confirm       | NET_CONFIRM   | AAB_CONFIRM     |     -      | NET_CONFIRM   | SOLOPMT_CONFIRM     | VAHVISTUS       | NET_CONFIRM   | AAB_CONFIRM     | NET_CONFIRM   | AAB_CONFIRM     |
-| keyVersion    |  -            | AAB_KEYVERS     |     -      |      -        | SOLOPMT_KEYVERS     | TARKISTE-VERSIO |      -        | AAB_KEYVERS     |      -        | AAB_KEYVERS     |
-| cookie        |  -            | BC_UseBVCookie  |     -      |      -        |   -                 |      -          |      -        |    -            |      -        |    -            |
-| algorithmType |  -            |   -             | ALG        |      -        |   -                 |      -          |      -        |    -            |      -        |    -            |
-| mobile        |  -            |   -             |     -      |      -        | SOLOPMT_PMTTYPE     |      -          |      -        |    -            |      -        |    -            |
-| messageForWebForm |NET_MSG    | AAB_MSG         |     -      | NET_MSG       |   -                 | VIESTI          | NET_MSG       | AAB_MSG         | NET_MSG       | AAB_MSG         |
+|  Field        | Aktia         | Ålandsbanken    | Danskebank | Handelsbanken | Nordea              | Osuuspankki     | POP Pankki    | S-Pankki        | Säästöpankki  |
+| ------------- | ------------- | --------------- | ---------- | ------------- | ------------------- | --------------- | ------------- | --------------- | ------------- |
+| paymentVersion| NET_VERSION   | AAB_VERSION     | VERSIO     | NET_VERSION   | SOLOPMT_VERSION     | VERSIO          | NET_VERSION   | AAB_VERSION     | NET_VERSION   |
+| requestId     | NET_STAMP     | AAB_STAMP       |     -      | NET_STAMP     | SOLOPMT_STAMP       | MAKSUTUNNUS     | NET_STAMP     | AAB_STAMP       | NET_STAMP     |
+| vendorId      | NET_SELLER_ID | AAB_RCV_ID      | KNRO       | NET_SELLER_ID | SOLOPMT_RCV_ID      | MYYJA           | NET_SELLER_ID | AAB_RCV_ID      | NET_SELLER_ID |
+| vendorAccount |  -            | AAB_RCV_ACCOUNT |     -      |      -        | SOLOPMT_RCV_ACCOUNT |      -          |      -        | AAB_RCV_ACCOUNT |      -        |
+| vendorName    |  -            | AAB_RCV_NAME    |     -      |      -        | SOLOPMT_RCV_NAME    |      -          |      -        | AAB_RCV_NAME    |      -        |
+| language      |  -            | AAB_LANGUAGE    | lng        |      -        | SOLOPMT_LANGUAGE    |      -          |      -        | AAB_LANGUAGE    |      -        |
+| amount        | NET_AMOUNT    | AAB_AMOUNT      | SUMMA      | NET_AMOUNT    | SOLOPMT_AMOUNT      | SUMMA           | NET_AMOUNT    | AAB_AMOUNT      | NET_AMOUNT    |
+| currency      | NET_CUR       | AAB_CUR         | VALUUTTA   | NET_CUR       | SOLOPMT_CUR         | VALUUTTALAJI    | NET_CUR       | AAB_CUR         | NET_CUR       |
+| reference     | NET_REF       | AAB_REF         | VIITE      | NET_REF       | SOLOPMT_REF         | VIITE           | NET_REF       | AAB_REF         | NET_REF       |
+| dueDate       | NET_DATE      | AAB_DATE        | ERAPAIVA   | NET_DATE      | SOLOPMT_DATE        | ERAPVM          | NET_DATE      | AAB_DATE        | NET_DATE      |
+| messageForBankStatement |  -  |   -             |     -      |      -        | SOLOPMT_MSG         | VIEST1 / VIEST2 |      -        |    -            |      -        |
+| confirm       | NET_CONFIRM   | AAB_CONFIRM     |     -      | NET_CONFIRM   | SOLOPMT_CONFIRM     | VAHVISTUS       | NET_CONFIRM   | AAB_CONFIRM     | NET_CONFIRM   |
+| keyVersion    |  -            | AAB_KEYVERS     |     -      |      -        | SOLOPMT_KEYVERS     | TARKISTE-VERSIO |      -        | AAB_KEYVERS     |      -        |
+| cookie        |  -            | BC_UseBVCookie  |     -      |      -        |   -                 |      -          |      -        |    -            |      -        |
+| algorithmType |  -            |   -             | ALG        |      -        |   -                 |      -          |      -        |    -            |      -        |
+| mobile        |  -            |   -             |     -      |      -        | SOLOPMT_PMTTYPE     |      -          |      -        |    -            |      -        |
+| messageForWebForm |NET_MSG    | AAB_MSG         |     -      | NET_MSG       |   -                 | VIESTI          | NET_MSG       | AAB_MSG         | NET_MSG       |
 
 ### Create payment HTML forms for configured banks
 
@@ -234,7 +233,7 @@ use the requestId as the basis (numericIdentifier) for the reference number.
 
 ```javascript
 var banks = maksunappi.banks
-// => ['tapiola', 'danskebank', 'handelsbanken', 'nordea',
+// => ['danskebank', 'handelsbanken', 'nordea',
 //     'op', 'aktia', 'alandsbanken', 'spankki']
 ```
 
@@ -273,21 +272,21 @@ The normalized query string data contains the following fields:
 
 X = present, - = not present
 
-|  Field        | Aktia         | Ålandsbanken  | Danskebank | Handelsbanken | Nordea | Osuuspankki | POP Pankki    | S-Pankki | Säästöpankki  | Tapiola |
-| ------------- | ------------- | ------------- | ---------- | ------------- | ------ | ----------- | ------------- | -------- | ------------- | ------- |
-| version       |  X            |   X           |     X      |      X        |   X    |      X      |       X       |    X     |       X       |    X    |
-| requestId     |  X            |   X           |     -      |      X        |   X    |      X      |       X       |    X     |       X       |    X    |
-| reference     |  X            |   X           |     X      |      X        |   X    |      X      |       X       |    X     |       X       |    X    |
-| archivedId    |  X            |   X           |     -      |      X        |   X    |      X      |       X       |    X     |       X       |    X    |
-| mac           |  X            |   X           |     X      |      X        |   X    |      X      |       X       |    X     |       X       |    X    |
-| algorithm     |  X            |   -           |     -      |      X        |   -    |      -      |       X       |    -     |       X       |    -    |
-| macVersion    |  -            |   -           |     -      |      -        |   -    |      X      |       -       |    -     |       -       |    -    |
-| currency      |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |    -    |
-| vendorId      |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |    -    |
-| dueDate       |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |    -    |
-| paymentStatus |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |    -    |
-| paymentSum    |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |    -    |
-| paymentMethod |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |    -    |
+|  Field        | Aktia         | Ålandsbanken  | Danskebank | Handelsbanken | Nordea | Osuuspankki | POP Pankki    | S-Pankki | Säästöpankki  |
+| ------------- | ------------- | ------------- | ---------- | ------------- | ------ | ----------- | ------------- | -------- | ------------- |
+| version       |  X            |   X           |     X      |      X        |   X    |      X      |       X       |    X     |       X       |
+| requestId     |  X            |   X           |     -      |      X        |   X    |      X      |       X       |    X     |       X       |
+| reference     |  X            |   X           |     X      |      X        |   X    |      X      |       X       |    X     |       X       |
+| archivedId    |  X            |   X           |     -      |      X        |   X    |      X      |       X       |    X     |       X       |
+| mac           |  X            |   X           |     X      |      X        |   X    |      X      |       X       |    X     |       X       |
+| algorithm     |  X            |   -           |     -      |      X        |   -    |      -      |       X       |    -     |       X       |
+| macVersion    |  -            |   -           |     -      |      -        |   -    |      X      |       -       |    -     |       -       |
+| currency      |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |
+| vendorId      |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |
+| dueDate       |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |
+| paymentStatus |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |
+| paymentSum    |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |
+| paymentMethod |  -            |   -           |     X      |      -        |   -    |      -      |       -       |    -     |       -       |
 
 Version numbers (version, macVersion) are converted to integers in the normalized data.
 
