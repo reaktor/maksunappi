@@ -22,19 +22,19 @@ var payments = require(__dirname + '/../payment').create(options);
 payments.on('success', function (req, res, data) {
   console.log(req.query);
   console.log(data);
-  res.status(200).send("<html><h1 id='success'>SUCCESS</h1></html>");
+  res.send("<html><h1 id='success'>SUCCESS</h1></html>");
 });
 
 payments.on('mac-check-failed', function (req, res, data) {
-  res.status(400).send("<html><h1 id='mac-check-failed'>MAC-CHECK-FAILED</h1></html>");
+  res.send(400, "<html><h1 id='mac-check-failed'>MAC-CHECK-FAILED</h1></html>");
 });
 
 payments.on('cancel', function (req, res) {
-  res.status(200).send("<html><h1 id='cancel'>CANCEL</h1></html>");
+  res.send("<html><h1 id='cancel'>CANCEL</h1></html>");
 });
 
 payments.on('reject', function (req, res) {
-  res.status(200).send("<html><h1 id='reject'>REJECT</h1></html>");
+  res.send("<html><h1 id='reject'>REJECT</h1></html>");
 });
 
 var sslOptions = {
@@ -65,7 +65,7 @@ app.get('/', function (req, res) {
     "<body><div class='payment-buttons'>" + bankForms.join("") + "</div></body>"+
     "</html>";
 
-  res.status(200).send(html);
+  res.send(html);
 });
 
 var server = https.createServer(sslOptions, app);
