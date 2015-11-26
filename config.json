@@ -64,6 +64,20 @@
       "checksumKey" : "1234567890123456789012345678901234567890123456789012345678901234"
     },
 
+    {"id" : "tapiola",
+      "name" : "Tapiola",
+      "paymentUrl" : "https://pankki.tapiola.fi/service/paybutton",
+      "imgPath" : "images/logo_tapiola.gif",
+      "paymentVersion" : "2",
+      "vendorId" : "TAPESHOPID",
+      "vendorAccount" : "363630-01652643",
+      "confirm" : true,
+      "checksumKey" : "PAPUKAIJA",
+      "vendorName" : "TESTIKAUPPA",
+      "language" : "FI",
+      "keyVersion" : 1
+    },
+
     {"id" : "alandsbanken",
       "name" : "Ålandsbanken",
       "paymentUrl" : "https://online.alandsbanken.fi/service/paybutton",
