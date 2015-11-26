@@ -1,6 +1,6 @@
 {
   "name": "maksunappi",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Node.js library for online payments in Finland.",
   "main": "payment.js",
   "scripts": {
