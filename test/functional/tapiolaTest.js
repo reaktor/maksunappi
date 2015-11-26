@@ -5,7 +5,7 @@ var options = {
   username: '12345678',
   password: '123TAP',
   securityCode: '9999',
-  returnLinkText: 'Takaisin'
+  returnLinkText: 'Palaa takaisin verkkokauppaan'
 };
 
 tests.runTests(casper, options);
