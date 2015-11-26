@@ -10,11 +10,11 @@ Currently requires Express.
 
 ## About
 
-![Reaktor](public/images/reaktor_logo_195x85px.jpg "Reaktor")
+![Reaktor](public/images/logo_reaktor.png "Reaktor")
 
 From [Reaktor](http://reaktor.fi) with love.
 
-Apply for juicy positions at [reaktor.fi/careers](http://reaktor.fi/careers) and prepare
+Apply for juicy positions at [reaktor.com/careers](http://reaktor.com/careers) and prepare
 for [The Culling](http://youtu.be/3Jym9rfQgec).
 
 ## Install
