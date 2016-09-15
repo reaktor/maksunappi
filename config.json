@@ -11,20 +11,22 @@
   "banks" : [
     {"id" : "handelsbanken",
      "name" : "Handelsbanken",
-     "paymentUrl" : "https://verkkomaksu.inetpankki.samlink.fi/vm/SHBlogin.html",
+     "paymentUrl" : "https://verkkomaksu.handelsbanken.fi/vm/login.html",
      "imgPath" : "images/logo_handelsbanken.gif",
      "paymentVersion" : 3,
      "vendorId" : "0000000000",
      "confirm" : true,
-     "checksumKey" : "11111111111111111111"
+     "checksumKey" : "11111111111111111111",
+     "algorithmType" : "sha256"
     },
 
     {"id" : "nordea",
      "name" : "Nordea",
-     "paymentUrl" : "https://solo3.nordea.fi/cgi-bin/SOLOPM01",
+     "paymentUrl" : "https://epmt.nordea.fi/cgi-bin/SOLOPM01",
      "imgPath" : "images/logo_nordea.gif",
      "paymentVersion" : 3,
      "vendorId" : "12345678",
+     "vendorAccount" : "FI7429501800000014",
      "checksumKey" : "LEHTI",
      "keyVersion" : 1,
      "confirm" : true

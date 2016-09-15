@@ -117,7 +117,7 @@ function macForRequest (provider, providerParams, bankConfig) {
 
 function generateMac(params, algorithmType, separator) {
   var joinedParams = params.join(separator) + separator;
-  return crypto.createHash(algorithmType.toLowerCase()).update(joinedParams).digest('hex').toUpperCase();
+  return crypto.createHash(algorithmType.toLowerCase()).update(joinedParams, 'binary').digest('hex').toUpperCase();
 }
 
 function removeIf (params, condition) {
