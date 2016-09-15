@@ -5,7 +5,7 @@ require = patchRequire(require);
 var x = require('casper').selectXPath;
 
 exports.runTests = function (casper, options) {
-  var returnLinkSelector = "//a[contains(text(), '"+options.returnLinkText+"')]";
+  var returnLinkSelector = "//a[span[contains(text(), '"+options.returnLinkText+"')]]";
   var bankId = options.id || options.bankName.toLowerCase();
 
   casper.test.begin(options.bankName + " Payment", 1, function (test) {
