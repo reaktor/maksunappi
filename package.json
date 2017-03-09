@@ -20,7 +20,7 @@
   "author": "Reaktor",
   "license": "MIT",
   "dependencies": {
-    "express": "4.13.3",
+    "express": "4.14.0",
     "underscore": "1.8.3",
     "underscore.string": "3.2.2",
     "winston" : "0.8.0"
@@ -30,7 +30,7 @@
     "grunt-contrib-jshint": "0.11.3",
     "grunt-mocha-test": "0.12.7",
     "grunt-express": "1.4.0",
-    "grunt-casperjs": "2.1.0",
+    "grunt-casperjs": "2.2.1",
     "mocha": "2.3.4",
     "moment": "2.10.6"
   },
