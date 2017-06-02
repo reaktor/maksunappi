@@ -20,7 +20,7 @@
   "author": "Reaktor",
   "license": "MIT",
   "dependencies": {
-    "express": "4.15.2",
+    "express": "4.15.3",
     "underscore": "1.8.3",
     "underscore.string": "3.2.2",
     "winston" : "0.8.0"
