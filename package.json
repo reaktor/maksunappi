@@ -3,6 +3,9 @@
   "version": "1.0.9",
   "description": "A Node.js library for online payments in Finland.",
   "main": "payment.js",
+  "engines": {
+    "node": ">=8.0"
+  },
   "scripts": {
     "test": "grunt --verbose"
   },
