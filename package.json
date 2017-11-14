@@ -23,7 +23,8 @@
     "express": "4.16.2",
     "underscore": "1.8.3",
     "underscore.string": "3.3.4",
-    "winston": "0.8.0"
+    "winston": "0.8.0",
+    "sprintf-js": "1.1.1"
   },
   "devDependencies": {
     "grunt": "0.4.5",

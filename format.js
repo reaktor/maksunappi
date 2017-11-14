@@ -1,5 +1,6 @@
 var _ = require('underscore')._;
 _.str = require('underscore.string');
+var sprintf = require("sprintf-js").sprintf;
 var helpers = require('./helpers');
 var logger = require('./logger').getLogger();
 var MAX_ROW_LEN = 35;
@@ -39,7 +40,7 @@ exports.formatBoolean = function (boolean, format) {
 exports.formatVersionNumber = function (versionStr, toLength) {
   var len = toLength || 1;
   if(versionStr) {
-    return _.str.sprintf('%0'+len+'d', parseInt(versionStr.toString()));
+    return sprintf('%0'+len+'d', parseInt(versionStr.toString()));
   }
   else return undefined
 
@@ -91,7 +92,7 @@ exports.formatDueDate = function (date) {
 };
 
 function dueDate(date) {
-  return _.str.sprintf("%02d.%02d.%4d",
+  return sprintf("%02d.%02d.%4d",
     date.getDate(), date.getMonth() + 1, date.getFullYear());
 }
 
