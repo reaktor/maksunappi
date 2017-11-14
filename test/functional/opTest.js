@@ -20,7 +20,7 @@ casper.test.begin("OP Payment", 1, function(test) {
   });
 
   casper.then(function() {
-    this.click('input[id="Toiminto"]');
+    this.click('input[type="submit"][value="Hyväksy"]');
   });
 
   casper.waitForSelector('#success', function() {
@@ -41,11 +41,11 @@ casper.test.begin("OP Payment Cancel", 1, function(test) {
   });
 
   casper.then(function() {
-    this.click("a[name='Lopeta']");
+    this.click(x("//a[contains(text(), 'Keskeytä')]"));
   });
 
   casper.then(function() {
-    this.click(x("//a[contains(text(), '> Palaa palveluntarjoajan sivulle')]"));
+    this.click(x("//a[contains(text(), 'Palaa palveluntarjoajan sivulle')]"));
   });
 
   casper.then(function(){

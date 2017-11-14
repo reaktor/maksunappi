@@ -47,7 +47,7 @@ exports.runTests = function (casper, options) {
     });
 
     casper.then(function() {
-      this.click(x("//a[contains(text(), 'Paluu kauppapaikalle')]"));
+      this.click(x("//a[contains(text(), 'Paluu')]"));
     });
 
     casper.then(function(){
