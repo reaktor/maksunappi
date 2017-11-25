@@ -36,7 +36,7 @@
     "grunt-express": "1.4.0",
     "grunt-casperjs": "2.2.1",
     "mocha": "2.3.4",
-    "moment": "2.10.6"
+    "moment": "2.19.2"
   },
   "bugs": {
     "url": "https://github.com/reaktor/maksunappi/issues"
