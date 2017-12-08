@@ -92,6 +92,7 @@
       "confirm" : true,
       "checksumKey" : "SPANKKI",
       "vendorName" : "TESTIKAUPPA",
+      "algorithmType": "sha256",
       "language" : "FI",
       "keyVersion" : 1
     },
