@@ -21,11 +21,17 @@ casper.test.begin(options.bankName + " Payment", 1, function (test) {
     this.click("#"+bankId+"-payment");
   });
 
-  casper.then(function() {
-    this.fill('form[name="loginForm"]', {
-      'username': options.username,
-      'password': options.password
-    }, true);
+  casper.waitForSelector('a[href="#PIN_TAN"]', function() {
+    this.click('a[href="#PIN_TAN"]');
+  });
+
+  casper.waitForSelector('form[name="loginForm"]',function() {
+    casper.then(function() {
+      this.fill('form[name="loginForm"]', {
+        'username': options.username,
+        'password': options.password
+      }, true);
+    });
   });
 
   casper.waitForSelector('form[name="loginPinForm"]',function() {
@@ -48,7 +54,6 @@ casper.test.begin(options.bankName + " Payment", 1, function (test) {
   casper.waitForSelector(x(returnLinkSelector), function() {
     this.click(x(returnLinkSelector));
   });
-
 
   casper.waitForSelector('#success', function () {
     test.assertExists("#success");
