@@ -72,16 +72,16 @@
       "imgPath" : "images/logo_alandsbanken.gif",
       "paymentVersion" : 2,
       "vendorId" : "AABESHOPID",
-      "vendorAccount" : "660100-01130855",
       "confirm" : true,
       "checksumKey" : "PAPEGOJA",
-      "vendorName" : "TESTIKAUPPA",
+      "vendorName" : "AABESHOPID",
       "vendorAccount" : "FI7766010001130855",
+      "algorithmType": "sha256",
       "language" : "FI",
       "cookie" : false,
       "keyVersion" : 1
     },
-
+    
     {"id" : "spankki",
       "name" : "S-Pankki",
       "paymentUrl" : "https://online.s-pankki.fi/service/paybutton",
@@ -92,6 +92,7 @@
       "confirm" : true,
       "checksumKey" : "SPANKKI",
       "vendorName" : "TESTIKAUPPA",
+      "algorithmType": "sha256",
       "language" : "FI",
       "keyVersion" : 1
     },
